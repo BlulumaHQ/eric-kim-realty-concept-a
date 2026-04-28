@@ -1,5 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { Phone, Mail, Instagram } from "lucide-react";
+import initiaLogo from "@/assets/initia-logo.png";
+import mlsBadge from "@/assets/mls-reciprocity.gif";
+import erickimLogo from "@/assets/eric-kim-logo.png";
 
 export function SiteFooter() {
   return (
