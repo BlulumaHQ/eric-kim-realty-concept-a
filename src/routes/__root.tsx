@@ -64,6 +64,14 @@ export const Route = createRootRoute({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { title: "Lovable App" },
+      { property: "og:title", content: "Lovable App" },
+      { name: "twitter:title", content: "Lovable App" },
+      { name: "description", content: "Vancouver Real Estate Advisor website for Eric Kim, REALTOR®, specializing in residential, commercial, and presale properties." },
+      { property: "og:description", content: "Vancouver Real Estate Advisor website for Eric Kim, REALTOR®, specializing in residential, commercial, and presale properties." },
+      { name: "twitter:description", content: "Vancouver Real Estate Advisor website for Eric Kim, REALTOR®, specializing in residential, commercial, and presale properties." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/259e53d8-f3b4-4c0c-b761-8ad212787167/id-preview-87f43c2e--6e10a9f9-b606-4d76-bfcc-14aec3fdf242.lovable.app-1777420483493.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/259e53d8-f3b4-4c0c-b761-8ad212787167/id-preview-87f43c2e--6e10a9f9-b606-4d76-bfcc-14aec3fdf242.lovable.app-1777420483493.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -78,7 +86,7 @@ export const Route = createRootRoute({
       },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap",
       },
     ],
   }),
