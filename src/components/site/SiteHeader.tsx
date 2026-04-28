@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { Menu, X, Phone } from "lucide-react";
+import logo from "@/assets/eric-kim-logo.png";
 
 const navItems = [
   { to: "/", label: "Home" },
@@ -32,13 +33,14 @@ export function SiteHeader() {
       }`}
     >
       <div className="container-x flex h-20 items-center justify-between gap-6">
-        <Link to="/" className="flex flex-col leading-tight" onClick={() => setOpen(false)}>
-          <span className="font-display text-lg md:text-xl font-medium tracking-tight text-navy">
-            Eric Kim <span className="text-gold">REALTOR®</span>
-          </span>
-          <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-            Initia Real Estate
-          </span>
+        <Link to="/" className="flex items-center" onClick={() => setOpen(false)} aria-label="Eric Kim, REALTOR® — Home">
+          <img
+            src={logo}
+            alt="Eric Kim REALTOR®"
+            className="h-9 md:h-10 w-auto"
+            width={420}
+            height={120}
+          />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-7">

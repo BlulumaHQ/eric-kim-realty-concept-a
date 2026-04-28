@@ -4,6 +4,7 @@ import portrait from "@/assets/eric-portrait.jpg";
 import commercialImg from "@/assets/listing-commercial.jpg";
 import presaleImg from "@/assets/listing-presale.jpg";
 import residentialImg from "@/assets/listing-residential.jpg";
+import initiaLogo from "@/assets/initia-logo.png";
 
 export function AboutSection() {
   return (
@@ -20,9 +21,9 @@ export function AboutSection() {
               className="h-full w-full object-cover"
             />
           </div>
-          <div className="absolute -bottom-5 -left-5 rounded-2xl bg-gold px-5 py-3 shadow-elegant">
-            <p className="font-display text-base text-gold-foreground">REALTOR®</p>
-            <p className="text-xs uppercase tracking-[0.16em] text-gold-foreground/80">Initia Real Estate</p>
+          <div className="absolute -bottom-6 -left-6 rounded-2xl bg-white px-5 py-4 shadow-elegant border border-border">
+            <img src={initiaLogo} alt="Initia Real Estate" className="h-8 w-auto" />
+            <p className="mt-2 text-[10px] uppercase tracking-[0.2em] text-charcoal/70">Brokerage</p>
           </div>
         </div>
 

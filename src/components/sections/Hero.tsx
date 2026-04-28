@@ -18,9 +18,9 @@ export function Hero() {
             Initia Real Estate · Metro Vancouver
           </div>
 
-          <h1 className="mt-6 font-display text-4xl sm:text-5xl lg:text-6xl text-navy text-balance leading-[1.05]">
+          <h1 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-semibold text-navy text-balance leading-[1.05] tracking-tight">
             Metro Vancouver Real Estate Guidance for{" "}
-            <span className="italic text-gold">Buyers, Sellers, Investors</span> &amp;
+            <span className="text-navy/70">Buyers, Sellers, Investors</span> &amp;
             Business Owners
           </h1>
 

@@ -5,7 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-display: "Fraunces", Georgia, serif;
+  --font-display: "Inter", system-ui, -apple-system, sans-serif;
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
 
   --radius-sm: calc(var(--radius) - 4px);
@@ -59,12 +59,13 @@
   --foreground: oklch(0.18 0.02 260);
   --cream: oklch(0.97 0.012 80);
 
-  --navy: oklch(0.22 0.045 260);
+  --navy: oklch(0.20 0.05 260);
   --navy-foreground: oklch(0.98 0.005 80);
   --charcoal: oklch(0.28 0.012 260);
 
-  --gold: oklch(0.74 0.10 75);
-  --gold-foreground: oklch(0.18 0.02 260);
+  /* "gold" token kept for compatibility but remapped to deep navy brand color */
+  --gold: oklch(0.20 0.05 260);
+  --gold-foreground: oklch(0.98 0.005 80);
 
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.18 0.02 260);
@@ -80,15 +81,15 @@
   --muted: oklch(0.96 0.008 80);
   --muted-foreground: oklch(0.48 0.015 260);
 
-  --accent: oklch(0.74 0.10 75);
-  --accent-foreground: oklch(0.18 0.02 260);
+  --accent: oklch(0.20 0.05 260);
+  --accent-foreground: oklch(0.98 0.005 80);
 
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.98 0 0);
 
   --border: oklch(0.91 0.008 80);
   --input: oklch(0.91 0.008 80);
-  --ring: oklch(0.74 0.10 75);
+  --ring: oklch(0.20 0.05 260);
 
   --sidebar: oklch(0.98 0.005 80);
   --sidebar-foreground: oklch(0.18 0.02 260);
@@ -97,12 +98,12 @@
   --sidebar-accent: oklch(0.96 0.008 80);
   --sidebar-accent-foreground: oklch(0.22 0.045 260);
   --sidebar-border: oklch(0.91 0.008 80);
-  --sidebar-ring: oklch(0.74 0.10 75);
+  --sidebar-ring: oklch(0.20 0.05 260);
 
   --shadow-elegant: 0 20px 60px -20px color-mix(in oklab, var(--navy) 25%, transparent);
   --shadow-card: 0 4px 24px -8px color-mix(in oklab, var(--navy) 12%, transparent);
-  --gradient-navy: linear-gradient(135deg, oklch(0.22 0.045 260), oklch(0.16 0.03 260));
-  --gradient-gold: linear-gradient(135deg, oklch(0.78 0.10 80), oklch(0.68 0.10 70));
+  --gradient-navy: linear-gradient(135deg, oklch(0.22 0.05 260), oklch(0.14 0.04 260));
+  --gradient-gold: linear-gradient(135deg, oklch(0.26 0.05 260), oklch(0.18 0.04 260));
 }
 
 .dark {
@@ -118,11 +119,11 @@
   --secondary-foreground: oklch(0.98 0.005 80);
   --muted: oklch(0.24 0.025 260);
   --muted-foreground: oklch(0.72 0.015 260);
-  --accent: oklch(0.74 0.10 75);
-  --accent-foreground: oklch(0.18 0.02 260);
+  --accent: oklch(0.30 0.05 260);
+  --accent-foreground: oklch(0.98 0.005 80);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.74 0.10 75);
+  --ring: oklch(0.30 0.05 260);
 }
 
 @layer base {
@@ -144,9 +145,9 @@
   }
 
   h1, h2, h3, h4 {
-    font-family: var(--font-display);
-    font-weight: 500;
-    letter-spacing: -0.02em;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    letter-spacing: -0.025em;
   }
 }
 

@@ -1,5 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { Phone, Mail, Instagram } from "lucide-react";
+import initiaLogo from "@/assets/initia-logo.png";
+import mlsBadge from "@/assets/mls-reciprocity.gif";
+import erickimLogo from "@/assets/eric-kim-logo.png";
 
 export function SiteFooter() {
   return (
@@ -7,16 +10,27 @@ export function SiteFooter() {
       <div className="container-x py-16">
         <div className="grid gap-12 md:grid-cols-3">
           <div>
-            <h3 className="font-display text-xl">
-              Eric Kim <span className="text-gold">REALTOR®</span>
-            </h3>
-            <p className="mt-2 text-sm text-navy-foreground/70">Initia Real Estate</p>
-            <p className="mt-4 text-sm text-navy-foreground/80">
+            <img
+              src={erickimLogo}
+              alt="Eric Kim REALTOR®"
+              className="h-9 w-auto brightness-0 invert"
+              width={420}
+              height={120}
+            />
+            <p className="mt-5 text-sm text-navy-foreground/80">
               Residential • Commercial • Presale
             </p>
-            <p className="mt-1 text-xs uppercase tracking-[0.18em] text-gold">
+            <p className="mt-1 text-xs uppercase tracking-[0.18em] text-navy-foreground/60">
               Metro Vancouver, BC
             </p>
+            <div className="mt-6 flex items-center gap-3">
+              <div className="rounded-md bg-white px-3 py-2">
+                <img src={initiaLogo} alt="Initia Real Estate" className="h-7 w-auto" />
+              </div>
+              <div className="rounded-md bg-white p-1.5">
+                <img src={mlsBadge} alt="MLS® Reciprocity" className="h-8 w-auto" />
+              </div>
+            </div>
           </div>
 
           <div>
