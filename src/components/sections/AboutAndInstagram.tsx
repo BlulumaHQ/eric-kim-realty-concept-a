@@ -4,6 +4,7 @@ import portrait from "@/assets/eric-portrait.jpg";
 import commercialImg from "@/assets/listing-commercial.jpg";
 import presaleImg from "@/assets/listing-presale.jpg";
 import residentialImg from "@/assets/listing-residential.jpg";
+import initiaLogo from "@/assets/initia-logo.png";
 
 export function AboutSection() {
   return (
