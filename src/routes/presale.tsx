@@ -7,16 +7,17 @@ import presaleImg from "@/assets/listing-presale.jpg";
 export const Route = createFileRoute("/presale")({
   head: () => ({
     meta: [
-      { title: "Presale Projects — Eric Kim REALTOR® | Metro Vancouver" },
+      { title: "Presale Real Estate Vancouver | Eric Kim REALTOR®" },
       {
         name: "description",
         content:
-          "Explore presale and new development opportunities across Metro Vancouver with guidance from Eric Kim, REALTOR® at Initia Real Estate.",
+          "Explore Metro Vancouver presale and new development opportunities with guidance from Eric Kim, REALTOR® at Initia Real Estate.",
       },
-      { property: "og:title", content: "Metro Vancouver Presale Projects — Eric Kim" },
+      { property: "og:title", content: "Presale Real Estate Vancouver | Eric Kim REALTOR®" },
       {
         property: "og:description",
-        content: "Presale and new development opportunities across Metro Vancouver.",
+        content:
+          "Explore Metro Vancouver presale and new development opportunities with guidance from Eric Kim, REALTOR® at Initia Real Estate.",
       },
       { property: "og:image", content: presaleImg },
     ],

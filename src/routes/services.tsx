@@ -7,17 +7,17 @@ import { SectionHeading } from "@/components/site/SectionHeading";
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Real Estate Services — Eric Kim REALTOR® | Metro Vancouver" },
+      { title: "Real Estate Services | Eric Kim REALTOR®" },
       {
         name: "description",
         content:
-          "Residential, commercial, and presale real estate services with Eric Kim, REALTOR® at Initia Real Estate across Metro Vancouver.",
+          "Explore residential, commercial, business asset / lease, and presale real estate services with Eric Kim, REALTOR® serving Metro Vancouver.",
       },
-      { property: "og:title", content: "Real Estate Services — Eric Kim REALTOR®" },
+      { property: "og:title", content: "Real Estate Services | Eric Kim REALTOR®" },
       {
         property: "og:description",
         content:
-          "Residential, commercial, and presale real estate services across Metro Vancouver.",
+          "Explore residential, commercial, business asset / lease, and presale real estate services with Eric Kim, REALTOR® serving Metro Vancouver.",
       },
     ],
   }),
