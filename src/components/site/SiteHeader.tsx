@@ -1,21 +1,56 @@
 import { Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, Globe } from "lucide-react";
 import logo from "@/assets/eric-kim-logo.png";
+import { useI18n, type Lang } from "@/lib/i18n";
 
 const navItems = [
-  { to: "/", label: "Home" },
-  { to: "/services", label: "Services" },
-  { to: "/commercial", label: "Commercial" },
-  { to: "/presale", label: "Presale" },
-  { to: "/listings", label: "Listings" },
-  { to: "/about", label: "About" },
-  { to: "/contact", label: "Contact" },
+  { to: "/", labelKey: "nav.home" },
+  { to: "/services", labelKey: "nav.services" },
+  { to: "/commercial", labelKey: "nav.commercial" },
+  { to: "/presale", labelKey: "nav.presale" },
+  { to: "/listings", labelKey: "nav.listings" },
+  { to: "/about", labelKey: "nav.about" },
+  { to: "/contact", labelKey: "nav.contact" },
 ] as const;
+
+function LanguageSwitcher({ compact = false }: { compact?: boolean }) {
+  const { lang, setLang } = useI18n();
+  const langs: { code: Lang; label: string }[] = [
+    { code: "en", label: "EN" },
+    { code: "ko", label: "한국어" },
+  ];
+  return (
+    <div
+      className={`inline-flex items-center gap-1 rounded-full border border-white/20 ${
+        compact ? "p-0.5" : "p-1"
+      }`}
+      role="group"
+      aria-label="Language"
+    >
+      {!compact && <Globe className="h-3.5 w-3.5 text-white/70 ml-1.5" />}
+      {langs.map((l) => (
+        <button
+          key={l.code}
+          onClick={() => setLang(l.code)}
+          aria-pressed={lang === l.code}
+          className={`px-2.5 py-1 text-[11px] font-medium tracking-wide rounded-full transition-colors ${
+            lang === l.code
+              ? "bg-white text-navy"
+              : "text-white/80 hover:text-white"
+          }`}
+        >
+          {l.label}
+        </button>
+      ))}
+    </div>
+  );
+}
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { t } = useI18n();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -32,7 +67,31 @@ export function SiteHeader() {
           : "border-b border-border/60"
       }`}
     >
-      <div className="container-x flex h-[92px] md:h-[104px] items-center justify-between gap-6">
+      {/* Top bar */}
+      <div className="hidden md:block bg-navy text-white">
+        <div className="container-x flex h-9 items-center justify-between gap-6 text-[12px]">
+          <p className="text-white/70 tracking-wide">{t("top.tagline")}</p>
+          <div className="flex items-center gap-5">
+            <a
+              href="tel:+17788388993"
+              className="inline-flex items-center gap-1.5 text-white/85 hover:text-white transition-colors"
+            >
+              <Phone className="h-3.5 w-3.5 text-gold" />
+              (778) 838-8993
+            </a>
+            <Link
+              to="/contact"
+              className="inline-flex items-center justify-center rounded-full bg-gold px-3.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-navy hover:bg-gold/90 transition-colors"
+            >
+              {t("cta.bookShort")}
+            </Link>
+            <LanguageSwitcher />
+          </div>
+        </div>
+      </div>
+
+      {/* Main bar */}
+      <div className="container-x flex h-[72px] md:h-[84px] items-center justify-between gap-6">
         <Link
           to="/"
           className="flex items-center"
@@ -42,7 +101,7 @@ export function SiteHeader() {
           <img
             src={logo}
             alt="Eric Kim REALTOR®"
-            className="h-14 md:h-[72px] w-auto max-w-[220px] sm:max-w-[280px] md:max-w-[340px] object-contain"
+            className="h-11 md:h-14 w-auto max-w-[200px] sm:max-w-[240px] md:max-w-[280px] object-contain"
             width={1199}
             height={258}
           />
@@ -57,26 +116,10 @@ export function SiteHeader() {
               activeProps={{ className: "text-navy" }}
               activeOptions={{ exact: item.to === "/" }}
             >
-              {item.label}
+              {t(item.labelKey)}
             </Link>
           ))}
         </nav>
-
-        <div className="hidden md:flex items-center gap-5">
-          <a
-            href="tel:+17788388993"
-            className="hidden xl:inline-flex items-center gap-2 text-[13px] font-medium text-charcoal/80 hover:text-navy transition-colors"
-          >
-            <Phone className="h-3.5 w-3.5 text-gold" />
-            (778) 838-8993
-          </a>
-          <Link
-            to="/contact"
-            className="inline-flex items-center justify-center rounded-full bg-navy px-5 py-2.5 text-[13px] font-medium text-navy-foreground hover:bg-navy/90 transition-colors shadow-soft"
-          >
-            Book a Consultation
-          </Link>
-        </div>
 
         <button
           aria-label="Toggle menu"
@@ -99,10 +142,10 @@ export function SiteHeader() {
                 activeProps={{ className: "text-navy bg-muted" }}
                 activeOptions={{ exact: item.to === "/" }}
               >
-                {item.label}
+                {t(item.labelKey)}
               </Link>
             ))}
-            <div className="mt-3 flex flex-col gap-2 pt-3 border-t border-border">
+            <div className="mt-3 flex flex-col gap-3 pt-3 border-t border-border">
               <a
                 href="tel:+17788388993"
                 className="inline-flex items-center gap-2 px-2 py-2 text-sm font-medium text-charcoal"
@@ -115,8 +158,16 @@ export function SiteHeader() {
                 onClick={() => setOpen(false)}
                 className="inline-flex items-center justify-center rounded-full bg-navy px-5 py-3 text-sm font-medium text-navy-foreground"
               >
-                Book a Consultation
+                {t("cta.book")}
               </Link>
+              <div className="flex items-center justify-between px-2 pt-2">
+                <span className="text-xs uppercase tracking-wider text-muted-foreground">
+                  {t("top.language")}
+                </span>
+                <div className="bg-navy rounded-full">
+                  <LanguageSwitcher compact />
+                </div>
+              </div>
             </div>
           </div>
         </div>
