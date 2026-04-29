@@ -2,31 +2,43 @@ type Props = {
   eyebrow?: string;
   title: string;
   description?: string;
-  align?: "left" | "center";
+  center?: boolean;
+  invert?: boolean;
 };
 
-export function SectionHeading({ eyebrow, title, description, align = "center" }: Props) {
-  const alignment = align === "center" ? "text-center mx-auto" : "text-left";
+export function SectionHeading({
+  eyebrow,
+  title,
+  description,
+  center = false,
+  invert = false,
+}: Props) {
   return (
-    <div className={`max-w-3xl ${alignment}`}>
+    <div className={`max-w-3xl ${center ? "mx-auto text-center" : ""}`}>
       {eyebrow && (
         <div
-          className={`flex items-center gap-3 ${
-            align === "center" ? "justify-center" : ""
-          }`}
+          className={`flex items-center gap-3 ${center ? "justify-center" : ""}`}
         >
-          <span className="gold-divider" />
-          <span className="text-xs uppercase tracking-[0.2em] text-gold font-medium">
+          <span className="h-px w-10 bg-gold" />
+          <span className="text-[11px] uppercase tracking-[0.22em] font-semibold text-gold">
             {eyebrow}
           </span>
-          <span className="gold-divider" />
+          {center && <span className="h-px w-10 bg-gold" />}
         </div>
       )}
-      <h2 className="mt-4 font-display text-3xl md:text-4xl lg:text-5xl text-navy text-balance">
+      <h2
+        className={`mt-5 font-display text-3xl md:text-4xl lg:text-[2.75rem] leading-[1.1] text-balance ${
+          invert ? "text-navy-foreground" : "text-navy"
+        }`}
+      >
         {title}
       </h2>
       {description && (
-        <p className="mt-4 text-base md:text-lg text-muted-foreground text-pretty">
+        <p
+          className={`mt-5 text-pretty text-lg leading-relaxed ${
+            invert ? "text-navy-foreground/75" : "text-muted-foreground"
+          }`}
+        >
           {description}
         </p>
       )}

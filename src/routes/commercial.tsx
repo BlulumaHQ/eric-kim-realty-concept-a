@@ -7,16 +7,17 @@ import { Building2, TrendingUp, Users, FileText } from "lucide-react";
 export const Route = createFileRoute("/commercial")({
   head: () => ({
     meta: [
-      { title: "Commercial Real Estate — Eric Kim REALTOR® | Metro Vancouver" },
+      { title: "Commercial Real Estate Vancouver | Eric Kim REALTOR®" },
       {
         name: "description",
         content:
-          "Commercial real estate guidance for business owners and investors across Metro Vancouver. Retail, office, mixed-use, and investment opportunities with Eric Kim.",
+          "Commercial real estate guidance for business owners, investors, retail, office, mixed-use, business asset, lease, and purchase opportunities across Metro Vancouver.",
       },
-      { property: "og:title", content: "Metro Vancouver Commercial Real Estate — Eric Kim" },
+      { property: "og:title", content: "Commercial Real Estate Vancouver | Eric Kim REALTOR®" },
       {
         property: "og:description",
-        content: "Commercial guidance for business owners and investors in Metro Vancouver.",
+        content:
+          "Commercial real estate guidance for business owners, investors, retail, office, mixed-use, business asset, lease, and purchase opportunities across Metro Vancouver.",
       },
     ],
   }),

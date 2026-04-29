@@ -1,134 +1,143 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Phone, Building2, Sparkles, Home } from "lucide-react";
+import { ArrowRight, Phone } from "lucide-react";
 import heroImg from "@/assets/hero-vancouver.jpg";
 import portrait from "@/assets/eric-portrait.jpg";
 
+const trustBadges = [
+  "Residential Property",
+  "Commercial Property",
+  "Business Asset / Lease",
+  "Presale VIP",
+];
+
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-cream">
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute right-0 top-0 h-[600px] w-[600px] rounded-full bg-gold/8 blur-3xl" />
-        <div className="absolute left-0 bottom-0 h-[500px] w-[500px] rounded-full bg-navy/5 blur-3xl" />
-      </div>
+    <section className="relative overflow-hidden bg-gradient-hero">
+      <div className="absolute inset-0 -z-10 bg-grid-faint opacity-60" />
 
-      <div className="container-x grid gap-12 lg:grid-cols-[1.1fr_1fr] items-center py-16 md:py-24 lg:py-28">
-        <div>
-          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-background/70 backdrop-blur px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-charcoal">
+      <div className="container-x grid gap-14 lg:grid-cols-[1.05fr_1fr] items-center pt-16 pb-24 md:pt-20 md:pb-28 lg:pt-24 lg:pb-32">
+        {/* LEFT — Copy */}
+        <div className="max-w-2xl">
+          <div className="inline-flex items-center gap-2.5 rounded-full border border-navy/15 bg-background/70 backdrop-blur px-4 py-1.5 text-[11px] font-medium uppercase tracking-[0.22em] text-charcoal">
             <span className="h-1.5 w-1.5 rounded-full bg-gold" />
             Initia Real Estate · Metro Vancouver
           </div>
 
-          <h1 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-semibold text-navy text-balance leading-[1.05] tracking-tight">
+          <h1 className="mt-7 font-display text-[2.5rem] leading-[1.05] sm:text-5xl lg:text-[3.6rem] xl:text-[4rem] xl:leading-[1.04] font-medium text-navy text-balance">
             Metro Vancouver Real Estate Guidance for{" "}
-            <span className="text-navy/70">Buyers, Sellers, Investors</span> &amp;
-            Business Owners
+            <em className="not-italic text-navy/65">
+              Buyers, Sellers, Investors
+            </em>{" "}
+            &amp; Business Owners
           </h1>
 
-          <p className="mt-6 text-lg text-muted-foreground max-w-xl text-pretty">
-            Work with Eric Kim, REALTOR®, for residential, commercial, and presale real
-            estate opportunities across Metro Vancouver.
+          <p className="mt-7 text-lg text-charcoal/75 max-w-xl text-pretty leading-relaxed">
+            Work with{" "}
+            <span className="text-navy font-medium">Eric Kim, REALTOR®</span>{" "}
+            for residential, commercial, business asset / lease, and presale
+            real estate opportunities across Metro Vancouver.
           </p>
 
-          <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-charcoal/80">
-            {["Residential", "Commercial", "Presale", "Metro Vancouver"].map((t, i) => (
-              <span key={t} className="flex items-center gap-2">
-                {i > 0 && <span className="h-1 w-1 rounded-full bg-gold" />}
-                {t}
-              </span>
+          {/* Trust badges */}
+          <ul className="mt-8 flex flex-wrap gap-2">
+            {trustBadges.map((b) => (
+              <li
+                key={b}
+                className="inline-flex items-center gap-1.5 rounded-full border border-navy/15 bg-background/80 px-3.5 py-1.5 text-xs font-medium text-charcoal"
+              >
+                <span className="h-1.5 w-1.5 rounded-full bg-gold" />
+                {b}
+              </li>
             ))}
-          </div>
+          </ul>
 
           <div className="mt-10 flex flex-col sm:flex-row gap-3">
             <Link
               to="/contact"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-navy px-7 py-3.5 text-sm font-medium text-navy-foreground hover:bg-navy/90 transition shadow-elegant"
+              className="group inline-flex items-center justify-center gap-2 rounded-full bg-navy px-7 py-4 text-sm font-medium text-navy-foreground hover:bg-navy/90 transition shadow-elegant"
             >
-              Book a Consultation <ArrowRight className="h-4 w-4" />
+              Book a Consultation
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
             <Link
               to="/listings"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-navy/20 px-7 py-3.5 text-sm font-medium text-navy hover:bg-navy hover:text-navy-foreground transition"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-navy/25 bg-background/60 px-7 py-4 text-sm font-medium text-navy hover:bg-navy hover:text-navy-foreground transition"
             >
               View Current Opportunities
             </Link>
           </div>
 
-          <p className="mt-6 text-sm text-muted-foreground">
+          <p className="mt-7 text-sm text-charcoal/70">
             Call or text Eric directly at{" "}
             <a
               href="tel:+17788388993"
-              className="inline-flex items-center gap-1 font-medium text-navy hover:text-gold"
+              className="inline-flex items-center gap-1.5 font-medium text-navy hover:text-gold transition-colors"
             >
               <Phone className="h-3.5 w-3.5" /> (778) 838-8993
             </a>
           </p>
         </div>
 
-        <div className="relative">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-elegant">
+        {/* RIGHT — Premium portrait composition */}
+        <div className="relative mx-auto w-full max-w-[520px] lg:max-w-none">
+          {/* Skyline backdrop */}
+          <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-elegant">
             <img
               src={heroImg}
-              alt="Metro Vancouver skyline at golden hour"
+              alt="Metro Vancouver skyline"
               width={1536}
-              height={1280}
-              className="h-full w-full object-cover"
+              height={1920}
+              className="h-full w-full object-cover scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-navy/10 to-transparent" />
-            <div className="absolute bottom-6 left-6 right-6 flex items-center gap-4 rounded-2xl bg-background/90 backdrop-blur p-4 shadow-card">
-              <img
-                src={portrait}
-                alt="Eric Kim, REALTOR®"
-                width={64}
-                height={64}
-                className="h-14 w-14 rounded-full object-cover"
-              />
-              <div className="min-w-0">
-                <p className="font-display text-lg text-navy leading-tight">Eric Kim</p>
-                <p className="text-xs uppercase tracking-[0.16em] text-gold">
+            <div className="absolute inset-0 bg-gradient-to-tr from-navy/85 via-navy/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-navy/60" />
+
+            {/* Eyebrow tag inside image */}
+            <div className="absolute top-6 left-6 inline-flex items-center gap-2 rounded-full bg-background/15 backdrop-blur-md border border-white/20 px-3.5 py-1.5 text-[10px] font-medium uppercase tracking-[0.22em] text-white">
+              <span className="h-1.5 w-1.5 rounded-full bg-gold" />
+              REALTOR® · Metro Vancouver
+            </div>
+
+            {/* Portrait positioned bottom-right inside frame */}
+            <div className="absolute bottom-6 right-6 left-6 flex items-end justify-between gap-4">
+              <div className="text-white max-w-[55%]">
+                <p className="font-display text-2xl md:text-3xl leading-tight">
+                  Eric Kim
+                </p>
+                <p className="mt-1 text-[10px] uppercase tracking-[0.22em] text-gold/90">
                   REALTOR® · Initia Real Estate
                 </p>
               </div>
+              <img
+                src={portrait}
+                alt="Eric Kim, REALTOR®"
+                width={220}
+                height={220}
+                className="h-28 w-28 md:h-32 md:w-32 rounded-2xl object-cover ring-4 ring-white/90 shadow-elegant"
+              />
             </div>
           </div>
 
-          <FloatingCard
-            className="hidden md:flex absolute -left-6 top-12"
-            icon={<Building2 className="h-4 w-4" />}
-            label="Commercial Properties"
-          />
-          <FloatingCard
-            className="hidden md:flex absolute -right-4 top-1/3"
-            icon={<Sparkles className="h-4 w-4" />}
-            label="Presale Opportunities"
-          />
-          <FloatingCard
-            className="hidden md:flex absolute -left-4 bottom-32"
-            icon={<Home className="h-4 w-4" />}
-            label="Buyer & Seller Guidance"
-          />
+          {/* Stat card — single, intentional */}
+          <div className="hidden md:block absolute -left-6 top-10 rounded-2xl bg-background border border-border shadow-card px-5 py-4 max-w-[210px]">
+            <p className="text-[10px] uppercase tracking-[0.22em] text-gold font-medium">
+              Specialties
+            </p>
+            <p className="mt-1.5 font-display text-base text-navy leading-snug">
+              Residential · Commercial · Presale
+            </p>
+          </div>
+
+          <div className="hidden md:block absolute -right-4 bottom-24 rounded-2xl bg-navy text-navy-foreground shadow-elegant px-5 py-4 max-w-[210px]">
+            <p className="text-[10px] uppercase tracking-[0.22em] text-gold font-medium">
+              Brokerage
+            </p>
+            <p className="mt-1.5 font-display text-base leading-snug">
+              Initia Real Estate
+            </p>
+          </div>
         </div>
       </div>
     </section>
-  );
-}
-
-function FloatingCard({
-  icon,
-  label,
-  className = "",
-}: {
-  icon: React.ReactNode;
-  label: string;
-  className?: string;
-}) {
-  return (
-    <div
-      className={`items-center gap-2.5 rounded-full bg-background px-4 py-2.5 shadow-card border border-border ${className}`}
-    >
-      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-gold/15 text-gold">
-        {icon}
-      </span>
-      <span className="text-sm font-medium text-navy whitespace-nowrap">{label}</span>
-    </div>
   );
 }

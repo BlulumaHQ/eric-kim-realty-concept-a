@@ -32,53 +32,35 @@ function NotFoundComponent() {
   );
 }
 
+const SITE_TITLE =
+  "Eric Kim REALTOR® | Metro Vancouver Residential, Commercial & Presale Real Estate";
+const SITE_DESC =
+  "Work with Eric Kim, REALTOR® at Initia Real Estate for residential, commercial, business asset / lease, and presale real estate guidance across Metro Vancouver.";
+
 export const Route = createRootRoute({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      {
-        title:
-          "Eric Kim REALTOR® | Metro Vancouver Residential, Commercial & Presale Real Estate",
-      },
-      {
-        name: "description",
-        content:
-          "Work with Eric Kim, REALTOR® at Initia Real Estate for residential, commercial, and presale real estate guidance across Metro Vancouver.",
-      },
+      { title: SITE_TITLE },
+      { name: "description", content: SITE_DESC },
       { name: "author", content: "Eric Kim, REALTOR®" },
       {
         name: "keywords",
         content:
-          "Metro Vancouver realtor, Vancouver commercial realtor, Vancouver presale realtor, Eric Kim realtor, Initia Real Estate",
+          "Metro Vancouver realtor, Vancouver commercial realtor, Vancouver presale realtor, Eric Kim realtor, Initia Real Estate, business asset lease Vancouver",
       },
-      {
-        property: "og:title",
-        content:
-          "Eric Kim REALTOR® | Metro Vancouver Residential, Commercial & Presale Real Estate",
-      },
-      {
-        property: "og:description",
-        content:
-          "Residential, commercial, and presale real estate guidance across Metro Vancouver with Eric Kim, REALTOR® at Initia Real Estate.",
-      },
+      { property: "og:title", content: SITE_TITLE },
+      { property: "og:description", content: SITE_DESC },
       { property: "og:type", content: "website" },
+      { property: "og:locale", content: "en_CA" },
       { name: "twitter:card", content: "summary_large_image" },
-      { title: "Lovable App" },
-      { property: "og:title", content: "Lovable App" },
-      { name: "twitter:title", content: "Lovable App" },
-      { name: "description", content: "Vancouver Real Estate Advisor website for Eric Kim, REALTOR®, specializing in residential, commercial, and presale properties." },
-      { property: "og:description", content: "Vancouver Real Estate Advisor website for Eric Kim, REALTOR®, specializing in residential, commercial, and presale properties." },
-      { name: "twitter:description", content: "Vancouver Real Estate Advisor website for Eric Kim, REALTOR®, specializing in residential, commercial, and presale properties." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/259e53d8-f3b4-4c0c-b761-8ad212787167/id-preview-87f43c2e--6e10a9f9-b606-4d76-bfcc-14aec3fdf242.lovable.app-1777420483493.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/259e53d8-f3b4-4c0c-b761-8ad212787167/id-preview-87f43c2e--6e10a9f9-b606-4d76-bfcc-14aec3fdf242.lovable.app-1777420483493.png" },
+      { name: "twitter:title", content: SITE_TITLE },
+      { name: "twitter:description", content: SITE_DESC },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      {
-        rel: "preconnect",
-        href: "https://fonts.googleapis.com",
-      },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
       {
         rel: "preconnect",
         href: "https://fonts.gstatic.com",

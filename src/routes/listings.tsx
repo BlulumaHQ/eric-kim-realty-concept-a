@@ -5,16 +5,17 @@ import { CTABand } from "@/components/site/CTABand";
 export const Route = createFileRoute("/listings")({
   head: () => ({
     meta: [
-      { title: "Featured Opportunities — Eric Kim REALTOR® | Metro Vancouver" },
+      { title: "Current Real Estate Opportunities | Eric Kim REALTOR®" },
       {
         name: "description",
         content:
-          "Browse current and featured residential, commercial, and presale opportunities across Metro Vancouver with Eric Kim, REALTOR®.",
+          "View current residential, commercial, and presale real estate opportunity categories across Metro Vancouver and contact Eric Kim for details.",
       },
-      { property: "og:title", content: "Featured Opportunities — Eric Kim REALTOR®" },
+      { property: "og:title", content: "Current Real Estate Opportunities | Eric Kim REALTOR®" },
       {
         property: "og:description",
-        content: "Residential, commercial, and presale opportunities across Metro Vancouver.",
+        content:
+          "View current residential, commercial, and presale real estate opportunity categories across Metro Vancouver and contact Eric Kim for details.",
       },
     ],
   }),

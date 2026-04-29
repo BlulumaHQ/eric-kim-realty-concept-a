@@ -7,17 +7,17 @@ import portrait from "@/assets/eric-portrait.jpg";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Eric Kim — REALTOR® at Initia Real Estate | Metro Vancouver" },
+      { title: "About Eric Kim REALTOR® | Initia Real Estate" },
       {
         name: "description",
         content:
-          "Eric Kim is a REALTOR® with Initia Real Estate serving Metro Vancouver across residential, commercial, and presale real estate.",
+          "Meet Eric Kim, REALTOR® with Initia Real Estate, serving Metro Vancouver clients in residential, commercial, and presale real estate.",
       },
-      { property: "og:title", content: "About Eric Kim, REALTOR®" },
+      { property: "og:title", content: "About Eric Kim REALTOR® | Initia Real Estate" },
       {
         property: "og:description",
         content:
-          "REALTOR® with Initia Real Estate serving Metro Vancouver across residential, commercial, and presale real estate.",
+          "Meet Eric Kim, REALTOR® with Initia Real Estate, serving Metro Vancouver clients in residential, commercial, and presale real estate.",
       },
       { property: "og:image", content: portrait },
     ],

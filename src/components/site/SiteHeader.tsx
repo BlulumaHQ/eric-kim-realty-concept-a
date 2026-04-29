@@ -26,29 +26,34 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+      className={`sticky top-0 z-50 w-full bg-background transition-shadow duration-300 ${
         scrolled
-          ? "bg-background/85 backdrop-blur-xl border-b border-border"
-          : "bg-background/60 backdrop-blur-md"
+          ? "shadow-soft border-b border-border"
+          : "border-b border-border/60"
       }`}
     >
-      <div className="container-x flex h-20 items-center justify-between gap-6">
-        <Link to="/" className="flex items-center" onClick={() => setOpen(false)} aria-label="Eric Kim, REALTOR® — Home">
+      <div className="container-x flex h-[88px] md:h-[96px] items-center justify-between gap-6">
+        <Link
+          to="/"
+          className="flex items-center"
+          onClick={() => setOpen(false)}
+          aria-label="Eric Kim, REALTOR® — Home"
+        >
           <img
             src={logo}
             alt="Eric Kim REALTOR®"
-            className="h-9 md:h-10 w-auto"
-            width={420}
-            height={120}
+            className="h-11 md:h-14 w-auto"
+            width={560}
+            height={160}
           />
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-7">
+        <nav className="hidden lg:flex items-center gap-8">
           {navItems.map((item) => (
             <Link
               key={item.to}
               to={item.to}
-              className="text-sm font-medium text-charcoal/80 hover:text-navy transition-colors"
+              className="text-[13px] font-medium tracking-wide text-charcoal/75 hover:text-navy transition-colors"
               activeProps={{ className: "text-navy" }}
               activeOptions={{ exact: item.to === "/" }}
             >
@@ -57,17 +62,17 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-5">
           <a
             href="tel:+17788388993"
-            className="hidden xl:inline-flex items-center gap-2 text-sm font-medium text-charcoal hover:text-navy"
+            className="hidden xl:inline-flex items-center gap-2 text-[13px] font-medium text-charcoal/80 hover:text-navy transition-colors"
           >
-            <Phone className="h-4 w-4 text-gold" />
+            <Phone className="h-3.5 w-3.5 text-gold" />
             (778) 838-8993
           </a>
           <Link
             to="/contact"
-            className="inline-flex items-center justify-center rounded-full bg-navy px-5 py-2.5 text-sm font-medium text-navy-foreground hover:bg-navy/90 transition-colors shadow-card"
+            className="inline-flex items-center justify-center rounded-full bg-navy px-5 py-2.5 text-[13px] font-medium text-navy-foreground hover:bg-navy/90 transition-colors shadow-soft"
           >
             Book a Consultation
           </Link>
