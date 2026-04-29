@@ -10,13 +10,13 @@ export function SiteFooter() {
       <div className="container-x py-16">
         <div className="grid gap-12 md:grid-cols-3">
           <div>
-            <div className="inline-flex rounded-xl bg-white px-4 py-3 shadow-soft">
+            <div className="inline-flex rounded-xl bg-white px-5 py-4 shadow-soft">
               <img
                 src={erickimLogo}
                 alt="Eric Kim REALTOR®"
-                className="h-10 w-auto"
-                width={560}
-                height={160}
+                className="h-16 sm:h-20 w-auto max-w-[300px] object-contain"
+                width={1199}
+                height={258}
               />
             </div>
             <p className="mt-5 text-sm text-navy-foreground/80">
