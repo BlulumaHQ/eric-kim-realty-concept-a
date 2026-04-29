@@ -32,7 +32,7 @@ export function SiteHeader() {
           : "border-b border-border/60"
       }`}
     >
-      <div className="container-x flex h-[88px] md:h-[96px] items-center justify-between gap-6">
+      <div className="container-x flex h-[92px] md:h-[104px] items-center justify-between gap-6">
         <Link
           to="/"
           className="flex items-center"
@@ -42,9 +42,9 @@ export function SiteHeader() {
           <img
             src={logo}
             alt="Eric Kim REALTOR®"
-            className="h-11 md:h-14 w-auto"
-            width={560}
-            height={160}
+            className="h-14 md:h-[72px] w-auto max-w-[220px] sm:max-w-[280px] md:max-w-[340px] object-contain"
+            width={1199}
+            height={258}
           />
         </Link>
 
