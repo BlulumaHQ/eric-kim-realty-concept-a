@@ -10,13 +10,15 @@ export function SiteFooter() {
       <div className="container-x py-16">
         <div className="grid gap-12 md:grid-cols-3">
           <div>
-            <img
-              src={erickimLogo}
-              alt="Eric Kim REALTOR®"
-              className="h-9 w-auto brightness-0 invert"
-              width={420}
-              height={120}
-            />
+            <div className="inline-flex rounded-xl bg-white px-4 py-3 shadow-soft">
+              <img
+                src={erickimLogo}
+                alt="Eric Kim REALTOR®"
+                className="h-10 w-auto"
+                width={560}
+                height={160}
+              />
+            </div>
             <p className="mt-5 text-sm text-navy-foreground/80">
               Residential • Commercial • Presale
             </p>
