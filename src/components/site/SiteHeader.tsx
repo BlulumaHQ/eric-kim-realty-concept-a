@@ -91,7 +91,7 @@ export function SiteHeader() {
       </div>
 
       {/* Main bar */}
-      <div className="container-x flex h-[72px] md:h-[88px] items-center justify-between gap-6">
+      <div className="container-x flex h-[84px] md:h-[104px] items-center justify-between gap-6">
         <Link
           to="/"
           className="flex items-center"
@@ -101,7 +101,7 @@ export function SiteHeader() {
           <img
             src={logo}
             alt="Eric Kim REALTOR®"
-            className="h-11 md:h-14 w-auto max-w-[200px] sm:max-w-[240px] md:max-w-[280px] object-contain"
+            className="h-16 md:h-20 w-auto max-w-[260px] sm:max-w-[320px] md:max-w-[400px] object-contain"
           />
         </Link>
 
