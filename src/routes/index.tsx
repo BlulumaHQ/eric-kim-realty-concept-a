@@ -6,6 +6,7 @@ import { CommercialFeature } from "@/components/sections/CommercialFeature";
 import { FeaturedListings } from "@/components/sections/FeaturedListings";
 import { WhyEric, Process } from "@/components/sections/WhyAndProcess";
 import { AboutSection, InstagramSection } from "@/components/sections/AboutAndInstagram";
+import { ClientExperiences } from "@/components/sections/ClientExperiences";
 import { ContactSection } from "@/components/sections/ContactSection";
 
 export const Route = createFileRoute("/")({
@@ -23,6 +24,7 @@ function Index() {
       <WhyEric />
       <Process />
       <AboutSection />
+      <ClientExperiences />
       <InstagramSection />
       <ContactSection />
     </>
