@@ -22,13 +22,13 @@ function LanguageSwitcher({ compact = false }: { compact?: boolean }) {
   ];
   return (
     <div
-      className={`inline-flex items-center gap-1 rounded-full border border-white/20 ${
+      className={`inline-flex items-center gap-1 rounded-full border border-border ${
         compact ? "p-0.5" : "p-1"
       }`}
       role="group"
       aria-label="Language"
     >
-      {!compact && <Globe className="h-3.5 w-3.5 text-white/70 ml-1.5" />}
+      {!compact && <Globe className="h-3.5 w-3.5 text-muted-foreground ml-1.5" />}
       {langs.map((l) => (
         <button
           key={l.code}
@@ -36,8 +36,8 @@ function LanguageSwitcher({ compact = false }: { compact?: boolean }) {
           aria-pressed={lang === l.code}
           className={`px-2.5 py-1 text-[11px] font-medium tracking-wide rounded-full transition-colors ${
             lang === l.code
-              ? "bg-white text-navy"
-              : "text-white/80 hover:text-white"
+              ? "bg-foreground text-background"
+              : "text-muted-foreground hover:text-foreground"
           }`}
         >
           {l.label}
@@ -67,21 +67,21 @@ export function SiteHeader() {
           : "border-b border-border/60"
       }`}
     >
-      {/* Top bar */}
-      <div className="hidden md:block bg-navy text-white">
+      {/* Top bar — light, refined */}
+      <div className="hidden md:block bg-cream border-b border-border">
         <div className="container-x flex h-9 items-center justify-between gap-6 text-[12px]">
-          <p className="text-white/70 tracking-wide">{t("top.tagline")}</p>
+          <p className="text-muted-foreground tracking-wide">{t("top.tagline")}</p>
           <div className="flex items-center gap-5">
             <a
               href="tel:+17788388993"
-              className="inline-flex items-center gap-1.5 text-white/85 hover:text-white transition-colors"
+              className="inline-flex items-center gap-1.5 text-foreground/85 hover:text-foreground transition-colors"
             >
               <Phone className="h-3.5 w-3.5 text-gold" />
               (778) 838-8993
             </a>
             <Link
               to="/contact"
-              className="inline-flex items-center justify-center rounded-full bg-gold px-3.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-navy hover:bg-gold/90 transition-colors"
+              className="inline-flex items-center justify-center rounded-none bg-foreground px-3.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-background hover:bg-foreground/85 transition-colors"
             >
               {t("cta.bookShort")}
             </Link>
@@ -91,7 +91,7 @@ export function SiteHeader() {
       </div>
 
       {/* Main bar */}
-      <div className="container-x flex h-[72px] md:h-[84px] items-center justify-between gap-6">
+      <div className="container-x flex h-[72px] md:h-[88px] items-center justify-between gap-6">
         <Link
           to="/"
           className="flex items-center"
@@ -102,28 +102,32 @@ export function SiteHeader() {
             src={logo}
             alt="Eric Kim REALTOR®"
             className="h-11 md:h-14 w-auto max-w-[200px] sm:max-w-[240px] md:max-w-[280px] object-contain"
-            width={1199}
-            height={258}
           />
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-9">
           {navItems.map((item) => (
             <Link
               key={item.to}
               to={item.to}
-              className="text-[13px] font-medium tracking-wide text-charcoal/75 hover:text-navy transition-colors"
-              activeProps={{ className: "text-navy" }}
+              className="text-[12px] font-medium uppercase tracking-[0.18em] text-foreground/65 hover:text-foreground transition-colors"
+              activeProps={{ className: "text-foreground" }}
               activeOptions={{ exact: item.to === "/" }}
             >
               {t(item.labelKey)}
             </Link>
           ))}
+          <Link
+            to="/contact"
+            className="ml-2 inline-flex items-center justify-center rounded-none border border-foreground bg-foreground px-5 py-2.5 text-[11px] font-medium uppercase tracking-[0.18em] text-background hover:bg-transparent hover:text-foreground transition-colors"
+          >
+            Contact Eric
+          </Link>
         </nav>
 
         <button
           aria-label="Toggle menu"
-          className="lg:hidden inline-flex items-center justify-center rounded-md p-2 text-navy"
+          className="lg:hidden inline-flex items-center justify-center rounded-md p-2 text-foreground"
           onClick={() => setOpen((v) => !v)}
         >
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -138,8 +142,8 @@ export function SiteHeader() {
                 key={item.to}
                 to={item.to}
                 onClick={() => setOpen(false)}
-                className="px-2 py-3 text-base font-medium text-charcoal hover:text-navy hover:bg-muted rounded-md"
-                activeProps={{ className: "text-navy bg-muted" }}
+                className="px-2 py-3 text-base font-medium text-foreground/80 hover:text-foreground hover:bg-cream rounded-md"
+                activeProps={{ className: "text-foreground bg-cream" }}
                 activeOptions={{ exact: item.to === "/" }}
               >
                 {t(item.labelKey)}
@@ -148,7 +152,7 @@ export function SiteHeader() {
             <div className="mt-3 flex flex-col gap-3 pt-3 border-t border-border">
               <a
                 href="tel:+17788388993"
-                className="inline-flex items-center gap-2 px-2 py-2 text-sm font-medium text-charcoal"
+                className="inline-flex items-center gap-2 px-2 py-2 text-sm font-medium text-foreground"
               >
                 <Phone className="h-4 w-4 text-gold" />
                 (778) 838-8993
@@ -156,17 +160,15 @@ export function SiteHeader() {
               <Link
                 to="/contact"
                 onClick={() => setOpen(false)}
-                className="inline-flex items-center justify-center rounded-full bg-navy px-5 py-3 text-sm font-medium text-navy-foreground"
+                className="inline-flex items-center justify-center rounded-none bg-foreground px-5 py-3 text-[12px] font-medium uppercase tracking-[0.18em] text-background"
               >
-                {t("cta.book")}
+                Contact Eric
               </Link>
               <div className="flex items-center justify-between px-2 pt-2">
                 <span className="text-xs uppercase tracking-wider text-muted-foreground">
                   {t("top.language")}
                 </span>
-                <div className="bg-navy rounded-full">
-                  <LanguageSwitcher compact />
-                </div>
+                <LanguageSwitcher compact />
               </div>
             </div>
           </div>

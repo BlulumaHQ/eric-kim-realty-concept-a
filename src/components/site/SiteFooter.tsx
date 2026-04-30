@@ -6,51 +6,45 @@ import erickimLogo from "@/assets/eric-kim-logo.png";
 
 export function SiteFooter() {
   return (
-    <footer className="bg-navy text-navy-foreground">
-      <div className="container-x py-16">
-        <div className="grid gap-12 md:grid-cols-3">
-          <div>
-            <div className="inline-flex rounded-xl bg-white px-5 py-4 shadow-soft">
+    <footer className="bg-[#2B2B2B] text-white/85">
+      {/* Top gold accent line */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-gold/60 to-transparent" />
+
+      <div className="container-x py-20">
+        <div className="grid gap-14 md:grid-cols-4">
+          {/* Col 1 — Logo + tagline */}
+          <div className="md:col-span-1">
+            <div className="inline-flex rounded-md bg-white px-5 py-4">
               <img
                 src={erickimLogo}
                 alt="Eric Kim REALTOR®"
-                className="h-16 sm:h-20 w-auto max-w-[300px] object-contain"
-                width={1199}
-                height={258}
+                className="h-14 w-auto max-w-[220px] object-contain"
               />
             </div>
-            <p className="mt-5 text-sm text-navy-foreground/80">
-              Residential • Commercial • Presale
+            <p className="mt-6 text-sm leading-relaxed text-white/70">
+              Residential, commercial, and presale real estate guidance across Metro Vancouver.
             </p>
-            <p className="mt-1 text-xs uppercase tracking-[0.18em] text-navy-foreground/60">
-              Metro Vancouver, BC
+            <p className="mt-3 text-[11px] uppercase tracking-[0.22em] text-gold">
+              Metro Vancouver · BC
             </p>
-            <div className="mt-6 flex items-center gap-3">
-              <div className="rounded-md bg-white px-3 py-2">
-                <img src={initiaLogo} alt="Initia Real Estate" className="h-7 w-auto" />
-              </div>
-              <div className="rounded-md bg-white p-1.5">
-                <img src={mlsBadge} alt="MLS® Reciprocity" className="h-8 w-auto" />
-              </div>
-            </div>
           </div>
 
+          {/* Col 2 — Navigation */}
           <div>
-            <h4 className="text-xs uppercase tracking-[0.2em] text-gold">Navigation</h4>
-            <ul className="mt-4 grid grid-cols-2 gap-y-2 gap-x-4 text-sm">
+            <h4 className="font-display text-base text-white">Navigation</h4>
+            <span className="mt-3 inline-block h-px w-8 bg-gold" />
+            <ul className="mt-5 space-y-3 text-sm">
               {[
                 { to: "/", label: "Home" },
-                { to: "/services", label: "Services" },
-                { to: "/commercial", label: "Commercial" },
-                { to: "/presale", label: "Presale" },
-                { to: "/listings", label: "Listings" },
                 { to: "/about", label: "About" },
+                { to: "/listings", label: "Listings" },
+                { to: "/services", label: "Services" },
                 { to: "/contact", label: "Contact" },
               ].map((i) => (
                 <li key={i.to}>
                   <Link
                     to={i.to}
-                    className="text-navy-foreground/75 hover:text-gold transition-colors"
+                    className="text-white/70 hover:text-gold transition-colors"
                   >
                     {i.label}
                   </Link>
@@ -59,23 +53,26 @@ export function SiteFooter() {
             </ul>
           </div>
 
+          {/* Col 3 — Contact */}
           <div>
-            <h4 className="text-xs uppercase tracking-[0.2em] text-gold">Contact</h4>
-            <ul className="mt-4 space-y-3 text-sm">
+            <h4 className="font-display text-base text-white">Contact</h4>
+            <span className="mt-3 inline-block h-px w-8 bg-gold" />
+            <ul className="mt-5 space-y-3 text-sm">
               <li>
                 <a
                   href="tel:+17788388993"
-                  className="inline-flex items-center gap-2 text-navy-foreground/85 hover:text-gold"
+                  className="inline-flex items-center gap-2.5 text-white/80 hover:text-gold transition-colors"
                 >
-                  <Phone className="h-4 w-4" /> (778) 838-8993
+                  <Phone className="h-4 w-4 text-gold" /> (778) 838-8993
                 </a>
               </li>
               <li>
                 <a
                   href="mailto:erickim.realtor@outlook.com"
-                  className="inline-flex items-center gap-2 text-navy-foreground/85 hover:text-gold break-all"
+                  className="inline-flex items-start gap-2.5 text-white/80 hover:text-gold transition-colors break-all"
                 >
-                  <Mail className="h-4 w-4" /> erickim.realtor@outlook.com
+                  <Mail className="h-4 w-4 text-gold mt-0.5 shrink-0" />
+                  <span>erickim.realtor@outlook.com</span>
                 </a>
               </li>
               <li>
@@ -83,23 +80,43 @@ export function SiteFooter() {
                   href="https://www.instagram.com/erickim.realtor"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-navy-foreground/85 hover:text-gold"
+                  className="inline-flex items-center gap-2.5 text-white/80 hover:text-gold transition-colors"
                 >
-                  <Instagram className="h-4 w-4" /> @erickim.realtor
+                  <Instagram className="h-4 w-4 text-gold" /> @erickim.realtor
                 </a>
               </li>
             </ul>
           </div>
+
+          {/* Col 4 — Brokerage / MLS */}
+          <div>
+            <h4 className="font-display text-base text-white">Brokerage</h4>
+            <span className="mt-3 inline-block h-px w-8 bg-gold" />
+            <div className="mt-5 flex items-center gap-3">
+              <div className="rounded-md bg-white px-3 py-2">
+                <img src={initiaLogo} alt="Initia Real Estate" className="h-7 w-auto" />
+              </div>
+              <div className="rounded-md bg-white p-1.5">
+                <img src={mlsBadge} alt="MLS® Reciprocity" className="h-8 w-auto" />
+              </div>
+            </div>
+            <a
+              href="https://www.instagram.com/erickim.realtor"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Eric Kim on Instagram"
+              className="mt-6 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white/80 hover:text-gold hover:border-gold transition-colors"
+            >
+              <Instagram className="h-4 w-4" />
+            </a>
+          </div>
         </div>
 
-        <div className="mt-14 border-t border-navy-foreground/15 pt-8 grid gap-4 md:grid-cols-[1fr_auto] text-xs text-navy-foreground/60">
-          <p className="max-w-3xl leading-relaxed">
-            This website is for general information only. Real estate information should be
-            verified independently. Please consult appropriate legal, financial, and
-            professional advisors before making real estate decisions.
-          </p>
-          <p className="md:text-right">
-            © 2026 Eric Kim. All rights reserved. <span className="text-gold">|</span> Website by Bluluma
+        {/* Divider */}
+        <div className="mt-16 border-t border-white/10 pt-8">
+          <p className="text-center text-xs text-white/55">
+            © 2026 Eric Kim, REALTOR®. All rights reserved. <span className="text-gold">·</span>{" "}
+            Information should be verified independently.
           </p>
         </div>
       </div>

@@ -10,29 +10,27 @@ const points = [
 
 export function WhyEric() {
   return (
-    <section className="bg-navy text-navy-foreground py-20 md:py-28 relative overflow-hidden">
-      <div className="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-gold/10 blur-3xl" />
-      <div className="absolute -bottom-40 -right-40 h-96 w-96 rounded-full bg-gold/10 blur-3xl" />
-      <div className="container-x relative">
+    <section className="bg-cream py-20 md:py-28">
+      <div className="container-x">
         <div className="max-w-3xl mx-auto text-center">
           <div className="flex items-center gap-3 justify-center">
             <span className="h-px w-12 bg-gold" />
-            <span className="text-xs uppercase tracking-[0.2em] text-gold font-medium">Why Eric</span>
+            <span className="text-xs uppercase tracking-[0.22em] text-gold font-medium">Why Eric</span>
             <span className="h-px w-12 bg-gold" />
           </div>
-          <h2 className="mt-4 font-display text-3xl md:text-4xl lg:text-5xl text-balance">
+          <h2 className="mt-5 font-display text-3xl md:text-4xl lg:text-5xl text-foreground text-balance">
             Clear Guidance. Local Market Focus. Direct Communication.
           </h2>
         </div>
 
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {points.map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="rounded-2xl border border-navy-foreground/10 bg-navy-foreground/5 p-6 backdrop-blur-sm">
-              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-gold text-gold-foreground">
+            <div key={title} className="rounded-xl border border-border bg-background p-7 hover:shadow-card transition-shadow">
+              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-gold/15 text-gold">
                 <Icon className="h-5 w-5" />
               </span>
-              <h4 className="mt-5 font-display text-lg">{title}</h4>
-              <p className="mt-2 text-sm text-navy-foreground/70">{desc}</p>
+              <h4 className="mt-5 font-display text-lg text-foreground">{title}</h4>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{desc}</p>
             </div>
           ))}
         </div>
