@@ -14,11 +14,11 @@ export function SiteFooter() {
         <div className="grid gap-14 md:grid-cols-4">
           {/* Col 1 — Logo + tagline */}
           <div className="md:col-span-1">
-            <div className="inline-flex rounded-md bg-white px-5 py-4">
+            <div className="inline-flex rounded-md bg-white px-6 py-5">
               <img
                 src={erickimLogo}
                 alt="Eric Kim REALTOR®"
-                className="h-14 w-auto max-w-[220px] object-contain"
+                className="h-16 w-auto max-w-[260px] object-contain"
               />
             </div>
             <p className="mt-6 text-sm leading-relaxed text-white/70">
