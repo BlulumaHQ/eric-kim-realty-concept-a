@@ -97,7 +97,7 @@ export function Hero() {
             </div>
 
             <p className="mt-3 text-sm text-foreground/75">
-              Based on <span className="font-semibold text-foreground">100+</span> Google Reviews
+              Verified <span className="font-semibold text-foreground">Google Reviews</span>
             </p>
 
             <div className="mt-5 h-px w-full bg-border" />
