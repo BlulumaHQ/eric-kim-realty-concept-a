@@ -6,11 +6,10 @@ import { useI18n, type Lang } from "@/lib/i18n";
 
 const navItems = [
   { to: "/", labelKey: "nav.home" },
-  { to: "/services", labelKey: "nav.services" },
-  { to: "/commercial", labelKey: "nav.commercial" },
-  { to: "/presale", labelKey: "nav.presale" },
   { to: "/listings", labelKey: "nav.listings" },
+  { to: "/services", labelKey: "nav.services" },
   { to: "/about", labelKey: "nav.about" },
+  { to: "/commercial", labelKey: "nav.commercial" },
   { to: "/contact", labelKey: "nav.contact" },
 ] as const;
 

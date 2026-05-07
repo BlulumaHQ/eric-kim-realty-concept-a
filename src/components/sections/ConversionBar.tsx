@@ -1,29 +1,29 @@
 import { Link } from "@tanstack/react-router";
-import { Building2, Home, Sparkles, MessageSquare, ArrowUpRight } from "lucide-react";
+import { Home, Key, Sprout, MessageSquare, ArrowUpRight } from "lucide-react";
 
 const items = [
   {
-    icon: Building2,
-    title: "Commercial Real Estate",
-    desc: "Business owners, investors, retail, office, and lease opportunities.",
-    to: "/commercial" as const,
-  },
-  {
     icon: Home,
-    title: "Residential Buying & Selling",
-    desc: "Guidance for buyers and sellers across Metro Vancouver.",
+    title: "Buying a Home",
+    desc: "Find the right home for your family across Greater Vancouver.",
     to: "/services" as const,
   },
   {
-    icon: Sparkles,
-    title: "Presale Projects",
-    desc: "New developments and presale VIP opportunities.",
-    to: "/presale" as const,
+    icon: Key,
+    title: "Selling a Home",
+    desc: "List with a clear pricing, marketing, and negotiation strategy.",
+    to: "/services" as const,
+  },
+  {
+    icon: Sprout,
+    title: "First-Time Buyers",
+    desc: "Patient guidance through every step of your first purchase.",
+    to: "/services" as const,
   },
   {
     icon: MessageSquare,
-    title: "Private Consultation",
-    desc: "Speak directly with Eric about your goals.",
+    title: "Free Consultation",
+    desc: "Book a no-pressure conversation about your home goals.",
     to: "/contact" as const,
   },
 ];
