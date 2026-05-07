@@ -36,16 +36,25 @@ export function AboutSection() {
             Meet Eric Kim
           </h2>
           <p className="mt-5 text-lg text-muted-foreground text-pretty">
-            Eric Kim is a REALTOR® with Initia Real Estate serving clients across Metro Vancouver. His work covers residential, commercial, and presale real estate, helping clients explore opportunities with a practical and client-focused approach.
+            Eric Kim is a residential REALTOR® with Initia Real Estate, helping
+            families across Greater Vancouver buy and sell homes with confidence.
+            His approach is patient, transparent, and detail-driven — built around
+            understanding each client&apos;s lifestyle, budget, and long-term goals
+            before recommending a single property.
+          </p>
+          <p className="mt-4 text-muted-foreground text-pretty leading-relaxed">
+            Bilingual in English and Korean, Eric serves clients across Vancouver,
+            Burnaby, Richmond, Coquitlam, and Surrey — with quiet expertise in
+            residential investment and commercial opportunities when needed.
           </p>
 
           <dl className="mt-8 grid gap-x-8 gap-y-4 sm:grid-cols-2">
             {[
-              ["Name", "Eric Kim"],
-              ["Title", "REALTOR®"],
-              ["Company", "Initia Real Estate"],
-              ["Specialties", "Residential / Commercial / Presale"],
-              ["Location", "Metro Vancouver, BC"],
+              ["Title", "REALTOR® · Initia Real Estate"],
+              ["Focus", "Residential Buying & Selling"],
+              ["Service Area", "Greater Vancouver, BC"],
+              ["Languages", "English · 한국어"],
+              ["Approach", "Patient, transparent, detail-driven"],
             ].map(([k, v]) => (
               <div key={k} className="border-l-2 border-gold pl-4">
                 <dt className="text-xs uppercase tracking-[0.16em] text-muted-foreground">{k}</dt>
