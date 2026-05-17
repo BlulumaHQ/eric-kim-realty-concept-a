@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Hero } from "@/components/sections/Hero";
 import { ConversionBar } from "@/components/sections/ConversionBar";
 import { FeaturedListings } from "@/components/sections/FeaturedListings";
+import { CommercialFeature } from "@/components/sections/CommercialFeature";
 import { RecentlySold } from "@/components/sections/RecentlySold";
 import { AreaExpertise } from "@/components/sections/AreaExpertise";
 import { Services } from "@/components/sections/Services";
@@ -36,6 +37,7 @@ function Index() {
       <Hero />
       <ConversionBar />
       <FeaturedListings />
+      <CommercialFeature />
       <RecentlySold />
       <AreaExpertise />
       <Services />
