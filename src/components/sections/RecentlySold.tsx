@@ -2,40 +2,84 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight, MapPin } from "lucide-react";
 import { useListings, formatPrice, type Listing } from "@/lib/listings";
 
-function gridColsFor(count: number) {
-  if (count <= 1) return "grid-cols-1";
-  return "grid-cols-1 sm:grid-cols-2";
+function priceLabel(l: Listing) {
+  const p = l.soldPrice ?? l.price;
+  if (!p || p <= 0) return "Price upon request";
+  return formatPrice(p);
+}
+
+function locationLine(l: Listing) {
+  if (l.neighborhood) return `${l.neighborhood}, ${l.city}`;
+  return l.address ? `${l.address}, ${l.city}` : l.city;
+}
+
+function statsText(l: Listing) {
+  const parts: string[] = [];
+  if (l.beds > 0) parts.push(`${l.beds} Bed`);
+  if (l.baths > 0) parts.push(`${l.baths} Bath`);
+  if (l.sqft > 0) parts.push(`${l.sqft.toLocaleString()} sqft`);
+  if (l.propertyType) parts.push(l.propertyType);
+  return parts.join(" · ");
 }
 
 function SoldCard({ l }: { l: Listing }) {
+  const stats = statsText(l);
   return (
     <article className="group overflow-hidden rounded-2xl bg-background border border-border hover:shadow-elegant transition-all duration-300">
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
         <img
           src={l.image}
-          alt={`Sold — ${l.address}, ${l.city}`}
+          alt={`Sold — ${locationLine(l)}`}
           loading="lazy"
           onError={(e) => {
             (e.currentTarget as HTMLImageElement).src = l.fallbackImage;
           }}
           className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-700"
         />
-        <span className="absolute top-4 left-4 rounded-full bg-foreground text-background px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em]">
+        <span className="absolute top-4 left-4 rounded-full bg-red-600 text-white px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em]">
           Sold
         </span>
       </div>
       <div className="p-6">
-        <p className="font-display text-xl text-foreground">
-          {formatPrice(l.soldPrice ?? l.price)}
-        </p>
+        <p className="font-display text-xl text-foreground">{priceLabel(l)}</p>
         <p className="mt-1 inline-flex items-center gap-1.5 text-sm text-muted-foreground">
           <MapPin className="h-3.5 w-3.5 text-gold" />
-          {l.neighborhood ? `${l.neighborhood}, ${l.city}` : `${l.address}, ${l.city}`}
+          {locationLine(l)}
         </p>
-        <p className="mt-3 text-xs text-muted-foreground">
-          {l.beds} Bed · {l.baths} Bath · {l.sqft.toLocaleString()} sqft
-          {l.propertyType ? ` · ${l.propertyType}` : ""}
+        {stats && <p className="mt-3 text-xs text-muted-foreground">{stats}</p>}
+      </div>
+    </article>
+  );
+}
+
+function SpotlightSoldCard({ l }: { l: Listing }) {
+  const stats = statsText(l);
+  return (
+    <article className="group grid md:grid-cols-2 overflow-hidden rounded-2xl bg-background border border-border hover:shadow-elegant transition-all duration-300">
+      <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[360px] overflow-hidden bg-muted">
+        <img
+          src={l.image}
+          alt={`Sold — ${locationLine(l)}`}
+          loading="lazy"
+          onError={(e) => {
+            (e.currentTarget as HTMLImageElement).src = l.fallbackImage;
+          }}
+          className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-700"
+        />
+        <span className="absolute top-4 left-4 rounded-full bg-red-600 text-white px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em]">
+          Sold
+        </span>
+      </div>
+      <div className="flex flex-col justify-center p-8 md:p-10">
+        <span className="text-[11px] uppercase tracking-[0.22em] text-gold font-semibold">
+          Recent Result
+        </span>
+        <p className="mt-3 font-display text-3xl text-foreground">{priceLabel(l)}</p>
+        <p className="mt-2 inline-flex items-center gap-1.5 text-sm text-muted-foreground">
+          <MapPin className="h-3.5 w-3.5 text-gold" />
+          {locationLine(l)}
         </p>
+        {stats && <p className="mt-4 text-sm text-muted-foreground">{stats}</p>}
       </div>
     </article>
   );
@@ -59,7 +103,7 @@ export function RecentlySold() {
 
   if (!loading && recentlySold.length === 0) return null;
 
-  const count = loading ? 2 : recentlySold.length;
+  const count = recentlySold.length;
 
   return (
     <section className="bg-cream py-24 md:py-32">
@@ -87,10 +131,22 @@ export function RecentlySold() {
             </Link>
           </div>
 
-          <div className={`lg:col-span-7 grid gap-6 ${gridColsFor(count)}`}>
-            {loading
-              ? Array.from({ length: 2 }).map((_, i) => <SkeletonSoldCard key={i} />)
-              : recentlySold.map((l) => <SoldCard key={l.id} l={l} />)}
+          <div className="lg:col-span-7">
+            {loading ? (
+              <div className="grid gap-6 grid-cols-1 sm:grid-cols-2">
+                {Array.from({ length: 2 }).map((_, i) => (
+                  <SkeletonSoldCard key={i} />
+                ))}
+              </div>
+            ) : count === 1 ? (
+              <SpotlightSoldCard l={recentlySold[0]} />
+            ) : (
+              <div className="grid gap-6 grid-cols-1 sm:grid-cols-2">
+                {recentlySold.map((l) => (
+                  <SoldCard key={l.id} l={l} />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
