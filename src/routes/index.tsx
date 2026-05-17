@@ -37,6 +37,7 @@ function Index() {
       <Hero />
       <ConversionBar />
       <FeaturedListings />
+      <CommercialFeature />
       <RecentlySold />
       <AreaExpertise />
       <Services />
