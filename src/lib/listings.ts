@@ -1,6 +1,9 @@
-// Real listing data sourced from Eric Kim's public Paragon listing links.
-// Images proxied directly from paragon.ice.com — fall back to local hero if blocked.
+// Live listings loaded from Supabase for realtor slug "eric-kim".
+// The Listing interface, formatPrice, and FALLBACK_LISTING_IMAGE stay
+// stable so existing components keep working unchanged.
 
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import fallbackImg from "@/assets/listing-residential.jpg";
 
 export type ListingStatus = "active" | "sold" | "presale";
@@ -26,65 +29,13 @@ export interface Listing {
   image: string;
   fallbackImage: string;
   description: string;
+  featured?: boolean;
+  showInSold?: boolean;
+  sortOrder?: number;
+  soldSortOrder?: number;
 }
 
 export const FALLBACK_LISTING_IMAGE = fallbackImg;
-
-export const listings: Listing[] = [
-  {
-    id: "R3110638",
-    mls: "R3110638",
-    status: "active",
-    category: "residential",
-    title: "Marlborough House — Top Floor End Unit",
-    address: "409 – 3098 Guildford Way",
-    city: "Coquitlam",
-    neighborhood: "North Coquitlam",
-    province: "BC",
-    postalCode: "V3B 7W8",
-    price: 729000,
-    beds: 2,
-    baths: 2,
-    sqft: 1089,
-    propertyType: "Apartment / Condo",
-    image:
-      "https://zimg.paragon.ice.com/ParagonImages/Property/PN/BCRES/263132265/0/640/480/cf3f211a6619ba636592ff19ef4a143b/16/8ef84668c603bdecd6ca8230060354b9/263132265-bcdcf155-fd03-427e-811b-83211cf8a1f8.JPG",
-    fallbackImage: fallbackImg,
-    description:
-      "Rare top-floor, end unit at the prestigious Marlborough House with extra ceiling height and 1,089 sq ft of bright, open living space. 2 bed, 2 bath with large windows, private balcony with serene views of Lafarge Lake, and 2 parking stalls. Resort-style 55+ community steps to SkyTrain and Coquitlam Centre.",
-  },
-  {
-    id: "R3012776",
-    mls: "R3012776",
-    status: "sold",
-    category: "residential",
-    title: "Concord Brentwood Hillside East",
-    address: "5001 – 4880 Lougheed Highway",
-    city: "Burnaby",
-    neighborhood: "Brentwood Park",
-    province: "BC",
-    postalCode: "V5C 0N1",
-    price: 665000,
-    soldPrice: 640000,
-    soldDate: "2025-07-09",
-    beds: 1,
-    baths: 1,
-    sqft: 551,
-    propertyType: "Apartment / Condo",
-    image:
-      "https://zimg.paragon.ice.com/ParagonImages/Property/PN/BCRES/263034403/0/640/480/6aa58abcc9aff1163c1f67b4c0c3249c/16/4a61fc4fc3206220217a549d921454fe/263034403-de1f9b41-ebcb-490b-998c-acbd585cc3b4.JPG",
-    fallbackImage: fallbackImg,
-    description:
-      "Luxury 1 bedroom in Concord Brentwood Hillside East with breathtaking mountain, park, and water views. 551 sqft with a 200+ sqft heated balcony, BOSCH appliances, central A/C, and 5-star amenities including 24-hour concierge. Quick access to Brentwood Mall SkyTrain.",
-  },
-];
-
-export const activeResidential = listings.filter(
-  (l) => l.category === "residential" && l.status === "active"
-);
-export const soldResidential = listings.filter(
-  (l) => l.category === "residential" && l.status === "sold"
-);
 
 export const formatPrice = (n: number) =>
   new Intl.NumberFormat("en-CA", {
@@ -92,3 +43,138 @@ export const formatPrice = (n: number) =>
     currency: "CAD",
     maximumFractionDigits: 0,
   }).format(n);
+
+const REALTOR_SLUG = "eric-kim";
+
+function asString(v: unknown, fallback = ""): string {
+  return typeof v === "string" ? v : fallback;
+}
+function asNumber(v: unknown, fallback = 0): number {
+  return typeof v === "number" && Number.isFinite(v) ? v : fallback;
+}
+
+function mapRow(row: Record<string, unknown>): Listing {
+  const features = (row.features && typeof row.features === "object"
+    ? (row.features as Record<string, unknown>)
+    : {}) as Record<string, unknown>;
+
+  const status = (row.status === "sold"
+    ? "sold"
+    : row.status === "presale"
+      ? "presale"
+      : "active") as ListingStatus;
+
+  const category = (row.category === "commercial"
+    ? "commercial"
+    : row.category === "presale"
+      ? "presale"
+      : "residential") as Listing["category"];
+
+  const price = asNumber(row.price);
+  const soldPriceRaw = features.sold_price ?? features.soldPrice;
+  const soldPrice =
+    typeof soldPriceRaw === "number" ? soldPriceRaw : status === "sold" ? price : undefined;
+
+  return {
+    id: asString(row.id),
+    mls: asString(row.mls_number),
+    status,
+    category,
+    title: asString(row.title),
+    address: asString(row.address),
+    city: asString(row.city),
+    neighborhood: asString(features.neighborhood ?? features.neighbourhood ?? ""),
+    province: asString(features.province ?? "BC"),
+    postalCode: asString(features.postal_code ?? features.postalCode ?? ""),
+    price,
+    soldPrice,
+    soldDate: asString(features.sold_date ?? features.soldDate ?? "") || undefined,
+    beds: asNumber(row.beds),
+    baths: asNumber(row.baths),
+    sqft: asNumber(row.sqft),
+    propertyType: asString(row.property_type),
+    image: asString(row.primary_image_url) || fallbackImg,
+    fallbackImage: fallbackImg,
+    description: asString(row.description),
+    featured: Boolean(row.featured),
+    showInSold: Boolean(row.show_in_sold),
+    sortOrder: typeof row.sort_order === "number" ? row.sort_order : undefined,
+    soldSortOrder:
+      typeof row.sold_sort_order === "number" ? row.sold_sort_order : undefined,
+  };
+}
+
+async function fetchListings(): Promise<Listing[]> {
+  const { data: realtor, error: realtorErr } = await supabase
+    .from("realtors")
+    .select("id")
+    .eq("slug", REALTOR_SLUG)
+    .maybeSingle();
+
+  if (realtorErr || !realtor) return [];
+
+  const { data, error } = await supabase
+    .from("listings")
+    .select("*")
+    .eq("realtor_id", (realtor as { id: string }).id);
+
+  if (error || !data) return [];
+  return (data as Record<string, unknown>[]).map(mapRow);
+}
+
+// Module-level cache so multiple components share one fetch.
+let cache: Listing[] | null = null;
+let inflight: Promise<Listing[]> | null = null;
+
+export function useListings() {
+  const [listings, setListings] = useState<Listing[] | null>(cache);
+  const [loading, setLoading] = useState<boolean>(cache === null);
+
+  useEffect(() => {
+    if (cache) {
+      setListings(cache);
+      setLoading(false);
+      return;
+    }
+    let cancelled = false;
+    if (!inflight) inflight = fetchListings();
+    inflight
+      .then((rows) => {
+        cache = rows;
+        if (!cancelled) {
+          setListings(rows);
+          setLoading(false);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setListings([]);
+          setLoading(false);
+        }
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const all = listings ?? [];
+  const sortBy = (key: "sortOrder" | "soldSortOrder") => (a: Listing, b: Listing) =>
+    (a[key] ?? Number.MAX_SAFE_INTEGER) - (b[key] ?? Number.MAX_SAFE_INTEGER);
+
+  const featuredResidential = all
+    .filter((l) => l.category === "residential" && l.featured && l.status === "active")
+    .sort(sortBy("sortOrder"))
+    .slice(0, 6);
+
+  const commercial = all
+    .filter((l) => l.category === "commercial")
+    .sort(sortBy("sortOrder"))
+    .slice(0, 6);
+
+  const recentlySold = all
+    .filter((l) => l.status === "sold" && (l.showInSold ?? true))
+    .sort(sortBy("soldSortOrder"))
+    .slice(0, 6);
+
+  return { loading, all, featuredResidential, commercial, recentlySold };
+}
