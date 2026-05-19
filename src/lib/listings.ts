@@ -91,6 +91,7 @@ function mapRow(row: Record<string, unknown>): Listing {
 
   return {
     id: asString(row.id),
+    slug: asString(row.slug),
     mls: asString(row.mls_number),
     status,
     category,
@@ -106,7 +107,13 @@ function mapRow(row: Record<string, unknown>): Listing {
     beds: asNumber(row.beds),
     baths: asNumber(row.baths),
     sqft: asNumber(row.sqft),
+    lotSize: asString(row.lot_size),
+    yearBuilt: asString(features.year_built ?? features.yearBuilt ?? ""),
+    zoning: asString(features.zoning ?? ""),
+    buildingType: asString(features.building_type ?? features.buildingType ?? ""),
+    leaseRate: asString(features.lease_rate ?? features.leaseRate ?? ""),
     propertyType: asString(row.property_type),
+    transactionType: asString(row.transaction_type),
     image: asString(row.primary_image_url) || fallbackImg,
     fallbackImage: fallbackImg,
     description: asString(row.description),
