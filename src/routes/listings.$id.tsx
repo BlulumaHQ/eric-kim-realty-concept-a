@@ -225,7 +225,15 @@ function Gallery({ listing, photos }: { listing: Listing; photos: ListingPhoto[]
   }, [photos, listing.image]);
 
   const [active, setActive] = useState(0);
+  const scrollerRef = useRef<HTMLDivElement>(null);
   const currentSrc = gallery[Math.min(active, gallery.length - 1)] ?? FALLBACK_LISTING_IMAGE;
+
+  const go = (delta: number) => {
+    const next = Math.min(Math.max(active + delta, 0), gallery.length - 1);
+    setActive(next);
+    const el = scrollerRef.current?.querySelectorAll<HTMLButtonElement>("[data-thumb]")[next];
+    el?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+  };
 
   return (
     <div className="container-x mt-6">
@@ -238,33 +246,81 @@ function Gallery({ listing, photos }: { listing: Listing; photos: ListingPhoto[]
           }}
           className="h-full w-full object-cover"
         />
+        {gallery.length > 1 && (
+          <>
+            <button
+              type="button"
+              aria-label="Previous photo"
+              onClick={() => go(-1)}
+              disabled={active === 0}
+              className="absolute left-3 top-1/2 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-full bg-background/90 backdrop-blur shadow-soft hover:bg-background transition disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              <ChevronLeft className="h-5 w-5 text-foreground" />
+            </button>
+            <button
+              type="button"
+              aria-label="Next photo"
+              onClick={() => go(1)}
+              disabled={active === gallery.length - 1}
+              className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-full bg-background/90 backdrop-blur shadow-soft hover:bg-background transition disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              <ChevronRight className="h-5 w-5 text-foreground" />
+            </button>
+            <span className="absolute bottom-3 right-3 rounded-full bg-background/90 backdrop-blur px-3 py-1 text-[11px] font-medium text-foreground">
+              {active + 1} / {gallery.length}
+            </span>
+          </>
+        )}
       </div>
       {gallery.length > 1 && (
-        <div className="mt-4 grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 gap-3">
-          {gallery.map((src, i) => (
-            <button
-              key={`${src}-${i}`}
-              type="button"
-              onClick={() => setActive(i)}
-              className={`relative aspect-[4/3] overflow-hidden rounded-lg border-2 transition ${
-                i === active ? "border-gold" : "border-transparent hover:border-border"
-              }`}
-            >
-              <img
-                src={src}
-                alt=""
-                onError={(e) => {
-                  (e.currentTarget as HTMLImageElement).src = FALLBACK_LISTING_IMAGE;
-                }}
-                className="h-full w-full object-cover"
-              />
-            </button>
-          ))}
+        <div className="relative mt-4">
+          <button
+            type="button"
+            aria-label="Scroll thumbnails left"
+            onClick={() => go(-1)}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full bg-background/95 backdrop-blur border border-border shadow-soft hover:bg-background transition"
+          >
+            <ChevronLeft className="h-4 w-4 text-foreground" />
+          </button>
+          <div
+            ref={scrollerRef}
+            className="flex flex-nowrap gap-3 overflow-x-auto scroll-smooth px-10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
+            {gallery.map((src, i) => (
+              <button
+                key={`${src}-${i}`}
+                type="button"
+                data-thumb
+                onClick={() => setActive(i)}
+                className={`relative shrink-0 w-28 sm:w-32 aspect-[4/3] overflow-hidden rounded-lg border-2 transition ${
+                  i === active ? "border-gold" : "border-transparent hover:border-border"
+                }`}
+              >
+                <img
+                  src={src}
+                  alt=""
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).src = FALLBACK_LISTING_IMAGE;
+                  }}
+                  className="h-full w-full object-cover"
+                />
+              </button>
+            ))}
+          </div>
+          <button
+            type="button"
+            aria-label="Scroll thumbnails right"
+            onClick={() => go(1)}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full bg-background/95 backdrop-blur border border-border shadow-soft hover:bg-background transition"
+          >
+            <ChevronRight className="h-4 w-4 text-foreground" />
+          </button>
         </div>
       )}
     </div>
   );
 }
+
 
 const inquirySchema = z.object({
   name: z.string().trim().min(1, "Please enter your name").max(100),
