@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as PresaleRouteImport } from './routes/presale'
-import { Route as ListingsRouteImport } from './routes/listings'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CommercialRouteImport } from './routes/commercial'
 import { Route as AboutRouteImport } from './routes/about'
@@ -27,11 +26,6 @@ const ServicesRoute = ServicesRouteImport.update({
 const PresaleRoute = PresaleRouteImport.update({
   id: '/presale',
   path: '/presale',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ListingsRoute = ListingsRouteImport.update({
-  id: '/listings',
-  path: '/listings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -55,14 +49,14 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const ListingsIndexRoute = ListingsIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => ListingsRoute,
+  id: '/listings/',
+  path: '/listings/',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ListingsIdRoute = ListingsIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => ListingsRoute,
+  id: '/listings/$id',
+  path: '/listings/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -70,7 +64,6 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/commercial': typeof CommercialRoute
   '/contact': typeof ContactRoute
-  '/listings': typeof ListingsRouteWithChildren
   '/presale': typeof PresaleRoute
   '/services': typeof ServicesRoute
   '/listings/$id': typeof ListingsIdRoute
@@ -92,7 +85,6 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/commercial': typeof CommercialRoute
   '/contact': typeof ContactRoute
-  '/listings': typeof ListingsRouteWithChildren
   '/presale': typeof PresaleRoute
   '/services': typeof ServicesRoute
   '/listings/$id': typeof ListingsIdRoute
@@ -105,7 +97,6 @@ export interface FileRouteTypes {
     | '/about'
     | '/commercial'
     | '/contact'
-    | '/listings'
     | '/presale'
     | '/services'
     | '/listings/$id'
@@ -126,7 +117,6 @@ export interface FileRouteTypes {
     | '/about'
     | '/commercial'
     | '/contact'
-    | '/listings'
     | '/presale'
     | '/services'
     | '/listings/$id'
@@ -138,9 +128,10 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   CommercialRoute: typeof CommercialRoute
   ContactRoute: typeof ContactRoute
-  ListingsRoute: typeof ListingsRouteWithChildren
   PresaleRoute: typeof PresaleRoute
   ServicesRoute: typeof ServicesRoute
+  ListingsIdRoute: typeof ListingsIdRoute
+  ListingsIndexRoute: typeof ListingsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -157,13 +148,6 @@ declare module '@tanstack/react-router' {
       path: '/presale'
       fullPath: '/presale'
       preLoaderRoute: typeof PresaleRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/listings': {
-      id: '/listings'
-      path: '/listings'
-      fullPath: '/listings'
-      preLoaderRoute: typeof ListingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -196,44 +180,40 @@ declare module '@tanstack/react-router' {
     }
     '/listings/': {
       id: '/listings/'
-      path: '/'
+      path: '/listings'
       fullPath: '/listings/'
       preLoaderRoute: typeof ListingsIndexRouteImport
-      parentRoute: typeof ListingsRoute
+      parentRoute: typeof rootRouteImport
     }
     '/listings/$id': {
       id: '/listings/$id'
-      path: '/$id'
+      path: '/listings/$id'
       fullPath: '/listings/$id'
       preLoaderRoute: typeof ListingsIdRouteImport
-      parentRoute: typeof ListingsRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
-
-interface ListingsRouteChildren {
-  ListingsIdRoute: typeof ListingsIdRoute
-  ListingsIndexRoute: typeof ListingsIndexRoute
-}
-
-const ListingsRouteChildren: ListingsRouteChildren = {
-  ListingsIdRoute: ListingsIdRoute,
-  ListingsIndexRoute: ListingsIndexRoute,
-}
-
-const ListingsRouteWithChildren = ListingsRoute._addFileChildren(
-  ListingsRouteChildren,
-)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   CommercialRoute: CommercialRoute,
   ContactRoute: ContactRoute,
-  ListingsRoute: ListingsRouteWithChildren,
   PresaleRoute: PresaleRoute,
   ServicesRoute: ServicesRoute,
+  ListingsIdRoute: ListingsIdRoute,
+  ListingsIndexRoute: ListingsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
