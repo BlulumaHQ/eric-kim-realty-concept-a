@@ -3,7 +3,7 @@ import { FeaturedListings } from "@/components/sections/FeaturedListings";
 import { RecentlySold } from "@/components/sections/RecentlySold";
 import { CTABand } from "@/components/site/CTABand";
 
-export const Route = createFileRoute("/listings")({
+export const Route = createFileRoute("/listings/")({
   head: () => ({
     meta: [
       { title: "Current & Sold Listings | Eric Kim Vancouver REALTOR®" },

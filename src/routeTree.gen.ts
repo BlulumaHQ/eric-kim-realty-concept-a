@@ -11,11 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as PresaleRouteImport } from './routes/presale'
-import { Route as ListingsRouteImport } from './routes/listings'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CommercialRouteImport } from './routes/commercial'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ListingsIndexRouteImport } from './routes/listings.index'
 import { Route as ListingsIdRouteImport } from './routes/listings.$id'
 
 const ServicesRoute = ServicesRouteImport.update({
@@ -26,11 +26,6 @@ const ServicesRoute = ServicesRouteImport.update({
 const PresaleRoute = PresaleRouteImport.update({
   id: '/presale',
   path: '/presale',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ListingsRoute = ListingsRouteImport.update({
-  id: '/listings',
-  path: '/listings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -53,10 +48,15 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ListingsIndexRoute = ListingsIndexRouteImport.update({
+  id: '/listings/',
+  path: '/listings/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ListingsIdRoute = ListingsIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => ListingsRoute,
+  id: '/listings/$id',
+  path: '/listings/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -64,20 +64,20 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/commercial': typeof CommercialRoute
   '/contact': typeof ContactRoute
-  '/listings': typeof ListingsRouteWithChildren
   '/presale': typeof PresaleRoute
   '/services': typeof ServicesRoute
   '/listings/$id': typeof ListingsIdRoute
+  '/listings/': typeof ListingsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/commercial': typeof CommercialRoute
   '/contact': typeof ContactRoute
-  '/listings': typeof ListingsRouteWithChildren
   '/presale': typeof PresaleRoute
   '/services': typeof ServicesRoute
   '/listings/$id': typeof ListingsIdRoute
+  '/listings': typeof ListingsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -85,10 +85,10 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/commercial': typeof CommercialRoute
   '/contact': typeof ContactRoute
-  '/listings': typeof ListingsRouteWithChildren
   '/presale': typeof PresaleRoute
   '/services': typeof ServicesRoute
   '/listings/$id': typeof ListingsIdRoute
+  '/listings/': typeof ListingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -97,30 +97,30 @@ export interface FileRouteTypes {
     | '/about'
     | '/commercial'
     | '/contact'
-    | '/listings'
     | '/presale'
     | '/services'
     | '/listings/$id'
+    | '/listings/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/commercial'
     | '/contact'
-    | '/listings'
     | '/presale'
     | '/services'
     | '/listings/$id'
+    | '/listings'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/commercial'
     | '/contact'
-    | '/listings'
     | '/presale'
     | '/services'
     | '/listings/$id'
+    | '/listings/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -128,9 +128,10 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   CommercialRoute: typeof CommercialRoute
   ContactRoute: typeof ContactRoute
-  ListingsRoute: typeof ListingsRouteWithChildren
   PresaleRoute: typeof PresaleRoute
   ServicesRoute: typeof ServicesRoute
+  ListingsIdRoute: typeof ListingsIdRoute
+  ListingsIndexRoute: typeof ListingsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -147,13 +148,6 @@ declare module '@tanstack/react-router' {
       path: '/presale'
       fullPath: '/presale'
       preLoaderRoute: typeof PresaleRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/listings': {
-      id: '/listings'
-      path: '/listings'
-      fullPath: '/listings'
-      preLoaderRoute: typeof ListingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -184,37 +178,42 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/listings/': {
+      id: '/listings/'
+      path: '/listings'
+      fullPath: '/listings/'
+      preLoaderRoute: typeof ListingsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/listings/$id': {
       id: '/listings/$id'
-      path: '/$id'
+      path: '/listings/$id'
       fullPath: '/listings/$id'
       preLoaderRoute: typeof ListingsIdRouteImport
-      parentRoute: typeof ListingsRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
-
-interface ListingsRouteChildren {
-  ListingsIdRoute: typeof ListingsIdRoute
-}
-
-const ListingsRouteChildren: ListingsRouteChildren = {
-  ListingsIdRoute: ListingsIdRoute,
-}
-
-const ListingsRouteWithChildren = ListingsRoute._addFileChildren(
-  ListingsRouteChildren,
-)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   CommercialRoute: CommercialRoute,
   ContactRoute: ContactRoute,
-  ListingsRoute: ListingsRouteWithChildren,
   PresaleRoute: PresaleRoute,
   ServicesRoute: ServicesRoute,
+  ListingsIdRoute: ListingsIdRoute,
+  ListingsIndexRoute: ListingsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
