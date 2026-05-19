@@ -1,29 +1,38 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, MapPin } from "lucide-react";
 import { useListings, formatPrice, type Listing } from "@/lib/listings";
-
-function priceLabel(l: Listing) {
-  const p = l.soldPrice ?? l.price;
-  if (!p || p <= 0) return "Price upon request";
-  return formatPrice(p);
-}
+import { useI18n } from "@/lib/i18n";
 
 function locationLine(l: Listing) {
   if (l.neighborhood) return `${l.neighborhood}, ${l.city}`;
   return l.address ? `${l.address}, ${l.city}` : l.city;
 }
 
-function statsText(l: Listing) {
-  const parts: string[] = [];
-  if (l.beds > 0) parts.push(`${l.beds} Bed`);
-  if (l.baths > 0) parts.push(`${l.baths} Bath`);
-  if (l.sqft > 0) parts.push(`${l.sqft.toLocaleString()} sqft`);
-  if (l.propertyType) parts.push(l.propertyType);
-  return parts.join(" · ");
+function useStatsText() {
+  const { t } = useI18n();
+  return (l: Listing) => {
+    const parts: string[] = [];
+    if (l.beds > 0) parts.push(`${l.beds} ${t("fl.bed")}`);
+    if (l.baths > 0) parts.push(`${l.baths} ${t("fl.bath")}`);
+    if (l.sqft > 0) parts.push(`${l.sqft.toLocaleString()} sqft`);
+    if (l.propertyType) parts.push(l.propertyType);
+    return parts.join(" · ");
+  };
+}
+
+function usePriceLabel() {
+  const { t } = useI18n();
+  return (l: Listing) => {
+    const p = l.soldPrice ?? l.price;
+    if (!p || p <= 0) return t("ld.priceOnRequest");
+    return formatPrice(p);
+  };
 }
 
 function SoldCard({ l }: { l: Listing }) {
-  const stats = statsText(l);
+  const { t } = useI18n();
+  const stats = useStatsText()(l);
+  const priceLabel = usePriceLabel();
   return (
     <Link
       to="/listings/$id"
@@ -33,7 +42,7 @@ function SoldCard({ l }: { l: Listing }) {
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
         <img
           src={l.image}
-          alt={`Sold — ${locationLine(l)}`}
+          alt={locationLine(l)}
           loading="lazy"
           onError={(e) => {
             (e.currentTarget as HTMLImageElement).src = l.fallbackImage;
@@ -41,7 +50,7 @@ function SoldCard({ l }: { l: Listing }) {
           className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-700"
         />
         <span className="absolute top-4 left-4 rounded-full bg-red-600 text-white px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em]">
-          Sold
+          {t("fl.badge.sold")}
         </span>
       </div>
       <div className="p-6">
@@ -57,7 +66,9 @@ function SoldCard({ l }: { l: Listing }) {
 }
 
 function SpotlightSoldCard({ l }: { l: Listing }) {
-  const stats = statsText(l);
+  const { t } = useI18n();
+  const stats = useStatsText()(l);
+  const priceLabel = usePriceLabel();
   return (
     <Link
       to="/listings/$id"
@@ -67,7 +78,7 @@ function SpotlightSoldCard({ l }: { l: Listing }) {
       <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[360px] overflow-hidden bg-muted">
         <img
           src={l.image}
-          alt={`Sold — ${locationLine(l)}`}
+          alt={locationLine(l)}
           loading="lazy"
           onError={(e) => {
             (e.currentTarget as HTMLImageElement).src = l.fallbackImage;
@@ -75,12 +86,12 @@ function SpotlightSoldCard({ l }: { l: Listing }) {
           className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-700"
         />
         <span className="absolute top-4 left-4 rounded-full bg-red-600 text-white px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em]">
-          Sold
+          {t("fl.badge.sold")}
         </span>
       </div>
       <div className="flex flex-col justify-center p-8 md:p-10">
         <span className="text-[11px] uppercase tracking-[0.22em] text-gold font-semibold">
-          Recent Result
+          {t("rs.recentResult")}
         </span>
         <p className="mt-3 font-display text-3xl text-foreground">{priceLabel(l)}</p>
         <p className="mt-2 inline-flex items-center gap-1.5 text-sm text-muted-foreground">
@@ -108,6 +119,7 @@ function SkeletonSoldCard() {
 
 export function RecentlySold() {
   const { loading, recentlySold } = useListings();
+  const { t } = useI18n();
 
   if (!loading && recentlySold.length === 0) return null;
 
@@ -121,21 +133,20 @@ export function RecentlySold() {
             <div className="flex items-center gap-3">
               <span className="h-px w-12 bg-gold" />
               <span className="text-[11px] uppercase tracking-[0.22em] text-gold font-semibold">
-                Track Record
+                {t("rs.eyebrow")}
               </span>
             </div>
             <h2 className="mt-5 font-display text-3xl md:text-4xl lg:text-[2.75rem] text-foreground text-balance leading-[1.1]">
-              Recently Sold Across Greater Vancouver
+              {t("rs.title")}
             </h2>
             <p className="mt-5 text-muted-foreground leading-relaxed">
-              Real homes, real outcomes. A look at Eric&apos;s recent residential
-              transactions — every client receives the same attentive process.
+              {t("rs.desc")}
             </p>
             <Link
               to="/contact"
               className="mt-7 inline-flex items-center gap-2 text-sm font-medium uppercase tracking-[0.18em] text-foreground hover:text-gold transition-colors"
             >
-              Request a Home Valuation <ArrowRight className="h-4 w-4" />
+              {t("rs.requestVal")} <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
 

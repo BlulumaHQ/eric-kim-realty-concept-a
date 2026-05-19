@@ -4,8 +4,18 @@ import initiaxLogo from "@/assets/initiax-logo.png";
 import mlsBadge from "@/assets/mls-reciprocity.gif";
 import erickimLogo from "@/assets/eric-kim-logo.png";
 import ericHeadshot from "@/assets/eric-kim-headshot.png";
+import { useI18n } from "@/lib/i18n";
 
 export function SiteFooter() {
+  const { t } = useI18n();
+  const navLinks = [
+    { to: "/" as const, label: t("nav.home") },
+    { to: "/about" as const, label: t("nav.about") },
+    { to: "/listings" as const, label: t("nav.listings") },
+    { to: "/services" as const, label: t("nav.services") },
+    { to: "/commercial" as const, label: t("nav.commercial") },
+    { to: "/contact" as const, label: t("nav.contact") },
+  ];
   return (
     <footer className="bg-[#2B2B2B] text-white/85">
       {/* Top gold accent line */}
