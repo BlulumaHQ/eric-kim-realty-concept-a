@@ -59,6 +59,8 @@ function locationLine(l: Listing) {
 }
 
 function ListingCard({ listing }: { listing: Listing }) {
+  const { t } = useI18n();
+  const priceLabel = usePriceLabel();
   const isSold = listing.status === "sold";
   return (
     <Link
@@ -77,7 +79,7 @@ function ListingCard({ listing }: { listing: Listing }) {
           className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-700"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-foreground/35 via-transparent to-transparent" />
-        <StatusBadge isSold={isSold} label={isSold ? "Sold" : "For Sale"} />
+        <StatusBadge isSold={isSold} label={isSold ? t("fl.badge.sold") : t("fl.badge.sale")} />
         {listing.mls && (
           <span className="absolute bottom-4 left-4 rounded-full bg-background/95 backdrop-blur px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.18em] text-foreground">
             MLS® {listing.mls}
@@ -104,7 +106,7 @@ function ListingCard({ listing }: { listing: Listing }) {
         <Stats l={listing} className="mt-5" />
 
         <span className="mt-6 inline-flex items-center justify-between text-sm font-medium uppercase tracking-[0.16em] text-foreground group-hover:text-gold transition-colors">
-          {isSold ? "View Sold Details" : "Request Showing"}
+          {isSold ? t("fl.viewSold") : t("fl.requestShowing")}
           <ArrowUpRight className="h-4 w-4" />
         </span>
       </div>
@@ -114,6 +116,8 @@ function ListingCard({ listing }: { listing: Listing }) {
 
 
 function SpotlightCard({ listing }: { listing: Listing }) {
+  const { t } = useI18n();
+  const priceLabel = usePriceLabel();
   const isSold = listing.status === "sold";
   return (
     <Link
@@ -132,7 +136,7 @@ function SpotlightCard({ listing }: { listing: Listing }) {
           className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-700"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-foreground/35 via-transparent to-transparent" />
-        <StatusBadge isSold={isSold} label={isSold ? "Sold" : "For Sale"} />
+        <StatusBadge isSold={isSold} label={isSold ? t("fl.badge.sold") : t("fl.badge.sale")} />
         {listing.mls && (
           <span className="absolute bottom-4 left-4 rounded-full bg-background/95 backdrop-blur px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.18em] text-foreground">
             MLS® {listing.mls}
@@ -141,7 +145,7 @@ function SpotlightCard({ listing }: { listing: Listing }) {
       </div>
       <div className="flex flex-col justify-center p-8 md:p-10">
         <span className="text-[11px] uppercase tracking-[0.22em] text-gold font-semibold">
-          Spotlight Listing
+          {t("fl.spotlight")}
         </span>
         <div className="mt-3 flex items-baseline justify-between gap-3">
           <span className="font-display text-3xl text-foreground">{priceLabel(listing)}</span>
@@ -153,7 +157,7 @@ function SpotlightCard({ listing }: { listing: Listing }) {
         </p>
         <Stats l={listing} className="mt-6" />
         <span className="mt-7 inline-flex items-center gap-2 self-start rounded-none bg-foreground px-6 py-3 text-[12px] font-medium uppercase tracking-[0.18em] text-background group-hover:bg-foreground/85 transition">
-          {isSold ? "View Sold Details" : "Request Private Showing"}
+          {isSold ? t("fl.viewSold") : t("fl.requestPrivate")}
           <ArrowUpRight className="h-4 w-4" />
         </span>
       </div>
@@ -163,23 +167,23 @@ function SpotlightCard({ listing }: { listing: Listing }) {
 
 
 function OffMarketCard() {
+  const { t } = useI18n();
   return (
     <Link
       to="/contact"
       className="group flex flex-col items-start justify-center rounded-2xl border-2 border-dashed border-border bg-transparent p-8 hover:border-gold hover:bg-cream/40 transition-colors min-h-[360px]"
     >
       <span className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] text-gold font-semibold">
-        <Sparkles className="h-4 w-4" /> Off-Market Access
+        <Sparkles className="h-4 w-4" /> {t("fl.offmarket.eyebrow")}
       </span>
       <h3 className="mt-4 font-display text-2xl text-foreground leading-snug">
-        Looking for something specific?
+        {t("fl.offmarket.title")}
       </h3>
       <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-        Eric regularly works with quiet listings and pre-market opportunities that never reach the
-        MLS. Share what you&apos;re searching for and get matched first.
+        {t("fl.offmarket.desc")}
       </p>
       <span className="mt-6 inline-flex items-center gap-2 text-sm font-medium uppercase tracking-[0.16em] text-foreground group-hover:text-gold transition-colors">
-        Start a Private Search <ArrowUpRight className="h-4 w-4" />
+        {t("fl.startPrivate")} <ArrowUpRight className="h-4 w-4" />
       </span>
     </Link>
   );
