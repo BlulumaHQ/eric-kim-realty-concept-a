@@ -23,6 +23,7 @@ function isLease(l: Listing) {
 function ListingDetailPage() {
   const { id } = Route.useParams();
   const { loading, data } = useListing(id);
+  const { t } = useI18n();
 
   if (loading) {
     return (
@@ -41,15 +42,15 @@ function ListingDetailPage() {
       <section className="bg-cream py-28 min-h-[60vh]">
         <div className="container-x text-center">
           <p className="text-xs uppercase tracking-[0.22em] text-gold font-semibold">404</p>
-          <h1 className="mt-4 font-display text-3xl md:text-4xl text-navy">Listing not found</h1>
+          <h1 className="mt-4 font-display text-3xl md:text-4xl text-navy">{t("ld.notFound.title")}</h1>
           <p className="mt-4 text-muted-foreground">
-            This listing may have been removed or the link is incorrect.
+            {t("ld.notFound.desc")}
           </p>
           <Link
             to="/listings"
             className="mt-8 inline-flex items-center gap-2 rounded-full bg-navy px-6 py-3 text-sm text-navy-foreground hover:bg-navy/90 transition"
           >
-            <ArrowLeft className="h-4 w-4" /> View All Listings
+            <ArrowLeft className="h-4 w-4" /> {t("ld.viewAll")}
           </Link>
         </div>
       </section>
@@ -67,7 +68,7 @@ function ListingDetailPage() {
           to="/listings"
           className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-muted-foreground hover:text-gold transition-colors"
         >
-          <ArrowLeft className="h-3.5 w-3.5" /> Back to Listings
+          <ArrowLeft className="h-3.5 w-3.5" /> {t("ld.back")}
         </Link>
       </div>
 
@@ -97,7 +98,7 @@ function ListingDetailPage() {
 
           {!isSold && listing.description && (
             <div className="mt-10">
-              <h2 className="font-display text-2xl text-navy">About This Property</h2>
+              <h2 className="font-display text-2xl text-navy">{t("ld.about")}</h2>
               <div className="mt-4 text-foreground/85 leading-relaxed whitespace-pre-line">
                 {listing.description}
               </div>
@@ -112,6 +113,7 @@ function ListingDetailPage() {
     </article>
   );
 }
+
 
 function fullAddress(l: Listing) {
   const parts = [l.address, l.city, l.province].filter(Boolean);
