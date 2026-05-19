@@ -277,6 +277,26 @@ export const translations: Dict = {
     en: "Verified Google Reviews from clients across Metro Vancouver.",
     ko: "Metro Vancouver 전역의 고객분들이 남겨주신 검증된 구글 리뷰입니다.",
   },
+  "cx.r1": {
+    en: "They are always kind and, above all, highly professional. From start to finish, Eric was patient, honest, and never pressured us.",
+    ko: "항상 친절하시고, 무엇보다 정말 프로페셔널하세요. 처음부터 끝까지 Eric은 차분하고 솔직하게, 한 번도 부담을 주지 않으면서 도와주셨어요.",
+  },
+  "cx.r2": {
+    en: "Eric sold our townhouse above market value and helped us secure our new home. His negotiation skills are exceptional.",
+    ko: "Eric 덕분에 저희 타운하우스를 시세보다 좋은 가격에 팔고, 새 집까지 잘 잡을 수 있었어요. 협상 능력이 정말 뛰어나세요.",
+  },
+  "cx.r3": {
+    en: "Eric has a strong understanding of the Vancouver market and provides thoughtful, client-first advice.",
+    ko: "Eric은 Vancouver 시장을 정말 잘 이해하고 계시고, 항상 고객 입장에서 세심하게 조언해 주세요.",
+  },
+  "cx.r4": {
+    en: "Working with Eric was a pleasure. He understands the Burnaby market deeply and is extremely responsive and detail-oriented.",
+    ko: "Eric과 함께한 시간이 정말 즐거웠어요. Burnaby 시장에 대해 깊이 알고 계시고, 연락도 빠르고 디테일까지 꼼꼼히 챙겨 주십니다.",
+  },
+  "cx.r5": {
+    en: "Eric is excellent at planning and provides insights that helped us make confident financial decisions.",
+    ko: "Eric은 계획을 정말 잘 세워 주시고, 덕분에 자신 있게 재정적인 결정을 내릴 수 있었습니다.",
+  },
 
   // Contact / form
   "ct.eyebrow": { en: "Contact", ko: "문의" },
