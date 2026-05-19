@@ -81,7 +81,7 @@ export function ClientExperiences() {
                   ))}
                 </div>
                 <blockquote className="mt-4 text-[15px] leading-relaxed text-foreground/85 text-pretty">
-                  &ldquo;{r.quote}&rdquo;
+                  &ldquo;{t(r.key)}&rdquo;
                 </blockquote>
                 <figcaption className="mt-5 flex items-center gap-3">
                   <span className="h-px w-6 bg-gold" />
