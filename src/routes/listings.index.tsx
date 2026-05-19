@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { FeaturedListings } from "@/components/sections/FeaturedListings";
 import { RecentlySold } from "@/components/sections/RecentlySold";
 import { CTABand } from "@/components/site/CTABand";
+import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/listings/")({
   head: () => ({
@@ -24,14 +25,16 @@ export const Route = createFileRoute("/listings/")({
 });
 
 function ListingsPage() {
+  const { t } = useI18n();
   return (
     <>
       <FeaturedListings />
       <RecentlySold />
       <CTABand
-        title="Don't See What You're Looking For?"
-        description="Tell Eric what kind of home you have in mind and he'll share matching active and off-market opportunities."
+        title={t("li.cta.title")}
+        description={t("li.cta.desc")}
       />
     </>
   );
 }
+
