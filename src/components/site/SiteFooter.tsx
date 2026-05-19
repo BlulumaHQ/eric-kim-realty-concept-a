@@ -41,18 +41,16 @@ export function SiteFooter() {
           {/* Name + tagline + dual logos */}
           <div className="lg:col-span-5 text-center lg:text-left">
             <p className="text-[11px] uppercase tracking-[0.28em] text-gold">
-              Your Trusted Realtor
+              {t("ft.your")}
             </p>
             <h3 className="mt-3 font-display text-3xl md:text-4xl text-white leading-tight">
               Eric Kim
               <span className="block text-sm md:text-base font-sans font-normal tracking-[0.2em] uppercase text-white/60 mt-2">
-                REALTOR® · Metro Vancouver
+                {t("ft.subtitle")}
               </span>
             </h3>
             <p className="mt-5 text-sm leading-relaxed text-white/70 max-w-md mx-auto lg:mx-0">
-              Residential, commercial, and presale real estate guidance —
-              delivered with discretion, market intelligence, and a commitment
-              to long-term client relationships.
+              {t("ft.bio")}
             </p>
 
             {/* Dual logos lock-up */}
@@ -74,7 +72,7 @@ export function SiteFooter() {
           {/* Contact card */}
           <div className="lg:col-span-4">
             <div className="rounded-lg border border-white/10 bg-white/[0.03] p-7">
-              <h4 className="font-display text-lg text-white">Get in Touch</h4>
+              <h4 className="font-display text-lg text-white">{t("ft.getInTouch")}</h4>
               <span className="mt-3 inline-block h-px w-10 bg-gold" />
               <ul className="mt-5 space-y-4 text-sm">
                 <li>
@@ -106,7 +104,7 @@ export function SiteFooter() {
                 </li>
                 <li className="inline-flex items-start gap-3 text-white/70">
                   <MapPin className="h-4 w-4 text-gold mt-0.5 shrink-0" />
-                  <span>Metro Vancouver, British Columbia</span>
+                  <span>{t("ft.location")}</span>
                 </li>
               </ul>
             </div>
@@ -116,14 +114,7 @@ export function SiteFooter() {
         {/* Navigation strip */}
         <nav className="mt-16 border-t border-white/10 pt-8">
           <ul className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[13px] uppercase tracking-[0.18em]">
-            {[
-              { to: "/", label: "Home" },
-              { to: "/about", label: "About" },
-              { to: "/listings", label: "Listings" },
-              { to: "/services", label: "Services" },
-              { to: "/commercial", label: "Commercial" },
-              { to: "/contact", label: "Contact" },
-            ].map((i) => (
+            {navLinks.map((i) => (
               <li key={i.to}>
                 <Link
                   to={i.to}
@@ -145,14 +136,14 @@ export function SiteFooter() {
               <img src={mlsBadge} alt="MLS® Reciprocity" className="h-7 w-auto" />
             </div>
             <span className="text-[11px] uppercase tracking-[0.22em] text-white/55">
-              MLS® Member
+              {t("ft.mlsMember")}
             </span>
           </div>
           <p className="text-xs text-white/55 text-center">
-            © 2026 Eric Kim, REALTOR®. All rights reserved.
+            {t("ft.rights")}
           </p>
           <p className="text-xs text-white/55">
-            Web Design by{" "}
+            {t("ft.webDesign")}{" "}
             <a
               href="https://bluluma.com/realtor"
               target="_blank"

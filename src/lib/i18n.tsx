@@ -265,6 +265,10 @@ export const translations: Dict = {
     en: "See current real estate updates, property opportunities, market content, and featured posts on Instagram.",
     ko: "최신 부동산 소식, 매물 정보, 시장 동향, 추천 포스트를 인스타그램에서 확인하실 수 있습니다.",
   },
+  "ig.label.commercial": { en: "Commercial Spotlight", ko: "상업용 매물 스포트라이트" },
+  "ig.label.presale": { en: "Presale Update", ko: "분양 소식" },
+  "ig.label.market": { en: "Market Note", ko: "시장 동향" },
+  "ig.label.featured": { en: "Featured Listing", ko: "추천 매물" },
 
   // Reviews
   "cx.eyebrow": { en: "Client Experiences", ko: "고객 후기" },

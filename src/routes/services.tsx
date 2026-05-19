@@ -3,6 +3,7 @@ import { Services } from "@/components/sections/Services";
 import { Process } from "@/components/sections/WhyAndProcess";
 import { CTABand } from "@/components/site/CTABand";
 import { SectionHeading } from "@/components/site/SectionHeading";
+import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
@@ -25,14 +26,15 @@ export const Route = createFileRoute("/services")({
 });
 
 function ServicesPage() {
+  const { t } = useI18n();
   return (
     <>
       <section className="bg-cream pt-16 pb-8 md:pt-24">
         <div className="container-x">
           <SectionHeading
-            eyebrow="Services"
-            title="Real Estate Services for Every Stage"
-            description="Eric helps clients move forward across residential, commercial, and presale real estate in Metro Vancouver."
+            eyebrow={t("sv.eyebrow")}
+            title={t("spg.title")}
+            description={t("spg.desc")}
           />
         </div>
       </section>
@@ -42,3 +44,4 @@ function ServicesPage() {
     </>
   );
 }
+

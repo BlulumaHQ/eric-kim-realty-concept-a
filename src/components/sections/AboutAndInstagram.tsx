@@ -61,11 +61,11 @@ export function AboutSection() {
   );
 }
 
-const igPosts = [
-  { img: commercialImg, label: "Commercial Spotlight" },
-  { img: presaleImg, label: "Presale Update" },
-  { img: residentialImg, label: "Market Note" },
-  { img: commercialImg, label: "Featured Listing" },
+const igPostKeys = [
+  { img: commercialImg, key: "ig.label.commercial" },
+  { img: presaleImg, key: "ig.label.presale" },
+  { img: residentialImg, key: "ig.label.market" },
+  { img: commercialImg, key: "ig.label.featured" },
 ];
 
 export function InstagramSection() {
@@ -92,23 +92,26 @@ export function InstagramSection() {
           </a>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          {igPosts.map((p, i) => (
-            <a
-              key={i}
-              href="https://www.instagram.com/erickim.realtor"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative aspect-square overflow-hidden rounded-2xl"
-            >
-              <img src={p.img} alt={p.label} width={512} height={512} loading="lazy" className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" />
-              <div className="absolute inset-0 bg-navy/0 group-hover:bg-navy/60 transition-colors flex items-end p-3">
-                <span className="text-xs font-medium text-navy-foreground opacity-0 group-hover:opacity-100 transition-opacity">
-                  {p.label}
-                </span>
-              </div>
-              <Instagram className="absolute top-3 right-3 h-4 w-4 text-navy-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
-            </a>
-          ))}
+          {igPostKeys.map((p, i) => {
+            const label = t(p.key);
+            return (
+              <a
+                key={i}
+                href="https://www.instagram.com/erickim.realtor"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative aspect-square overflow-hidden rounded-2xl"
+              >
+                <img src={p.img} alt={label} width={512} height={512} loading="lazy" className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                <div className="absolute inset-0 bg-navy/0 group-hover:bg-navy/60 transition-colors flex items-end p-3">
+                  <span className="text-xs font-medium text-navy-foreground opacity-0 group-hover:opacity-100 transition-opacity">
+                    {label}
+                  </span>
+                </div>
+                <Instagram className="absolute top-3 right-3 h-4 w-4 text-navy-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+              </a>
+            );
+          })}
         </div>
       </div>
     </section>
