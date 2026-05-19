@@ -2,10 +2,25 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight, MapPin, Maximize2 } from "lucide-react";
 import { useListings, formatPrice, type Listing } from "@/lib/listings";
 
+function isLease(l: Listing) {
+  return /lease/i.test(l.transactionType || "");
+}
+
 function priceLabel(l: Listing) {
-  const p = l.status === "sold" && l.soldPrice ? l.soldPrice : l.price;
-  if (!p || p <= 0) return "Price upon request";
-  return formatPrice(p);
+  if (l.status === "sold") {
+    const p = l.soldPrice ?? l.price;
+    return !p || p <= 0 ? "Price upon request" : formatPrice(p);
+  }
+  if (isLease(l)) {
+    return l.leaseRate ? l.leaseRate : "Contact for lease rate";
+  }
+  if (!l.price || l.price <= 0) return "Price upon request";
+  return formatPrice(l.price);
+}
+
+function badgeLabel(l: Listing) {
+  if (l.status === "sold") return "Sold";
+  return isLease(l) ? "For Lease" : "For Sale";
 }
 
 function locationLine(l: Listing) {
