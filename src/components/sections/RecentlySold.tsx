@@ -59,7 +59,11 @@ function SoldCard({ l }: { l: Listing }) {
 function SpotlightSoldCard({ l }: { l: Listing }) {
   const stats = statsText(l);
   return (
-    <article className="group grid md:grid-cols-2 overflow-hidden rounded-2xl bg-background border border-border hover:shadow-elegant transition-all duration-300">
+    <Link
+      to="/listings/$slug"
+      params={{ slug: l.slug }}
+      className="group grid md:grid-cols-2 overflow-hidden rounded-2xl bg-background border border-border hover:shadow-elegant transition-all duration-300"
+    >
       <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[360px] overflow-hidden bg-muted">
         <img
           src={l.image}
@@ -85,7 +89,7 @@ function SpotlightSoldCard({ l }: { l: Listing }) {
         </p>
         {stats && <p className="mt-4 text-sm text-muted-foreground">{stats}</p>}
       </div>
-    </article>
+    </Link>
   );
 }
 
