@@ -166,12 +166,6 @@ export function SiteHeader() {
               >
                 {t("nav.contactEric")}
               </Link>
-              <div className="flex items-center justify-between px-2 pt-2">
-                <span className="text-xs uppercase tracking-wider text-muted-foreground">
-                  {t("top.language")}
-                </span>
-                <LanguageSwitcher compact />
-              </div>
             </div>
           </div>
         </div>
