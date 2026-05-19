@@ -43,7 +43,7 @@ function CommercialPage() {
           />
         </div>
       </section>
-      <CommercialFeature />
+      <CommercialFeature split />
       <section className="container-x py-20 md:py-28">
         <SectionHeading title="Areas of Commercial Focus" />
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
