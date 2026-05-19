@@ -61,11 +61,11 @@ export function AboutSection() {
   );
 }
 
-const igPosts = [
-  { img: commercialImg, label: "Commercial Spotlight" },
-  { img: presaleImg, label: "Presale Update" },
-  { img: residentialImg, label: "Market Note" },
-  { img: commercialImg, label: "Featured Listing" },
+const igPostKeys = [
+  { img: commercialImg, key: "ig.label.commercial" },
+  { img: presaleImg, key: "ig.label.presale" },
+  { img: residentialImg, key: "ig.label.market" },
+  { img: commercialImg, key: "ig.label.featured" },
 ];
 
 export function InstagramSection() {
