@@ -1,10 +1,74 @@
+import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Star } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Star } from "lucide-react";
 import heroImg from "@/assets/hero-vancouver.jpg";
+import { formatPrice, useListings, type Listing } from "@/lib/listings";
 
 export function Hero() {
+  const { featuredResidential } = useListings();
+  const featured = featuredResidential[0];
+  const slideCount = featured ? 2 : 1;
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (slideCount < 2) return;
+    const t = setInterval(() => setIndex((i) => (i + 1) % slideCount), 7000);
+    return () => clearInterval(t);
+  }, [slideCount]);
+
+  useEffect(() => {
+    if (index >= slideCount) setIndex(0);
+  }, [index, slideCount]);
+
+  const go = (delta: number) =>
+    setIndex((i) => ((i + delta) % slideCount + slideCount) % slideCount);
+
   return (
     <section className="relative isolate overflow-hidden">
+      <div key={index} className="animate-in fade-in duration-700">
+        {index === 0 || !featured ? <GenericSlide /> : <ListingSlide listing={featured} />}
+      </div>
+
+      {slideCount > 1 && (
+        <>
+          <button
+            type="button"
+            aria-label="Previous slide"
+            onClick={() => go(-1)}
+            className="absolute left-4 top-1/2 z-20 -translate-y-1/2 hidden md:inline-flex h-11 w-11 items-center justify-center rounded-full bg-black/35 text-white backdrop-blur-sm hover:bg-black/55 transition"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          <button
+            type="button"
+            aria-label="Next slide"
+            onClick={() => go(1)}
+            className="absolute right-4 top-1/2 z-20 -translate-y-1/2 hidden md:inline-flex h-11 w-11 items-center justify-center rounded-full bg-black/35 text-white backdrop-blur-sm hover:bg-black/55 transition"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
+          <div className="absolute bottom-6 left-1/2 z-20 -translate-x-1/2 flex items-center gap-2">
+            {Array.from({ length: slideCount }).map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                aria-label={`Go to slide ${i + 1}`}
+                onClick={() => setIndex(i)}
+                className={`h-1.5 rounded-full transition-all ${
+                  i === index ? "w-8 bg-gold" : "w-4 bg-white/50 hover:bg-white/80"
+                }`}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </section>
+  );
+}
+
+function GenericSlide() {
+  return (
+    <>
       <div className="absolute inset-0 -z-10">
         <img
           src={heroImg}
@@ -98,6 +162,64 @@ export function Hero() {
           </div>
         </div>
       </div>
-    </section>
+    </>
+  );
+}
+
+function ListingSlide({ listing }: { listing: Listing }) {
+  const location = [listing.neighborhood, listing.city].filter(Boolean).join(", ") || listing.city;
+  return (
+    <>
+      <div className="absolute inset-0 -z-10">
+        <img
+          src={listing.image}
+          alt={listing.title}
+          onError={(e) => {
+            (e.currentTarget as HTMLImageElement).src = listing.fallbackImage;
+          }}
+          className="h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/35 to-black/15" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
+      </div>
+
+      <div className="container-x grid min-h-[80vh] md:min-h-[88vh] items-center gap-12 py-24 md:py-32 lg:grid-cols-12">
+        <div className="lg:col-span-8 text-white">
+          <div className="inline-flex items-center gap-3">
+            <span className="h-px w-10 bg-gold" />
+            <span className="text-[11px] uppercase tracking-[0.28em] font-medium text-gold">
+              Featured Listing
+            </span>
+          </div>
+
+          <h1 className="mt-7 font-display text-4xl sm:text-5xl lg:text-[4rem] xl:text-[4.5rem] leading-[1.04] font-medium text-balance">
+            {listing.title}
+          </h1>
+
+          <p className="mt-6 text-lg text-white/85">{location}</p>
+
+          <p className="mt-5 font-display text-3xl sm:text-4xl text-gold">
+            {listing.price > 0 ? formatPrice(listing.price) : "Price upon request"}
+          </p>
+
+          <div className="mt-10 flex flex-col sm:flex-row gap-3">
+            <Link
+              to="/listings/$id"
+              params={{ id: listing.id }}
+              className="group inline-flex items-center justify-center gap-2 rounded-none bg-gold px-8 py-4 text-[13px] font-medium uppercase tracking-[0.18em] text-gold-foreground hover:bg-gold/90 transition"
+            >
+              View Listing
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </Link>
+            <Link
+              to="/contact"
+              className="inline-flex items-center justify-center gap-2 rounded-none border border-white/40 px-8 py-4 text-[13px] font-medium uppercase tracking-[0.18em] text-white hover:bg-white hover:text-foreground transition"
+            >
+              Book a Viewing
+            </Link>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
