@@ -82,7 +82,7 @@ export function SiteHeader() {
               to="/contact"
               className="inline-flex items-center justify-center rounded-none bg-foreground px-3.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-background hover:bg-foreground/85 transition-colors"
             >
-              {t("cta.bookShort")}
+              {t("top.bookShort")}
             </Link>
             <LanguageSwitcher />
           </div>
@@ -120,7 +120,7 @@ export function SiteHeader() {
             to="/contact"
             className="ml-2 inline-flex items-center justify-center rounded-none border border-foreground bg-foreground px-5 py-2.5 text-[11px] font-medium uppercase tracking-[0.18em] text-background hover:bg-transparent hover:text-foreground transition-colors"
           >
-            Contact Eric
+            {t("nav.contactEric")}
           </Link>
         </nav>
 
@@ -161,7 +161,7 @@ export function SiteHeader() {
                 onClick={() => setOpen(false)}
                 className="inline-flex items-center justify-center rounded-none bg-foreground px-5 py-3 text-[12px] font-medium uppercase tracking-[0.18em] text-background"
               >
-                Contact Eric
+                {t("nav.contactEric")}
               </Link>
               <div className="flex items-center justify-between px-2 pt-2">
                 <span className="text-xs uppercase tracking-wider text-muted-foreground">

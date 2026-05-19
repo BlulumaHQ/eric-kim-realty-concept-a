@@ -1,4 +1,5 @@
 import { Star, Quote } from "lucide-react";
+import { useI18n } from "@/lib/i18n";
 
 const reviews = [
   {
@@ -29,6 +30,7 @@ const reviews = [
 ];
 
 export function ClientExperiences() {
+  const { t } = useI18n();
   return (
     <section className="bg-secondary py-20 md:py-28">
       <div className="container-x">
@@ -38,11 +40,11 @@ export function ClientExperiences() {
             <div className="flex items-center gap-3">
               <span className="gold-divider" />
               <span className="text-xs uppercase tracking-[0.2em] text-gold font-medium">
-                Client Experiences
+                {t("cx.eyebrow")}
               </span>
             </div>
             <h2 className="mt-4 font-display text-3xl md:text-4xl lg:text-5xl text-foreground text-balance leading-[1.1]">
-              Trusted by Vancouver Buyers &amp; Sellers
+              {t("cx.title")}
             </h2>
 
             <div className="mt-8 rounded-2xl bg-white p-7 shadow-elegant ring-1 ring-black/5">
@@ -65,7 +67,7 @@ export function ClientExperiences() {
                 </div>
               </div>
               <p className="mt-4 text-sm text-muted-foreground">
-                Verified Google Reviews from clients across Metro Vancouver.
+                {t("cx.note")}
               </p>
             </div>
           </div>

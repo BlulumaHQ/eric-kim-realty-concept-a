@@ -1,26 +1,31 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight, MapPin, Maximize2 } from "lucide-react";
 import { useListings, formatPrice, type Listing } from "@/lib/listings";
+import { useI18n } from "@/lib/i18n";
 
 function isLease(l: Listing) {
   return /lease/i.test(l.transactionType || "");
 }
 
-function priceLabel(l: Listing) {
-  if (l.status === "sold") {
-    const p = l.soldPrice ?? l.price;
-    return !p || p <= 0 ? "Price upon request" : formatPrice(p);
-  }
-  if (isLease(l)) {
-    return l.leaseRate ? l.leaseRate : "Contact for lease rate";
-  }
-  if (!l.price || l.price <= 0) return "Price upon request";
-  return formatPrice(l.price);
+function usePriceLabel() {
+  const { t } = useI18n();
+  return (l: Listing) => {
+    if (l.status === "sold") {
+      const p = l.soldPrice ?? l.price;
+      return !p || p <= 0 ? t("ld.priceOnRequest") : formatPrice(p);
+    }
+    if (isLease(l)) return l.leaseRate ? l.leaseRate : t("ld.contactLease");
+    if (!l.price || l.price <= 0) return t("ld.priceOnRequest");
+    return formatPrice(l.price);
+  };
 }
 
-function badgeLabel(l: Listing) {
-  if (l.status === "sold") return "Sold";
-  return isLease(l) ? "For Lease" : "For Sale";
+function useBadgeLabel() {
+  const { t } = useI18n();
+  return (l: Listing) => {
+    if (l.status === "sold") return t("fl.badge.sold");
+    return isLease(l) ? t("fl.badge.lease") : t("fl.badge.sale");
+  };
 }
 
 function locationLine(l: Listing) {
@@ -62,6 +67,9 @@ function StatsRow({ l, className = "" }: { l: Listing; className?: string }) {
 }
 
 function CommercialCard({ l }: { l: Listing }) {
+  const { t } = useI18n();
+  const priceLabel = usePriceLabel();
+  const badgeLabel = useBadgeLabel();
   const isSold = l.status === "sold";
   return (
     <Link
@@ -95,15 +103,17 @@ function CommercialCard({ l }: { l: Listing }) {
         </p>
         <StatsRow l={l} className="mt-5" />
         <span className="mt-6 inline-flex items-center justify-between text-sm font-medium uppercase tracking-[0.16em] text-foreground group-hover:text-gold transition-colors">
-          Inquire <ArrowUpRight className="h-4 w-4" />
+          {t("fl.inquire")} <ArrowUpRight className="h-4 w-4" />
         </span>
       </div>
     </Link>
   );
 }
 
-
 function SpotlightCommercialCard({ l }: { l: Listing }) {
+  const { t } = useI18n();
+  const priceLabel = usePriceLabel();
+  const badgeLabel = useBadgeLabel();
   const isSold = l.status === "sold";
   return (
     <Link
@@ -130,7 +140,7 @@ function SpotlightCommercialCard({ l }: { l: Listing }) {
       </div>
       <div className="flex flex-col justify-center p-8 md:p-10">
         <span className="text-[11px] uppercase tracking-[0.22em] text-gold font-semibold">
-          Featured Opportunity
+          {t("cf.featuredOpp")}
         </span>
         <span className="mt-3 font-display text-3xl text-foreground">{priceLabel(l)}</span>
         <h3 className="mt-2 font-display text-2xl text-foreground leading-snug">{l.title}</h3>
@@ -140,13 +150,12 @@ function SpotlightCommercialCard({ l }: { l: Listing }) {
         </p>
         <StatsRow l={l} className="mt-6" />
         <span className="mt-7 inline-flex items-center gap-2 self-start rounded-none bg-foreground px-6 py-3 text-[12px] font-medium uppercase tracking-[0.18em] text-background group-hover:bg-foreground/85 transition">
-          Inquire About This Property <ArrowUpRight className="h-4 w-4" />
+          {t("cf.inquireAbout")} <ArrowUpRight className="h-4 w-4" />
         </span>
       </div>
     </Link>
   );
 }
-
 
 function SkeletonCard() {
   return (
@@ -206,6 +215,7 @@ function SubHeading({ eyebrow, title }: { eyebrow: string; title: string }) {
 
 export function CommercialFeature({ split = false }: { split?: boolean } = {}) {
   const { loading, commercial } = useListings();
+  const { t } = useI18n();
 
   if (!loading && commercial.length === 0) return null;
 
@@ -220,14 +230,14 @@ export function CommercialFeature({ split = false }: { split?: boolean } = {}) {
             <div className="flex items-center gap-3">
               <span className="h-px w-12 bg-gold" />
               <span className="text-[11px] uppercase tracking-[0.22em] text-gold font-semibold">
-                Commercial
+                {t("cf.eyebrow")}
               </span>
             </div>
             <h2 className="mt-5 font-display text-3xl md:text-4xl lg:text-[2.85rem] text-foreground text-balance leading-[1.1]">
-              Commercial Real Estate Opportunities
+              {t("cf.title")}
             </h2>
             <p className="mt-6 text-muted-foreground text-pretty leading-relaxed text-lg">
-              Business locations, investment properties, retail and office spaces — represented with the same attentive process Eric brings to every transaction.
+              {t("cf.desc")}
             </p>
           </div>
         )}
@@ -242,13 +252,13 @@ export function CommercialFeature({ split = false }: { split?: boolean } = {}) {
           <div className="space-y-20">
             {leaseItems.length > 0 && (
               <div>
-                <SubHeading eyebrow="Available" title="For Lease" />
+                <SubHeading eyebrow={t("cf.available")} title={t("cf.forLease")} />
                 <ListingsGrid items={leaseItems} />
               </div>
             )}
             {saleItems.length > 0 && (
               <div>
-                <SubHeading eyebrow="Available" title="For Sale" />
+                <SubHeading eyebrow={t("cf.available")} title={t("cf.forSale")} />
                 <ListingsGrid items={saleItems} />
               </div>
             )}
@@ -264,7 +274,7 @@ export function CommercialFeature({ split = false }: { split?: boolean } = {}) {
             to="/contact"
             className="inline-flex items-center gap-2 rounded-none bg-foreground px-7 py-3.5 text-[12px] font-medium uppercase tracking-[0.18em] text-background hover:bg-foreground/85 transition"
           >
-            Discuss a Commercial Opportunity <ArrowRight className="h-4 w-4" />
+            {t("cf.discussCta")} <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </div>
