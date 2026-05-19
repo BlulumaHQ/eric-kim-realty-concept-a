@@ -56,7 +56,11 @@ function locationLine(l: Listing) {
 function ListingCard({ listing }: { listing: Listing }) {
   const isSold = listing.status === "sold";
   return (
-    <article className="group flex flex-col overflow-hidden rounded-2xl bg-card border border-border hover:shadow-elegant hover:-translate-y-1 transition-all duration-300">
+    <Link
+      to="/listings/$id"
+      params={{ id: listing.id }}
+      className="group flex flex-col overflow-hidden rounded-2xl bg-card border border-border hover:shadow-elegant hover:-translate-y-1 transition-all duration-300"
+    >
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
         <img
           src={listing.image}
@@ -94,23 +98,24 @@ function ListingCard({ listing }: { listing: Listing }) {
 
         <Stats l={listing} className="mt-5" />
 
-        <Link
-          to="/listings/$id"
-          params={{ id: listing.id }}
-          className="mt-6 inline-flex items-center justify-between text-sm font-medium uppercase tracking-[0.16em] text-foreground hover:text-gold transition-colors"
-        >
+        <span className="mt-6 inline-flex items-center justify-between text-sm font-medium uppercase tracking-[0.16em] text-foreground group-hover:text-gold transition-colors">
           {isSold ? "View Sold Details" : "Request Showing"}
           <ArrowUpRight className="h-4 w-4" />
-        </Link>
+        </span>
       </div>
-    </article>
+    </Link>
   );
 }
+
 
 function SpotlightCard({ listing }: { listing: Listing }) {
   const isSold = listing.status === "sold";
   return (
-    <article className="group grid md:grid-cols-2 overflow-hidden rounded-2xl bg-card border border-border hover:shadow-elegant transition-all duration-300">
+    <Link
+      to="/listings/$id"
+      params={{ id: listing.id }}
+      className="group grid md:grid-cols-2 overflow-hidden rounded-2xl bg-card border border-border hover:shadow-elegant transition-all duration-300"
+    >
       <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[420px] overflow-hidden bg-muted">
         <img
           src={listing.image}
@@ -142,18 +147,15 @@ function SpotlightCard({ listing }: { listing: Listing }) {
           {locationLine(listing)}
         </p>
         <Stats l={listing} className="mt-6" />
-        <Link
-          to="/listings/$id"
-          params={{ id: listing.id }}
-          className="mt-7 inline-flex items-center gap-2 self-start rounded-none bg-foreground px-6 py-3 text-[12px] font-medium uppercase tracking-[0.18em] text-background hover:bg-foreground/85 transition"
-        >
+        <span className="mt-7 inline-flex items-center gap-2 self-start rounded-none bg-foreground px-6 py-3 text-[12px] font-medium uppercase tracking-[0.18em] text-background group-hover:bg-foreground/85 transition">
           {isSold ? "View Sold Details" : "Request Private Showing"}
           <ArrowUpRight className="h-4 w-4" />
-        </Link>
+        </span>
       </div>
-    </article>
+    </Link>
   );
 }
+
 
 function OffMarketCard() {
   return (
