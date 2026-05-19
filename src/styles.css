@@ -60,6 +60,8 @@
   --background: oklch(1 0 0);            /* #FFFFFF */
   --foreground: oklch(0.255 0 0);        /* #2B2B2B */
   --cream: oklch(0.965 0 0);             /* #F5F5F5 soft grey block */
+  --stone: oklch(0.915 0 0);             /* ~#E5E5E5 distinct light grey */
+
 
   /* "navy" token kept for backward compatibility, now = deep grey #2B2B2B */
   --navy: oklch(0.255 0 0);
