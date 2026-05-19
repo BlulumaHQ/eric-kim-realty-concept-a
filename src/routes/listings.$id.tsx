@@ -255,8 +255,7 @@ function Gallery({ listing, photos }: { listing: Listing; photos: ListingPhoto[]
               type="button"
               aria-label="Previous photo"
               onClick={() => go(-1)}
-              disabled={active === 0}
-              className="absolute left-3 top-1/2 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-full bg-background/90 backdrop-blur shadow-soft hover:bg-background transition disabled:opacity-40 disabled:cursor-not-allowed"
+              className="absolute left-3 top-1/2 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-full bg-background/90 backdrop-blur shadow-soft hover:bg-background transition"
             >
               <ChevronLeft className="h-5 w-5 text-foreground" />
             </button>
@@ -264,8 +263,7 @@ function Gallery({ listing, photos }: { listing: Listing; photos: ListingPhoto[]
               type="button"
               aria-label="Next photo"
               onClick={() => go(1)}
-              disabled={active === gallery.length - 1}
-              className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-full bg-background/90 backdrop-blur shadow-soft hover:bg-background transition disabled:opacity-40 disabled:cursor-not-allowed"
+              className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-full bg-background/90 backdrop-blur shadow-soft hover:bg-background transition"
             >
               <ChevronRight className="h-5 w-5 text-foreground" />
             </button>
