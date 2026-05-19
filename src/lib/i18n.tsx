@@ -19,19 +19,19 @@ export const translations: Dict = {
   // Top bar
   "top.tagline": {
     en: "Metro Vancouver · Residential · Commercial · Presale",
-    ko: "메트로 밴쿠버 · 주거용 · 상업용 · 분양",
+    ko: "Metro Vancouver · 주거용 · 상업용 · 분양",
   },
   "top.language": { en: "Language", ko: "언어" },
   "top.bookShort": { en: "Book Consultation", ko: "상담 예약" },
 
   // Hero (generic slide)
-  "hero.eyebrow": { en: "Eric Kim · Vancouver REALTOR®", ko: "Eric Kim · 밴쿠버 REALTOR®" },
-  "hero.title.a": { en: "Helping Families Find", ko: "밴쿠버에서 우리 가족의" },
+  "hero.eyebrow": { en: "Eric Kim · Vancouver REALTOR®", ko: "Eric Kim · Vancouver REALTOR®" },
+  "hero.title.a": { en: "Helping Families Find", ko: "Vancouver에서 우리 가족의" },
   "hero.title.home": { en: "Home", ko: "보금자리" },
   "hero.title.b": { en: "in Greater Vancouver", ko: "를 찾아드립니다" },
   "hero.subtitle": {
     en: "A trusted residential realtor guiding buyers, sellers, and first-time homeowners across Vancouver, Burnaby, Coquitlam, Richmond, and Surrey — with patience, clarity, and care from first conversation to keys in hand.",
-    ko: "밴쿠버, 버나비, 코퀴틀람, 리치몬드, 써리 전역에서 매매와 첫 내 집 마련을 도와드리는 신뢰받는 한인 REALTOR®입니다. 첫 상담부터 클로징까지, 차분하고 꼼꼼하게 함께합니다.",
+    ko: "Vancouver, Burnaby, Coquitlam, Richmond, Surrey 전역에서 매매와 첫 내 집 마련을 도와드리는 신뢰받는 한인 REALTOR®입니다. 첫 상담부터 클로징까지, 차분하고 꼼꼼하게 함께합니다.",
   },
   "hero.cta.book": { en: "Book a Consultation", ko: "상담 예약하기" },
   "hero.cta.view": { en: "View Listings", ko: "매물 보기" },
@@ -39,7 +39,7 @@ export const translations: Dict = {
   "hero.verified": { en: "Verified", ko: "검증된" },
   "hero.reviewsNote": {
     en: "Trusted by Vancouver homebuyers and sellers — from first-time buyers in Burnaby to families upsizing across Metro Vancouver.",
-    ko: "버나비의 첫 내 집 마련 고객부터 메트로 밴쿠버 전역의 이사 가족까지, 많은 분들이 믿고 찾아주십니다.",
+    ko: "Burnaby의 첫 내 집 마련 고객부터 Metro Vancouver 전역의 이사 가족까지, 많은 분들이 믿고 찾아주십니다.",
   },
   "hero.ratedAria": { en: "Rated 5 out of 5", ko: "5점 만점에 5점" },
 
@@ -53,7 +53,7 @@ export const translations: Dict = {
   "cb.buy.title": { en: "Buying a Home", ko: "주택 구매" },
   "cb.buy.desc": {
     en: "Find the right home for your family across Greater Vancouver.",
-    ko: "광역 밴쿠버에서 우리 가족에게 꼭 맞는 집을 찾아드립니다.",
+    ko: "Greater Vancouver에서 우리 가족에게 꼭 맞는 집을 찾아드립니다.",
   },
   "cb.sell.title": { en: "Selling a Home", ko: "주택 판매" },
   "cb.sell.desc": {
@@ -77,7 +77,7 @@ export const translations: Dict = {
   "fl.title": { en: "Current Residential Listings", ko: "현재 진행 중인 주거용 매물" },
   "fl.desc": {
     en: "A live look at homes Eric is currently representing across Greater Vancouver. Contact Eric for full details, private showings, and the latest off-market opportunities.",
-    ko: "Eric이 현재 광역 밴쿠버에서 진행 중인 매물을 실시간으로 확인하실 수 있습니다. 상세 정보, 단독 투어, 비공개 매물 안내는 직접 문의 주세요.",
+    ko: "Eric이 현재 Greater Vancouver에서 진행 중인 매물을 실시간으로 확인하실 수 있습니다. 상세 정보, 단독 투어, 비공개 매물 안내는 직접 문의 주세요.",
   },
   "fl.badge.sale": { en: "For Sale", ko: "매매" },
   "fl.badge.sold": { en: "Sold", ko: "판매 완료" },
@@ -113,7 +113,7 @@ export const translations: Dict = {
 
   // Recently Sold
   "rs.eyebrow": { en: "Track Record", ko: "거래 실적" },
-  "rs.title": { en: "Recently Sold Across Greater Vancouver", ko: "광역 밴쿠버 최근 거래 완료 매물" },
+  "rs.title": { en: "Recently Sold Across Greater Vancouver", ko: "Greater Vancouver 최근 거래 완료 매물" },
   "rs.desc": {
     en: "Real homes, real outcomes. A look at Eric's recent residential transactions — every client receives the same attentive process.",
     ko: "실제 주택, 실제 결과. Eric의 최근 주거용 거래 사례입니다 — 모든 고객분께 동일하게 정성스러운 프로세스를 제공합니다.",
@@ -126,28 +126,28 @@ export const translations: Dict = {
   "ae.title": { en: "Neighbourhoods Eric Knows Inside Out", ko: "Eric이 가장 잘 아는 지역들" },
   "ae.desc": {
     en: "Greater Vancouver is a collection of distinct communities. Eric helps clients understand the lifestyle, value, and long-term potential of each area.",
-    ko: "광역 밴쿠버는 각기 다른 매력을 지닌 동네들이 모인 곳입니다. Eric은 각 지역의 라이프스타일, 가치, 장기적인 잠재력을 함께 살펴봐 드립니다.",
+    ko: "Greater Vancouver는 각기 다른 매력을 지닌 동네들이 모인 곳입니다. Eric은 각 지역의 라이프스타일, 가치, 장기적인 잠재력을 함께 살펴봐 드립니다.",
   },
-  "ae.greater": { en: "Greater Vancouver", ko: "광역 밴쿠버" },
+  "ae.greater": { en: "Greater Vancouver", ko: "Greater Vancouver" },
   "ae.vancouver.desc": {
     en: "West Side, East Van, and Downtown — character homes, condos, and family neighbourhoods.",
-    ko: "웨스트사이드, 이스트밴, 다운타운 — 캐릭터 홈, 콘도, 가족 친화적인 동네까지.",
+    ko: "West Side, East Van, Downtown — 캐릭터 홈, 콘도, 가족 친화적인 동네까지.",
   },
   "ae.burnaby.desc": {
     en: "Brentwood, Metrotown, and North Burnaby — modern towers and established residential streets.",
-    ko: "브렌트우드, 메트로타운, 노스 버나비 — 현대적인 고층 콘도와 안정적인 주거 단지.",
+    ko: "Brentwood, Metrotown, North Burnaby — 현대적인 고층 콘도와 안정적인 주거 단지.",
   },
   "ae.richmond.desc": {
     en: "Steveston, Brighouse, and Terra Nova — family homes, townhomes, and waterfront living.",
-    ko: "스티브스턴, 브릿하우스, 테라노바 — 단독주택, 타운홈, 워터프론트 라이프까지.",
+    ko: "Steveston, Brighouse, Terra Nova — 단독주택, 타운홈, 워터프론트 라이프까지.",
   },
   "ae.coquitlam.desc": {
     en: "North Coquitlam and Burke Mountain — SkyTrain access, parks, and growing family communities.",
-    ko: "노스 코퀴틀람, 버크 마운틴 — 스카이트레인 접근성, 공원, 신생 가족 커뮤니티까지.",
+    ko: "North Coquitlam, Burke Mountain — SkyTrain 접근성, 공원, 신생 가족 커뮤니티까지.",
   },
   "ae.surrey.desc": {
     en: "South Surrey, Cloverdale, and Fleetwood — detached homes, townhomes, and new developments.",
-    ko: "사우스 써리, 클로버데일, 플릿우드 — 단독주택, 타운홈, 신축 분양까지.",
+    ko: "South Surrey, Cloverdale, Fleetwood — 단독주택, 타운홈, 신축 분양까지.",
   },
 
   // Services section
@@ -155,7 +155,7 @@ export const translations: Dict = {
   "sv.title": { en: "Residential Real Estate, Built Around Your Family", ko: "우리 가족 중심으로 진행되는 주거용 부동산" },
   "sv.desc": {
     en: "A focused practice helping Greater Vancouver buyers, sellers, and first-time homeowners — with quiet expertise across investment and commercial when needed.",
-    ko: "광역 밴쿠버의 매수자, 매도자, 첫 내 집 마련 고객을 위한 전문 서비스입니다. 필요할 때는 투자용·상업용까지 폭넓게 도와드립니다.",
+    ko: "Greater Vancouver의 매수자, 매도자, 첫 내 집 마련 고객을 위한 전문 서비스입니다. 필요할 때는 투자용·상업용까지 폭넓게 도와드립니다.",
   },
   "sv.mostRequested": { en: "Most Requested", ko: "가장 많은 문의" },
   "sv.buy.title": { en: "Buying a Home", ko: "주택 구매" },
@@ -197,9 +197,9 @@ export const translations: Dict = {
   "we.p2.title": { en: "Residential, commercial & presale knowledge", ko: "주거·상업·분양 전 분야 경험" },
   "we.p2.desc": {
     en: "Coverage across the most common Metro Vancouver opportunities.",
-    ko: "메트로 밴쿠버에서 가장 많이 다뤄지는 거래 유형을 폭넓게 안내해 드립니다.",
+    ko: "Metro Vancouver에서 가장 많이 다뤄지는 거래 유형을 폭넓게 안내해 드립니다.",
   },
-  "we.p3.title": { en: "Metro Vancouver market focus", ko: "메트로 밴쿠버 시장 집중" },
+  "we.p3.title": { en: "Metro Vancouver market focus", ko: "Metro Vancouver 시장 집중" },
   "we.p3.desc": {
     en: "Local context shapes every recommendation and search.",
     ko: "현지 시장 상황을 바탕으로 매물 추천과 검색을 진행합니다.",
@@ -239,18 +239,18 @@ export const translations: Dict = {
   "ab.title": { en: "Meet Eric Kim", ko: "Eric Kim을 소개합니다" },
   "ab.p1": {
     en: "Eric Kim is a residential REALTOR® with Initia Real Estate, helping families across Greater Vancouver buy and sell homes with confidence. His approach is patient, transparent, and detail-driven — built around understanding each client's lifestyle, budget, and long-term goals before recommending a single property.",
-    ko: "Eric Kim은 Initia Real Estate 소속 주거용 REALTOR®로, 광역 밴쿠버 가족 고객들의 매매를 자신 있게 도와드리고 있습니다. 차분하고 투명하며 디테일을 놓치지 않는 스타일로, 한 채의 매물을 추천하기 전에 먼저 고객의 라이프스타일, 예산, 장기 목표를 충분히 이해하는 것을 우선합니다.",
+    ko: "Eric Kim은 Initia Real Estate 소속 주거용 REALTOR®로, Greater Vancouver 가족 고객들의 매매를 자신 있게 도와드리고 있습니다. 차분하고 투명하며 디테일을 놓치지 않는 스타일로, 한 채의 매물을 추천하기 전에 먼저 고객의 라이프스타일, 예산, 장기 목표를 충분히 이해하는 것을 우선합니다.",
   },
   "ab.p2": {
     en: "Bilingual in English and Korean, Eric serves clients across Vancouver, Burnaby, Richmond, Coquitlam, and Surrey — with quiet expertise in residential investment and commercial opportunities when needed.",
-    ko: "영어와 한국어 모두 가능한 Eric은 밴쿠버, 버나비, 리치몬드, 코퀴틀람, 써리 지역의 고객들을 도와드리고 있으며, 필요할 때는 주거용 투자와 상업용 부동산까지 폭넓게 안내해 드립니다.",
+    ko: "영어와 한국어 모두 가능한 Eric은 Vancouver, Burnaby, Richmond, Coquitlam, Surrey 지역의 고객들을 도와드리고 있으며, 필요할 때는 주거용 투자와 상업용 부동산까지 폭넓게 안내해 드립니다.",
   },
   "ab.k.title": { en: "Title", ko: "직함" },
   "ab.v.title": { en: "REALTOR® · Initia Real Estate", ko: "REALTOR® · Initia Real Estate" },
   "ab.k.focus": { en: "Focus", ko: "전문 분야" },
   "ab.v.focus": { en: "Residential Buying & Selling", ko: "주거용 매매" },
   "ab.k.area": { en: "Service Area", ko: "서비스 지역" },
-  "ab.v.area": { en: "Greater Vancouver, BC", ko: "광역 밴쿠버, BC" },
+  "ab.v.area": { en: "Greater Vancouver, BC", ko: "Greater Vancouver, BC" },
   "ab.k.lang": { en: "Languages", ko: "사용 언어" },
   "ab.v.lang": { en: "English · 한국어", ko: "English · 한국어" },
   "ab.k.approach": { en: "Approach", ko: "스타일" },
@@ -272,10 +272,30 @@ export const translations: Dict = {
 
   // Reviews
   "cx.eyebrow": { en: "Client Experiences", ko: "고객 후기" },
-  "cx.title": { en: "Trusted by Vancouver Buyers & Sellers", ko: "밴쿠버 매수·매도 고객들이 신뢰하는 REALTOR®" },
+  "cx.title": { en: "Trusted by Vancouver Buyers & Sellers", ko: "Vancouver 매수·매도 고객들이 신뢰하는 REALTOR®" },
   "cx.note": {
     en: "Verified Google Reviews from clients across Metro Vancouver.",
-    ko: "메트로 밴쿠버 전역의 고객분들이 남겨주신 검증된 구글 리뷰입니다.",
+    ko: "Metro Vancouver 전역의 고객분들이 남겨주신 검증된 구글 리뷰입니다.",
+  },
+  "cx.r1": {
+    en: "They are always kind and, above all, highly professional. From start to finish, Eric was patient, honest, and never pressured us.",
+    ko: "항상 친절하시고, 무엇보다 정말 프로페셔널하세요. 처음부터 끝까지 Eric은 차분하고 솔직하게, 한 번도 부담을 주지 않으면서 도와주셨어요.",
+  },
+  "cx.r2": {
+    en: "Eric sold our townhouse above market value and helped us secure our new home. His negotiation skills are exceptional.",
+    ko: "Eric 덕분에 저희 타운하우스를 시세보다 좋은 가격에 팔고, 새 집까지 잘 잡을 수 있었어요. 협상 능력이 정말 뛰어나세요.",
+  },
+  "cx.r3": {
+    en: "Eric has a strong understanding of the Vancouver market and provides thoughtful, client-first advice.",
+    ko: "Eric은 Vancouver 시장을 정말 잘 이해하고 계시고, 항상 고객 입장에서 세심하게 조언해 주세요.",
+  },
+  "cx.r4": {
+    en: "Working with Eric was a pleasure. He understands the Burnaby market deeply and is extremely responsive and detail-oriented.",
+    ko: "Eric과 함께한 시간이 정말 즐거웠어요. Burnaby 시장에 대해 깊이 알고 계시고, 연락도 빠르고 디테일까지 꼼꼼히 챙겨 주십니다.",
+  },
+  "cx.r5": {
+    en: "Eric is excellent at planning and provides insights that helped us make confident financial decisions.",
+    ko: "Eric은 계획을 정말 잘 세워 주시고, 덕분에 자신 있게 재정적인 결정을 내릴 수 있었습니다.",
   },
 
   // Contact / form
@@ -323,13 +343,13 @@ export const translations: Dict = {
 
   // Footer
   "ft.your": { en: "Your Trusted Realtor", ko: "신뢰받는 한인 REALTOR®" },
-  "ft.subtitle": { en: "REALTOR® · Metro Vancouver", ko: "REALTOR® · 메트로 밴쿠버" },
+  "ft.subtitle": { en: "REALTOR® · Metro Vancouver", ko: "REALTOR® · Metro Vancouver" },
   "ft.bio": {
     en: "Residential, commercial, and presale real estate guidance — delivered with discretion, market intelligence, and a commitment to long-term client relationships.",
     ko: "주거용, 상업용, 분양 부동산까지 — 신중함과 시장 통찰력, 그리고 오랜 인연을 소중히 여기는 마음으로 안내해 드립니다.",
   },
   "ft.getInTouch": { en: "Get in Touch", ko: "연락하기" },
-  "ft.location": { en: "Metro Vancouver, British Columbia", ko: "메트로 밴쿠버, 브리티시 컬럼비아" },
+  "ft.location": { en: "Metro Vancouver, British Columbia", ko: "Metro Vancouver, British Columbia" },
   "ft.mlsMember": { en: "MLS® Member", ko: "MLS® 회원" },
   "ft.rights": {
     en: "© 2026 Eric Kim, REALTOR®. All rights reserved.",
@@ -393,11 +413,11 @@ export const translations: Dict = {
   "spg.title": { en: "Real Estate Services for Every Stage", ko: "모든 단계에 맞춘 부동산 서비스" },
   "spg.desc": {
     en: "Eric helps clients move forward across residential, commercial, and presale real estate in Metro Vancouver.",
-    ko: "Eric은 메트로 밴쿠버의 주거용, 상업용, 분양 부동산 전반에서 고객의 다음 단계를 함께합니다.",
+    ko: "Eric은 Metro Vancouver의 주거용, 상업용, 분양 부동산 전반에서 고객의 다음 단계를 함께합니다.",
   },
 
   // Commercial page
-  "cpg.title": { en: "Commercial Real Estate in Metro Vancouver", ko: "메트로 밴쿠버 상업용 부동산" },
+  "cpg.title": { en: "Commercial Real Estate in Metro Vancouver", ko: "Metro Vancouver 상업용 부동산" },
   "cpg.desc": {
     en: "Working with business owners and investors on retail, office, mixed-use, and investment opportunities.",
     ko: "사업주와 투자자를 위해 리테일, 오피스, 복합 용도, 투자용 매물을 함께 진행해 드립니다.",
@@ -433,7 +453,7 @@ export const translations: Dict = {
   "pp.title": { en: "New Developments & Presale Opportunities", ko: "신축 분양 및 프리세일 매물" },
   "pp.desc": {
     en: "Explore upcoming projects across Metro Vancouver with practical, client-focused guidance.",
-    ko: "메트로 밴쿠버의 다양한 분양 프로젝트를 실용적이고 고객 중심으로 안내해 드립니다.",
+    ko: "Metro Vancouver의 다양한 분양 프로젝트를 실용적이고 고객 중심으로 안내해 드립니다.",
   },
   "pp.h2": { en: "A Practical Approach to Presale Real Estate", ko: "분양 부동산, 실용적인 관점에서 접근합니다" },
   "pp.p": {
