@@ -229,11 +229,14 @@ function Gallery({ listing, photos }: { listing: Listing; photos: ListingPhoto[]
   const currentSrc = gallery[Math.min(active, gallery.length - 1)] ?? FALLBACK_LISTING_IMAGE;
 
   const go = (delta: number) => {
-    const next = Math.min(Math.max(active + delta, 0), gallery.length - 1);
+    const n = gallery.length;
+    if (n === 0) return;
+    const next = ((active + delta) % n + n) % n;
     setActive(next);
     const el = scrollerRef.current?.querySelectorAll<HTMLButtonElement>("[data-thumb]")[next];
     el?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
   };
+
 
   return (
     <div className="container-x mt-6">
