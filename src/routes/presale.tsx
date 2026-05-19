@@ -3,6 +3,7 @@ import { CTABand } from "@/components/site/CTABand";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { Sparkles, Calendar, Layers, ShieldCheck } from "lucide-react";
 import presaleImg from "@/assets/listing-presale.jpg";
+import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/presale")({
   head: () => ({
@@ -25,22 +26,22 @@ export const Route = createFileRoute("/presale")({
   component: PresalePage,
 });
 
-const items = [
-  { icon: Sparkles, title: "Project Overview", desc: "Understand the developer, location, and product mix." },
-  { icon: Calendar, title: "Timeline & Deposit Structure", desc: "Review key dates and deposit milestones before committing." },
-  { icon: Layers, title: "Floorplan & Unit Selection", desc: "Compare layouts, exposures, and pricing tiers." },
-  { icon: ShieldCheck, title: "Documentation Review", desc: "Walk through documentation with appropriate professional advisors." },
-];
-
 function PresalePage() {
+  const { t } = useI18n();
+  const items = [
+    { icon: Sparkles, title: t("pp.i1.title"), desc: t("pp.i1.desc") },
+    { icon: Calendar, title: t("pp.i2.title"), desc: t("pp.i2.desc") },
+    { icon: Layers, title: t("pp.i3.title"), desc: t("pp.i3.desc") },
+    { icon: ShieldCheck, title: t("pp.i4.title"), desc: t("pp.i4.desc") },
+  ];
   return (
     <>
       <section className="bg-cream pt-16 pb-8 md:pt-24">
         <div className="container-x">
           <SectionHeading
-            eyebrow="Presale"
-            title="New Developments & Presale Opportunities"
-            description="Explore upcoming projects across Metro Vancouver with practical, client-focused guidance."
+            eyebrow={t("nav.presale")}
+            title={t("pp.title")}
+            description={t("pp.desc")}
           />
         </div>
       </section>
@@ -51,9 +52,9 @@ function PresalePage() {
             <img src={presaleImg} alt="Presale residential development" width={1024} height={768} loading="lazy" className="h-full w-full object-cover" />
           </div>
           <div>
-            <h2 className="font-display text-3xl md:text-4xl text-navy text-balance">A Practical Approach to Presale Real Estate</h2>
+            <h2 className="font-display text-3xl md:text-4xl text-navy text-balance">{t("pp.h2")}</h2>
             <p className="mt-4 text-muted-foreground">
-              Presale opportunities can be exciting, but they require careful review. Eric helps clients understand the project, timeline, and decision points before moving forward.
+              {t("pp.p")}
             </p>
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {items.map(({ icon: Icon, title, desc }) => (
@@ -65,17 +66,18 @@ function PresalePage() {
               ))}
             </div>
             <p className="mt-6 text-xs italic text-muted-foreground">
-              All property decisions should be reviewed with the appropriate legal, financial, and professional advisors before completion.
+              {t("pp.disclaimer")}
             </p>
           </div>
         </div>
       </section>
 
       <CTABand
-        title="Looking at a Presale Opportunity?"
-        description="Eric can help you review the project, timeline, and next step before you commit."
-        primaryLabel="Request Presale Information"
+        title={t("pp.cta.title")}
+        description={t("pp.cta.desc")}
+        primaryLabel={t("pp.cta.btn")}
       />
     </>
   );
 }
+
