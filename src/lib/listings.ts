@@ -199,3 +199,74 @@ export function useListings() {
 
   return { loading, all, featuredResidential, commercial, recentlySold };
 }
+
+export async function fetchListingBySlug(
+  slug: string
+): Promise<{ listing: Listing; photos: ListingPhoto[] } | null> {
+  const { data: realtor, error: realtorErr } = await supabase
+    .from("realtors")
+    .select("id")
+    .eq("slug", REALTOR_SLUG)
+    .maybeSingle();
+  if (realtorErr || !realtor) return null;
+
+  const { data: row, error } = await supabase
+    .from("listings")
+    .select("*")
+    .eq("realtor_id", (realtor as { id: string }).id)
+    .eq("slug", slug)
+    .maybeSingle();
+
+  if (error || !row) return null;
+
+  const listing = mapRow(row as Record<string, unknown>);
+
+  const { data: photoRows } = await supabase
+    .from("listing_photos")
+    .select("*")
+    .eq("listing_id", listing.id)
+    .order("sort_order", { ascending: true });
+
+  const photos: ListingPhoto[] = ((photoRows as Record<string, unknown>[] | null) ?? []).map(
+    (p) => ({
+      id: asString(p.id),
+      url:
+        asString(p.photo_url) ||
+        asString(p.url) ||
+        asString(p.image_url) ||
+        "",
+      caption: asString(p.caption ?? p.alt_text ?? "") || undefined,
+      sortOrder: asNumber(p.sort_order),
+    })
+  ).filter((p) => p.url);
+
+  return { listing, photos };
+}
+
+export function useListing(slug: string | undefined) {
+  const [state, setState] = useState<{
+    loading: boolean;
+    data: { listing: Listing; photos: ListingPhoto[] } | null;
+  }>({ loading: true, data: null });
+
+  useEffect(() => {
+    if (!slug) {
+      setState({ loading: false, data: null });
+      return;
+    }
+    let cancelled = false;
+    setState({ loading: true, data: null });
+    fetchListingBySlug(slug)
+      .then((data) => {
+        if (!cancelled) setState({ loading: false, data });
+      })
+      .catch(() => {
+        if (!cancelled) setState({ loading: false, data: null });
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [slug]);
+
+  return state;
+}
