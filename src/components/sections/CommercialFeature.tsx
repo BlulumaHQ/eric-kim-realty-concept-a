@@ -76,7 +76,8 @@ function CommercialCard({ l }: { l: Listing }) {
         </p>
         <StatsRow l={l} className="mt-5" />
         <Link
-          to="/contact"
+          to="/listings/$slug"
+          params={{ slug: l.slug }}
           className="mt-6 inline-flex items-center justify-between text-sm font-medium uppercase tracking-[0.16em] text-foreground hover:text-gold transition-colors"
         >
           Inquire <ArrowUpRight className="h-4 w-4" />
@@ -119,7 +120,8 @@ function SpotlightCommercialCard({ l }: { l: Listing }) {
         </p>
         <StatsRow l={l} className="mt-6" />
         <Link
-          to="/contact"
+          to="/listings/$slug"
+          params={{ slug: l.slug }}
           className="mt-7 inline-flex items-center gap-2 self-start rounded-none bg-foreground px-6 py-3 text-[12px] font-medium uppercase tracking-[0.18em] text-background hover:bg-foreground/85 transition"
         >
           Inquire About This Property <ArrowUpRight className="h-4 w-4" />

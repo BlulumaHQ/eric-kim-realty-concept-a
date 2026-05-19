@@ -10,6 +10,7 @@ export type ListingStatus = "active" | "sold" | "presale";
 
 export interface Listing {
   id: string;
+  slug: string;
   mls: string;
   status: ListingStatus;
   category: "residential" | "commercial" | "presale";
@@ -25,7 +26,13 @@ export interface Listing {
   beds: number;
   baths: number;
   sqft: number;
+  lotSize: string;
+  yearBuilt: string;
+  zoning: string;
+  buildingType: string;
+  leaseRate: string;
   propertyType: string;
+  transactionType: string;
   image: string;
   fallbackImage: string;
   description: string;
@@ -33,6 +40,13 @@ export interface Listing {
   showInSold?: boolean;
   sortOrder?: number;
   soldSortOrder?: number;
+}
+
+export interface ListingPhoto {
+  id: string;
+  url: string;
+  caption?: string;
+  sortOrder: number;
 }
 
 export const FALLBACK_LISTING_IMAGE = fallbackImg;
@@ -77,6 +91,7 @@ function mapRow(row: Record<string, unknown>): Listing {
 
   return {
     id: asString(row.id),
+    slug: asString(row.slug),
     mls: asString(row.mls_number),
     status,
     category,
@@ -92,7 +107,13 @@ function mapRow(row: Record<string, unknown>): Listing {
     beds: asNumber(row.beds),
     baths: asNumber(row.baths),
     sqft: asNumber(row.sqft),
+    lotSize: asString(row.lot_size),
+    yearBuilt: asString(features.year_built ?? features.yearBuilt ?? ""),
+    zoning: asString(features.zoning ?? ""),
+    buildingType: asString(features.building_type ?? features.buildingType ?? ""),
+    leaseRate: asString(features.lease_rate ?? features.leaseRate ?? ""),
     propertyType: asString(row.property_type),
+    transactionType: asString(row.transaction_type),
     image: asString(row.primary_image_url) || fallbackImg,
     fallbackImage: fallbackImg,
     description: asString(row.description),
@@ -177,4 +198,75 @@ export function useListings() {
     .slice(0, 6);
 
   return { loading, all, featuredResidential, commercial, recentlySold };
+}
+
+export async function fetchListingBySlug(
+  slug: string
+): Promise<{ listing: Listing; photos: ListingPhoto[] } | null> {
+  const { data: realtor, error: realtorErr } = await supabase
+    .from("realtors")
+    .select("id")
+    .eq("slug", REALTOR_SLUG)
+    .maybeSingle();
+  if (realtorErr || !realtor) return null;
+
+  const { data: row, error } = await supabase
+    .from("listings")
+    .select("*")
+    .eq("realtor_id", (realtor as { id: string }).id)
+    .eq("slug", slug)
+    .maybeSingle();
+
+  if (error || !row) return null;
+
+  const listing = mapRow(row as Record<string, unknown>);
+
+  const { data: photoRows } = await supabase
+    .from("listing_photos")
+    .select("*")
+    .eq("listing_id", listing.id)
+    .order("sort_order", { ascending: true });
+
+  const photos: ListingPhoto[] = ((photoRows as Record<string, unknown>[] | null) ?? []).map(
+    (p) => ({
+      id: asString(p.id),
+      url:
+        asString(p.photo_url) ||
+        asString(p.url) ||
+        asString(p.image_url) ||
+        "",
+      caption: asString(p.caption ?? p.alt_text ?? "") || undefined,
+      sortOrder: asNumber(p.sort_order),
+    })
+  ).filter((p) => p.url);
+
+  return { listing, photos };
+}
+
+export function useListing(slug: string | undefined) {
+  const [state, setState] = useState<{
+    loading: boolean;
+    data: { listing: Listing; photos: ListingPhoto[] } | null;
+  }>({ loading: true, data: null });
+
+  useEffect(() => {
+    if (!slug) {
+      setState({ loading: false, data: null });
+      return;
+    }
+    let cancelled = false;
+    setState({ loading: true, data: null });
+    fetchListingBySlug(slug)
+      .then((data) => {
+        if (!cancelled) setState({ loading: false, data });
+      })
+      .catch(() => {
+        if (!cancelled) setState({ loading: false, data: null });
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [slug]);
+
+  return state;
 }
