@@ -332,16 +332,16 @@ function Gallery({ listing, photos }: { listing: Listing; photos: ListingPhoto[]
 }
 
 
-const inquirySchema = z.object({
-  name: z.string().trim().min(1, "Please enter your name").max(100),
-  email: z.string().trim().email("Please enter a valid email").max(255),
-  phone: z.string().trim().max(40).optional().or(z.literal("")),
-  message: z.string().trim().min(1, "Please add a short message").max(2000),
-});
-
 function InquiryForm({ listing }: { listing: Listing }) {
+  const { t } = useI18n();
+  const inquirySchema = z.object({
+    name: z.string().trim().min(1, t("val.name")).max(100),
+    email: z.string().trim().email(t("val.email")).max(255),
+    phone: z.string().trim().max(40).optional().or(z.literal("")),
+    message: z.string().trim().min(1, t("val.message")).max(2000),
+  });
   const refLabel = listing.mls ? `${listing.title} (MLS® ${listing.mls})` : listing.title;
-  const defaultMessage = `I'd like more information about ${refLabel}.`;
+  const defaultMessage = `${t("ld.defaultMessage")} ${refLabel}.`;
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -373,31 +373,31 @@ function InquiryForm({ listing }: { listing: Listing }) {
       <div className="flex items-center gap-3">
         <span className="h-px w-10 bg-gold" />
         <span className="text-[11px] uppercase tracking-[0.22em] text-gold font-semibold">
-          Inquire
+          {t("ld.inquire")}
         </span>
       </div>
       <h2 className="mt-3 font-display text-2xl text-navy">
-        Request Information
+        {t("ld.requestInfo")}
       </h2>
       <p className="mt-2 text-sm text-muted-foreground">
-        Eric will reach out with full details, disclosures, and a private showing.
+        {t("ld.formNote")}
       </p>
 
       {submitted ? (
         <div className="mt-8 flex flex-col items-center text-center py-10">
           <CheckCircle2 className="h-12 w-12 text-gold" />
-          <h3 className="mt-4 font-display text-xl text-navy">Inquiry Received</h3>
+          <h3 className="mt-4 font-display text-xl text-navy">{t("ct.received")}</h3>
           <p className="mt-2 text-sm text-muted-foreground">
-            Thank you. Eric will follow up directly regarding {refLabel}.
+            {t("ld.thanks")} {refLabel}.
           </p>
         </div>
       ) : (
         <form onSubmit={onSubmit} noValidate className="mt-6 space-y-4">
-          <FieldInline label="Full Name" name="name" error={errors.name} required />
-          <FieldInline label="Email" name="email" type="email" error={errors.email} required />
-          <FieldInline label="Phone" name="phone" type="tel" error={errors.phone} />
+          <FieldInline label={t("ct.fullName")} name="name" error={errors.name} required />
+          <FieldInline label={t("ct.email")} name="email" type="email" error={errors.email} required />
+          <FieldInline label={t("ct.phoneLabel")} name="phone" type="tel" error={errors.phone} />
           <div>
-            <LabelInline required>Message</LabelInline>
+            <LabelInline required>{t("ct.message")}</LabelInline>
             <textarea
               name="message"
               rows={4}
@@ -413,13 +413,14 @@ function InquiryForm({ listing }: { listing: Listing }) {
             type="submit"
             className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-navy px-6 py-3.5 text-sm font-medium text-navy-foreground hover:bg-navy/90 transition"
           >
-            Send Inquiry <Send className="h-4 w-4" />
+            {t("ct.send")} <Send className="h-4 w-4" />
           </button>
         </form>
       )}
     </div>
   );
 }
+
 
 const inputCls =
   "mt-1.5 w-full rounded-xl border border-input bg-background px-4 py-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition";
