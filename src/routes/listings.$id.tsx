@@ -178,51 +178,53 @@ function Stat({ icon, label, value }: { icon: React.ReactNode; label: string; va
 }
 
 function StatsBlock({ listing, isCommercial }: { listing: Listing; isCommercial: boolean }) {
+  const { t } = useI18n();
   const items: React.ReactNode[] = [];
 
   if (isCommercial) {
     if (listing.sqft > 0)
       items.push(
-        <Stat key="sqft" icon={<Maximize2 className="h-4 w-4" />} label="Square Feet" value={listing.sqft.toLocaleString()} />
+        <Stat key="sqft" icon={<Maximize2 className="h-4 w-4" />} label={t("ld.stat.sqft")} value={listing.sqft.toLocaleString()} />
       );
     if (listing.buildingType)
       items.push(
-        <Stat key="bt" icon={<Building2 className="h-4 w-4" />} label="Building Type" value={listing.buildingType} />
+        <Stat key="bt" icon={<Building2 className="h-4 w-4" />} label={t("ld.stat.buildingType")} value={listing.buildingType} />
       );
     if (listing.zoning)
       items.push(
-        <Stat key="zn" icon={<Ruler className="h-4 w-4" />} label="Zoning" value={listing.zoning} />
+        <Stat key="zn" icon={<Ruler className="h-4 w-4" />} label={t("ld.stat.zoning")} value={listing.zoning} />
       );
     if (listing.leaseRate)
       items.push(
-        <Stat key="lr" icon={<Building2 className="h-4 w-4" />} label="Lease Rate" value={listing.leaseRate} />
+        <Stat key="lr" icon={<Building2 className="h-4 w-4" />} label={t("ld.stat.leaseRate")} value={listing.leaseRate} />
       );
   } else {
     if (listing.beds > 0)
       items.push(
-        <Stat key="b" icon={<BedDouble className="h-4 w-4" />} label="Bedrooms" value={String(listing.beds)} />
+        <Stat key="b" icon={<BedDouble className="h-4 w-4" />} label={t("ld.stat.bedrooms")} value={String(listing.beds)} />
       );
     if (listing.baths > 0)
       items.push(
-        <Stat key="ba" icon={<Bath className="h-4 w-4" />} label="Bathrooms" value={String(listing.baths)} />
+        <Stat key="ba" icon={<Bath className="h-4 w-4" />} label={t("ld.stat.bathrooms")} value={String(listing.baths)} />
       );
     if (listing.sqft > 0)
       items.push(
-        <Stat key="s" icon={<Maximize2 className="h-4 w-4" />} label="Square Feet" value={listing.sqft.toLocaleString()} />
+        <Stat key="s" icon={<Maximize2 className="h-4 w-4" />} label={t("ld.stat.sqft")} value={listing.sqft.toLocaleString()} />
       );
     if (listing.propertyType)
       items.push(
-        <Stat key="pt" icon={<Building2 className="h-4 w-4" />} label="Property Type" value={listing.propertyType} />
+        <Stat key="pt" icon={<Building2 className="h-4 w-4" />} label={t("ld.stat.propertyType")} value={listing.propertyType} />
       );
     if (listing.yearBuilt)
       items.push(
-        <Stat key="yb" icon={<Calendar className="h-4 w-4" />} label="Year Built" value={listing.yearBuilt} />
+        <Stat key="yb" icon={<Calendar className="h-4 w-4" />} label={t("ld.stat.yearBuilt")} value={listing.yearBuilt} />
       );
   }
 
   if (items.length === 0) return null;
   return <div className="mt-8 grid gap-4 grid-cols-2 sm:grid-cols-3">{items}</div>;
 }
+
 
 function Gallery({ listing, photos }: { listing: Listing; photos: ListingPhoto[] }) {
   const gallery = useMemo<string[]>(() => {
