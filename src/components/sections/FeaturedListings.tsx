@@ -95,7 +95,8 @@ function ListingCard({ listing }: { listing: Listing }) {
         <Stats l={listing} className="mt-5" />
 
         <Link
-          to="/contact"
+          to="/listings/$slug"
+          params={{ slug: listing.slug }}
           className="mt-6 inline-flex items-center justify-between text-sm font-medium uppercase tracking-[0.16em] text-foreground hover:text-gold transition-colors"
         >
           {isSold ? "View Sold Details" : "Request Showing"}
