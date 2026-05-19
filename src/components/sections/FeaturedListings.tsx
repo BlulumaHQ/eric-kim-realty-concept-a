@@ -143,7 +143,8 @@ function SpotlightCard({ listing }: { listing: Listing }) {
         </p>
         <Stats l={listing} className="mt-6" />
         <Link
-          to="/contact"
+          to="/listings/$slug"
+          params={{ slug: listing.slug }}
           className="mt-7 inline-flex items-center gap-2 self-start rounded-none bg-foreground px-6 py-3 text-[12px] font-medium uppercase tracking-[0.18em] text-background hover:bg-foreground/85 transition"
         >
           {isSold ? "View Sold Details" : "Request Private Showing"}
