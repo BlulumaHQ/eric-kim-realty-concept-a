@@ -124,13 +124,16 @@ export function SiteHeader() {
           </Link>
         </nav>
 
-        <button
-          aria-label="Toggle menu"
-          className="lg:hidden inline-flex items-center justify-center rounded-md p-2 text-foreground"
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+        <div className="lg:hidden flex items-center gap-2">
+          <LanguageSwitcher compact />
+          <button
+            aria-label="Toggle menu"
+            className="inline-flex items-center justify-center rounded-md p-2 text-foreground"
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
       </div>
 
       {open && (
