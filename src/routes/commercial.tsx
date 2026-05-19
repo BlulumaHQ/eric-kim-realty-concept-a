@@ -3,6 +3,7 @@ import { CommercialFeature } from "@/components/sections/CommercialFeature";
 import { CTABand } from "@/components/site/CTABand";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { Building2, TrendingUp, Users, FileText } from "lucide-react";
+import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/commercial")({
   head: () => ({
@@ -24,28 +25,28 @@ export const Route = createFileRoute("/commercial")({
   component: CommercialPage,
 });
 
-const focus = [
-  { icon: Building2, title: "Retail & Office Spaces", desc: "Street-front retail, professional office, and mixed-use opportunities." },
-  { icon: TrendingUp, title: "Investment Properties", desc: "Income-producing assets reviewed against your investment thesis." },
-  { icon: Users, title: "Owner-User Locations", desc: "Operational locations for businesses with growth in mind." },
-  { icon: FileText, title: "Lease Opportunities", desc: "Lease terms and locations evaluated alongside purchase options." },
-];
-
 function CommercialPage() {
+  const { t } = useI18n();
+  const focus = [
+    { icon: Building2, title: t("cpg.f1.title"), desc: t("cpg.f1.desc") },
+    { icon: TrendingUp, title: t("cpg.f2.title"), desc: t("cpg.f2.desc") },
+    { icon: Users, title: t("cpg.f3.title"), desc: t("cpg.f3.desc") },
+    { icon: FileText, title: t("cpg.f4.title"), desc: t("cpg.f4.desc") },
+  ];
   return (
     <>
       <section className="bg-cream pt-16 pb-8 md:pt-24">
         <div className="container-x">
           <SectionHeading
-            eyebrow="Commercial"
-            title="Commercial Real Estate in Metro Vancouver"
-            description="Working with business owners and investors on retail, office, mixed-use, and investment opportunities."
+            eyebrow={t("cf.eyebrow")}
+            title={t("cpg.title")}
+            description={t("cpg.desc")}
           />
         </div>
       </section>
       <CommercialFeature split />
       <section className="container-x py-20 md:py-28">
-        <SectionHeading title="Areas of Commercial Focus" />
+        <SectionHeading title={t("cpg.focusTitle")} />
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {focus.map(({ icon: Icon, title, desc }) => (
             <div key={title} className="rounded-2xl border border-border bg-card p-6 shadow-card">
@@ -57,10 +58,11 @@ function CommercialPage() {
         </div>
       </section>
       <CTABand
-        title="Discuss a Commercial Opportunity"
-        description="Speak directly with Eric about your business location, investment property, or commercial listing."
-        primaryLabel="Discuss a Commercial Opportunity"
+        title={t("cpg.cta.title")}
+        description={t("cpg.cta.desc")}
+        primaryLabel={t("cpg.cta.title")}
       />
     </>
   );
 }
+
