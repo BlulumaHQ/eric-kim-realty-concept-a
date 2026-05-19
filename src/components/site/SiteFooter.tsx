@@ -114,14 +114,7 @@ export function SiteFooter() {
         {/* Navigation strip */}
         <nav className="mt-16 border-t border-white/10 pt-8">
           <ul className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[13px] uppercase tracking-[0.18em]">
-            {[
-              { to: "/", label: "Home" },
-              { to: "/about", label: "About" },
-              { to: "/listings", label: "Listings" },
-              { to: "/services", label: "Services" },
-              { to: "/commercial", label: "Commercial" },
-              { to: "/contact", label: "Contact" },
-            ].map((i) => (
+            {navLinks.map((i) => (
               <li key={i.to}>
                 <Link
                   to={i.to}
@@ -143,14 +136,14 @@ export function SiteFooter() {
               <img src={mlsBadge} alt="MLS® Reciprocity" className="h-7 w-auto" />
             </div>
             <span className="text-[11px] uppercase tracking-[0.22em] text-white/55">
-              MLS® Member
+              {t("ft.mlsMember")}
             </span>
           </div>
           <p className="text-xs text-white/55 text-center">
-            © 2026 Eric Kim, REALTOR®. All rights reserved.
+            {t("ft.rights")}
           </p>
           <p className="text-xs text-white/55">
-            Web Design by{" "}
+            {t("ft.webDesign")}{" "}
             <a
               href="https://bluluma.com/realtor"
               target="_blank"
