@@ -25,7 +25,11 @@ function statsText(l: Listing) {
 function SoldCard({ l }: { l: Listing }) {
   const stats = statsText(l);
   return (
-    <article className="group overflow-hidden rounded-2xl bg-background border border-border hover:shadow-elegant transition-all duration-300">
+    <Link
+      to="/listings/$slug"
+      params={{ slug: l.slug }}
+      className="group block overflow-hidden rounded-2xl bg-background border border-border hover:shadow-elegant transition-all duration-300"
+    >
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
         <img
           src={l.image}
@@ -48,7 +52,7 @@ function SoldCard({ l }: { l: Listing }) {
         </p>
         {stats && <p className="mt-3 text-xs text-muted-foreground">{stats}</p>}
       </div>
-    </article>
+    </Link>
   );
 }
 
