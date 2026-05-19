@@ -2,10 +2,25 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight, MapPin, Maximize2 } from "lucide-react";
 import { useListings, formatPrice, type Listing } from "@/lib/listings";
 
+function isLease(l: Listing) {
+  return /lease/i.test(l.transactionType || "");
+}
+
 function priceLabel(l: Listing) {
-  const p = l.status === "sold" && l.soldPrice ? l.soldPrice : l.price;
-  if (!p || p <= 0) return "Price upon request";
-  return formatPrice(p);
+  if (l.status === "sold") {
+    const p = l.soldPrice ?? l.price;
+    return !p || p <= 0 ? "Price upon request" : formatPrice(p);
+  }
+  if (isLease(l)) {
+    return l.leaseRate ? l.leaseRate : "Contact for lease rate";
+  }
+  if (!l.price || l.price <= 0) return "Price upon request";
+  return formatPrice(l.price);
+}
+
+function badgeLabel(l: Listing) {
+  if (l.status === "sold") return "Sold";
+  return isLease(l) ? "For Lease" : "For Sale";
 }
 
 function locationLine(l: Listing) {
@@ -60,7 +75,7 @@ function CommercialCard({ l }: { l: Listing }) {
           }}
           className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-700"
         />
-        <StatusBadge isSold={isSold} label={isSold ? "Sold" : "Available"} />
+        <StatusBadge isSold={isSold} label={badgeLabel(l)} />
         {l.mls && (
           <span className="absolute bottom-4 left-4 rounded-full bg-background/95 backdrop-blur px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.18em] text-foreground">
             MLS® {l.mls}
@@ -76,8 +91,8 @@ function CommercialCard({ l }: { l: Listing }) {
         </p>
         <StatsRow l={l} className="mt-5" />
         <Link
-          to="/listings/$slug"
-          params={{ slug: l.slug }}
+          to="/listings/$id"
+          params={{ id: l.id }}
           className="mt-6 inline-flex items-center justify-between text-sm font-medium uppercase tracking-[0.16em] text-foreground hover:text-gold transition-colors"
         >
           Inquire <ArrowUpRight className="h-4 w-4" />
@@ -101,7 +116,7 @@ function SpotlightCommercialCard({ l }: { l: Listing }) {
           }}
           className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-700"
         />
-        <StatusBadge isSold={isSold} label={isSold ? "Sold" : "Available"} />
+        <StatusBadge isSold={isSold} label={badgeLabel(l)} />
         {l.mls && (
           <span className="absolute bottom-4 left-4 rounded-full bg-background/95 backdrop-blur px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.18em] text-foreground">
             MLS® {l.mls}
@@ -120,8 +135,8 @@ function SpotlightCommercialCard({ l }: { l: Listing }) {
         </p>
         <StatsRow l={l} className="mt-6" />
         <Link
-          to="/listings/$slug"
-          params={{ slug: l.slug }}
+          to="/listings/$id"
+          params={{ id: l.id }}
           className="mt-7 inline-flex items-center gap-2 self-start rounded-none bg-foreground px-6 py-3 text-[12px] font-medium uppercase tracking-[0.18em] text-background hover:bg-foreground/85 transition"
         >
           Inquire About This Property <ArrowUpRight className="h-4 w-4" />

@@ -200,21 +200,13 @@ export function useListings() {
   return { loading, all, featuredResidential, commercial, recentlySold };
 }
 
-export async function fetchListingBySlug(
-  slug: string
+export async function fetchListingById(
+  id: string
 ): Promise<{ listing: Listing; photos: ListingPhoto[] } | null> {
-  const { data: realtor, error: realtorErr } = await supabase
-    .from("realtors")
-    .select("id")
-    .eq("slug", REALTOR_SLUG)
-    .maybeSingle();
-  if (realtorErr || !realtor) return null;
-
   const { data: row, error } = await supabase
     .from("listings")
     .select("*")
-    .eq("realtor_id", (realtor as { id: string }).id)
-    .eq("slug", slug)
+    .eq("id", id)
     .maybeSingle();
 
   if (error || !row) return null;
@@ -243,20 +235,20 @@ export async function fetchListingBySlug(
   return { listing, photos };
 }
 
-export function useListing(slug: string | undefined) {
+export function useListing(id: string | undefined) {
   const [state, setState] = useState<{
     loading: boolean;
     data: { listing: Listing; photos: ListingPhoto[] } | null;
   }>({ loading: true, data: null });
 
   useEffect(() => {
-    if (!slug) {
+    if (!id) {
       setState({ loading: false, data: null });
       return;
     }
     let cancelled = false;
     setState({ loading: true, data: null });
-    fetchListingBySlug(slug)
+    fetchListingById(id)
       .then((data) => {
         if (!cancelled) setState({ loading: false, data });
       })
@@ -266,7 +258,7 @@ export function useListing(slug: string | undefined) {
     return () => {
       cancelled = true;
     };
-  }, [slug]);
+  }, [id]);
 
   return state;
 }

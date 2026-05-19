@@ -4,18 +4,22 @@ import { ArrowLeft, BedDouble, Bath, Maximize2, MapPin, Send, CheckCircle2, Cale
 import { z } from "zod";
 import { useListing, formatPrice, type Listing, type ListingPhoto, FALLBACK_LISTING_IMAGE } from "@/lib/listings";
 
-export const Route = createFileRoute("/listings/$slug")({
-  head: ({ params }) => ({
+export const Route = createFileRoute("/listings/$id")({
+  head: () => ({
     meta: [
-      { title: `Listing ${params.slug} | Eric Kim Vancouver REALTOR®` },
+      { title: `Listing | Eric Kim Vancouver REALTOR®` },
     ],
   }),
   component: ListingDetailPage,
 });
 
+function isLease(l: Listing) {
+  return l.category === "commercial" && /lease/i.test(l.transactionType || "");
+}
+
 function ListingDetailPage() {
-  const { slug } = Route.useParams();
-  const { loading, data } = useListing(slug);
+  const { id } = Route.useParams();
+  const { loading, data } = useListing(id);
 
   if (loading) {
     return (
@@ -69,7 +73,7 @@ function ListingDetailPage() {
       <div className="container-x mt-10 grid gap-12 lg:grid-cols-[1.6fr_1fr]">
         <div>
           <div className="flex flex-wrap items-center gap-3">
-            <StatusBadge isSold={isSold} />
+            <StatusBadge listing={listing} />
             {listing.mls && (
               <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
                 MLS® {listing.mls}
@@ -111,22 +115,32 @@ function fullAddress(l: Listing) {
   return parts.length ? parts.join(", ") : l.city || "Greater Vancouver";
 }
 
-function StatusBadge({ isSold }: { isSold: boolean }) {
+function StatusBadge({ listing }: { listing: Listing }) {
+  const isSold = listing.status === "sold";
+  const label = isSold ? "Sold" : isLease(listing) ? "For Lease" : "For Sale";
   return (
     <span
       className={`rounded-full px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] shadow-soft ${
         isSold ? "bg-red-600 text-white" : "bg-gold text-gold-foreground"
       }`}
     >
-      {isSold ? "Sold" : "For Sale"}
+      {label}
     </span>
   );
 }
 
 function PriceBlock({ listing }: { listing: Listing }) {
   const isSold = listing.status === "sold";
-  const display = isSold && listing.soldPrice ? listing.soldPrice : listing.price;
-  const label = !display || display <= 0 ? "Price upon request" : formatPrice(display);
+
+  let label: string;
+  if (isSold) {
+    const display = listing.soldPrice ?? listing.price;
+    label = !display || display <= 0 ? "Price upon request" : formatPrice(display);
+  } else if (isLease(listing)) {
+    label = listing.leaseRate ? listing.leaseRate : "Contact for lease rate";
+  } else {
+    label = !listing.price || listing.price <= 0 ? "Price upon request" : formatPrice(listing.price);
+  }
 
   return (
     <div className="mt-8 flex flex-wrap items-baseline gap-x-6 gap-y-2 border-t border-border pt-6">
