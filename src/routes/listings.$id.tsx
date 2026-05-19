@@ -121,8 +121,9 @@ function fullAddress(l: Listing) {
 }
 
 function StatusBadge({ listing }: { listing: Listing }) {
+  const { t } = useI18n();
   const isSold = listing.status === "sold";
-  const label = isSold ? "Sold" : isLease(listing) ? "For Lease" : "For Sale";
+  const label = isSold ? t("fl.badge.sold") : isLease(listing) ? t("fl.badge.lease") : t("fl.badge.sale");
   return (
     <span
       className={`rounded-full px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] shadow-soft ${
@@ -135,16 +136,17 @@ function StatusBadge({ listing }: { listing: Listing }) {
 }
 
 function PriceBlock({ listing }: { listing: Listing }) {
+  const { t } = useI18n();
   const isSold = listing.status === "sold";
 
   let label: string;
   if (isSold) {
     const display = listing.soldPrice ?? listing.price;
-    label = !display || display <= 0 ? "Price upon request" : formatPrice(display);
+    label = !display || display <= 0 ? t("ld.priceOnRequest") : formatPrice(display);
   } else if (isLease(listing)) {
-    label = listing.leaseRate ? listing.leaseRate : "Contact for lease rate";
+    label = listing.leaseRate ? listing.leaseRate : t("ld.contactLease");
   } else {
-    label = !listing.price || listing.price <= 0 ? "Price upon request" : formatPrice(listing.price);
+    label = !listing.price || listing.price <= 0 ? t("ld.priceOnRequest") : formatPrice(listing.price);
   }
 
   return (
@@ -152,17 +154,18 @@ function PriceBlock({ listing }: { listing: Listing }) {
       <span className="font-display text-4xl md:text-5xl text-navy">{label}</span>
       {isSold && listing.soldDate && (
         <span className="inline-flex items-center gap-1.5 text-sm text-muted-foreground">
-          <Calendar className="h-4 w-4 text-gold" /> Sold {listing.soldDate}
+          <Calendar className="h-4 w-4 text-gold" /> {t("ld.sold")} {listing.soldDate}
         </span>
       )}
       {isSold && listing.price > 0 && listing.soldPrice && listing.price !== listing.soldPrice && (
         <span className="text-sm text-muted-foreground line-through">
-          Listed {formatPrice(listing.price)}
+          {t("ld.listed")} {formatPrice(listing.price)}
         </span>
       )}
     </div>
   );
 }
+
 
 function Stat({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (
