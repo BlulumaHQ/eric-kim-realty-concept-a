@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, MapPin, BedDouble, Bath, Maximize2, Sparkles } from "lucide-react";
 import { SectionHeading } from "../site/SectionHeading";
 import { useListings, formatPrice, type Listing } from "@/lib/listings";
+import { useI18n } from "@/lib/i18n";
 
 function priceLabel(l: Listing) {
   const p = l.status === "sold" && l.soldPrice ? l.soldPrice : l.price;
