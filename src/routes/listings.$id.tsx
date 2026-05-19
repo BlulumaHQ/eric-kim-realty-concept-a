@@ -1,8 +1,9 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, BedDouble, Bath, Maximize2, MapPin, Send, CheckCircle2, Calendar, Building2, Ruler } from "lucide-react";
+import { ArrowLeft, BedDouble, Bath, Maximize2, MapPin, Send, CheckCircle2, Calendar, Building2, Ruler, ChevronLeft, ChevronRight } from "lucide-react";
 import { z } from "zod";
 import { useListing, formatPrice, type Listing, type ListingPhoto, FALLBACK_LISTING_IMAGE } from "@/lib/listings";
+
 
 export const Route = createFileRoute("/listings/$id")({
   head: () => ({
