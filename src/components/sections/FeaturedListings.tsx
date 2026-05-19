@@ -206,15 +206,16 @@ function SkeletonCard() {
 
 export function FeaturedListings() {
   const { loading, featuredResidential } = useListings();
+  const { t } = useI18n();
 
   if (!loading && featuredResidential.length === 0) return null;
 
   return (
     <section className="container-x py-24 md:py-32">
       <SectionHeading
-        eyebrow="Featured Homes"
-        title="Current Residential Listings"
-        description="A live look at homes Eric is currently representing across Greater Vancouver. Contact Eric for full details, private showings, and the latest off-market opportunities."
+        eyebrow={t("fl.eyebrow")}
+        title={t("fl.title")}
+        description={t("fl.desc")}
       />
 
       {loading ? (
