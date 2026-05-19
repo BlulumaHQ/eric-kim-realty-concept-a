@@ -159,52 +159,101 @@ function SkeletonCard() {
   );
 }
 
-export function CommercialFeature() {
+function ListingsGrid({ items }: { items: Listing[] }) {
+  const count = items.length;
+  if (count === 1) {
+    return (
+      <div className="mt-10">
+        <SpotlightCommercialCard l={items[0]} />
+      </div>
+    );
+  }
+  if (count === 2) {
+    return (
+      <div className="mt-10 grid gap-7 grid-cols-1 md:grid-cols-2">
+        {items.map((l) => (
+          <CommercialCard key={l.id} l={l} />
+        ))}
+      </div>
+    );
+  }
+  return (
+    <div className="mt-10 grid gap-7 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      {items.map((l) => (
+        <CommercialCard key={l.id} l={l} />
+      ))}
+    </div>
+  );
+}
+
+function SubHeading({ eyebrow, title }: { eyebrow: string; title: string }) {
+  return (
+    <div>
+      <div className="flex items-center gap-3">
+        <span className="h-px w-10 bg-gold" />
+        <span className="text-[11px] uppercase tracking-[0.22em] text-gold font-semibold">
+          {eyebrow}
+        </span>
+      </div>
+      <h3 className="mt-4 font-display text-2xl md:text-3xl text-foreground leading-tight">
+        {title}
+      </h3>
+    </div>
+  );
+}
+
+export function CommercialFeature({ split = false }: { split?: boolean } = {}) {
   const { loading, commercial } = useListings();
 
   if (!loading && commercial.length === 0) return null;
 
-  const count = commercial.length;
+  const leaseItems = commercial.filter(isLease);
+  const saleItems = commercial.filter((l) => !isLease(l));
 
   return (
     <section className="relative overflow-hidden bg-cream py-24 md:py-32">
       <div className="container-x">
-        <div className="max-w-3xl">
-          <div className="flex items-center gap-3">
-            <span className="h-px w-12 bg-gold" />
-            <span className="text-[11px] uppercase tracking-[0.22em] text-gold font-semibold">
-              Commercial
-            </span>
+        {!split && (
+          <div className="max-w-3xl">
+            <div className="flex items-center gap-3">
+              <span className="h-px w-12 bg-gold" />
+              <span className="text-[11px] uppercase tracking-[0.22em] text-gold font-semibold">
+                Commercial
+              </span>
+            </div>
+            <h2 className="mt-5 font-display text-3xl md:text-4xl lg:text-[2.85rem] text-foreground text-balance leading-[1.1]">
+              Commercial Real Estate Opportunities
+            </h2>
+            <p className="mt-6 text-muted-foreground text-pretty leading-relaxed text-lg">
+              Business locations, investment properties, retail and office spaces — represented with the same attentive process Eric brings to every transaction.
+            </p>
           </div>
-          <h2 className="mt-5 font-display text-3xl md:text-4xl lg:text-[2.85rem] text-foreground text-balance leading-[1.1]">
-            Commercial Real Estate Opportunities
-          </h2>
-          <p className="mt-6 text-muted-foreground text-pretty leading-relaxed text-lg">
-            Business locations, investment properties, retail and office spaces — represented with the same attentive process Eric brings to every transaction.
-          </p>
-        </div>
+        )}
 
         {loading ? (
-          <div className="mt-14 grid gap-7 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          <div className={`${split ? "" : "mt-14"} grid gap-7 grid-cols-1 md:grid-cols-2 lg:grid-cols-3`}>
             {Array.from({ length: 3 }).map((_, i) => (
               <SkeletonCard key={i} />
             ))}
           </div>
-        ) : count === 1 ? (
-          <div className="mt-14">
-            <SpotlightCommercialCard l={commercial[0]} />
-          </div>
-        ) : count === 2 ? (
-          <div className="mt-14 grid gap-7 grid-cols-1 md:grid-cols-2">
-            {commercial.map((l) => (
-              <CommercialCard key={l.id} l={l} />
-            ))}
+        ) : split ? (
+          <div className="space-y-20">
+            {leaseItems.length > 0 && (
+              <div>
+                <SubHeading eyebrow="Available" title="For Lease" />
+                <ListingsGrid items={leaseItems} />
+              </div>
+            )}
+            {saleItems.length > 0 && (
+              <div>
+                <SubHeading eyebrow="Available" title="For Sale" />
+                <ListingsGrid items={saleItems} />
+              </div>
+            )}
           </div>
         ) : (
-          <div className="mt-14 grid gap-7 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            {commercial.map((l) => (
-              <CommercialCard key={l.id} l={l} />
-            ))}
+          <div className="mt-14">
+            <ListingsGrid items={commercial} />
           </div>
         )}
 
