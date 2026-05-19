@@ -2,31 +2,11 @@ import { Star, Quote } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 
 const reviews = [
-  {
-    quote:
-      "They are always kind and, above all, highly professional. From start to finish, Eric was patient, honest, and never pressured us.",
-    name: "Hyunsook Ma",
-  },
-  {
-    quote:
-      "Eric sold our townhouse above market value and helped us secure our new home. His negotiation skills are exceptional.",
-    name: "Grace Han",
-  },
-  {
-    quote:
-      "Eric has a strong understanding of the Vancouver market and provides thoughtful, client-first advice.",
-    name: "Oh Brother Tribe",
-  },
-  {
-    quote:
-      "Working with Eric was a pleasure. He understands the Burnaby market deeply and is extremely responsive and detail-oriented.",
-    name: "Jason Lee",
-  },
-  {
-    quote:
-      "Eric is excellent at planning and provides insights that helped us make confident financial decisions.",
-    name: "Jong Kim",
-  },
+  { key: "cx.r1", name: "Hyunsook Ma" },
+  { key: "cx.r2", name: "Grace Han" },
+  { key: "cx.r3", name: "Oh Brother Tribe" },
+  { key: "cx.r4", name: "Jason Lee" },
+  { key: "cx.r5", name: "Jong Kim" },
 ];
 
 export function ClientExperiences() {
