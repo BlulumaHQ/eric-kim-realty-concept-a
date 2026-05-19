@@ -76,7 +76,8 @@ function CommercialCard({ l }: { l: Listing }) {
         </p>
         <StatsRow l={l} className="mt-5" />
         <Link
-          to="/contact"
+          to="/listings/$slug"
+          params={{ slug: l.slug }}
           className="mt-6 inline-flex items-center justify-between text-sm font-medium uppercase tracking-[0.16em] text-foreground hover:text-gold transition-colors"
         >
           Inquire <ArrowUpRight className="h-4 w-4" />
