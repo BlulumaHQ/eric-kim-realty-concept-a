@@ -64,7 +64,11 @@ function StatsRow({ l, className = "" }: { l: Listing; className?: string }) {
 function CommercialCard({ l }: { l: Listing }) {
   const isSold = l.status === "sold";
   return (
-    <article className="group flex flex-col overflow-hidden rounded-2xl bg-background border border-border hover:shadow-elegant hover:-translate-y-1 transition-all duration-300">
+    <Link
+      to="/listings/$id"
+      params={{ id: l.id }}
+      className="group flex flex-col overflow-hidden rounded-2xl bg-background border border-border hover:shadow-elegant hover:-translate-y-1 transition-all duration-300"
+    >
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
         <img
           src={l.image}
@@ -90,17 +94,14 @@ function CommercialCard({ l }: { l: Listing }) {
           {locationLine(l)}
         </p>
         <StatsRow l={l} className="mt-5" />
-        <Link
-          to="/listings/$id"
-          params={{ id: l.id }}
-          className="mt-6 inline-flex items-center justify-between text-sm font-medium uppercase tracking-[0.16em] text-foreground hover:text-gold transition-colors"
-        >
+        <span className="mt-6 inline-flex items-center justify-between text-sm font-medium uppercase tracking-[0.16em] text-foreground group-hover:text-gold transition-colors">
           Inquire <ArrowUpRight className="h-4 w-4" />
-        </Link>
+        </span>
       </div>
-    </article>
+    </Link>
   );
 }
+
 
 function SpotlightCommercialCard({ l }: { l: Listing }) {
   const isSold = l.status === "sold";
