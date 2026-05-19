@@ -4,24 +4,28 @@ import { SectionHeading } from "../site/SectionHeading";
 import { useListings, formatPrice, type Listing } from "@/lib/listings";
 import { useI18n } from "@/lib/i18n";
 
-function priceLabel(l: Listing) {
-  const p = l.status === "sold" && l.soldPrice ? l.soldPrice : l.price;
-  if (!p || p <= 0) return "Price upon request";
-  return formatPrice(p);
+function usePriceLabel() {
+  const { t } = useI18n();
+  return (l: Listing) => {
+    const p = l.status === "sold" && l.soldPrice ? l.soldPrice : l.price;
+    if (!p || p <= 0) return t("ld.priceOnRequest");
+    return formatPrice(p);
+  };
 }
 
 function Stats({ l, className = "" }: { l: Listing; className?: string }) {
+  const { t } = useI18n();
   const items: React.ReactNode[] = [];
   if (l.beds > 0)
     items.push(
       <span key="b" className="inline-flex items-center gap-1.5">
-        <BedDouble className="h-4 w-4 text-gold" /> {l.beds} Bed
+        <BedDouble className="h-4 w-4 text-gold" /> {l.beds} {t("fl.bed")}
       </span>
     );
   if (l.baths > 0)
     items.push(
       <span key="ba" className="inline-flex items-center gap-1.5">
-        <Bath className="h-4 w-4 text-gold" /> {l.baths} Bath
+        <Bath className="h-4 w-4 text-gold" /> {l.baths} {t("fl.bath")}
       </span>
     );
   if (l.sqft > 0)
