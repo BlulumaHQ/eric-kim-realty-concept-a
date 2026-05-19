@@ -114,7 +114,7 @@ export function RecentlySold() {
   const count = recentlySold.length;
 
   return (
-    <section className="bg-cream py-24 md:py-32">
+    <section className="bg-stone py-24 md:py-32">
       <div className="container-x">
         <div className="grid gap-12 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-5">
