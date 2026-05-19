@@ -10,6 +10,7 @@ export type ListingStatus = "active" | "sold" | "presale";
 
 export interface Listing {
   id: string;
+  slug: string;
   mls: string;
   status: ListingStatus;
   category: "residential" | "commercial" | "presale";
@@ -25,7 +26,13 @@ export interface Listing {
   beds: number;
   baths: number;
   sqft: number;
+  lotSize: string;
+  yearBuilt: string;
+  zoning: string;
+  buildingType: string;
+  leaseRate: string;
   propertyType: string;
+  transactionType: string;
   image: string;
   fallbackImage: string;
   description: string;
@@ -33,6 +40,13 @@ export interface Listing {
   showInSold?: boolean;
   sortOrder?: number;
   soldSortOrder?: number;
+}
+
+export interface ListingPhoto {
+  id: string;
+  url: string;
+  caption?: string;
+  sortOrder: number;
 }
 
 export const FALLBACK_LISTING_IMAGE = fallbackImg;
