@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, BedDouble, Bath, Maximize2, MapPin, Send, CheckCircle2, Calendar, Building2, Ruler, ChevronLeft, ChevronRight } from "lucide-react";
 import { z } from "zod";
 import { useListing, formatPrice, type Listing, type ListingPhoto, FALLBACK_LISTING_IMAGE } from "@/lib/listings";
+import { useI18n } from "@/lib/i18n";
 
 
 export const Route = createFileRoute("/listings/$id")({
@@ -13,6 +14,7 @@ export const Route = createFileRoute("/listings/$id")({
   }),
   component: ListingDetailPage,
 });
+
 
 function isLease(l: Listing) {
   return l.category === "commercial" && /lease/i.test(l.transactionType || "");
