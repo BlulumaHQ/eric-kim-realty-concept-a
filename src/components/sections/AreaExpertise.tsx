@@ -2,15 +2,20 @@ import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { SectionHeading } from "../site/SectionHeading";
 import { useI18n } from "@/lib/i18n";
+import vancouverImg from "@/assets/cities/vancouver.jpg";
+import burnabyImg from "@/assets/cities/burnaby.jpg";
+import richmondImg from "@/assets/cities/richmond.jpg";
+import coquitlamImg from "@/assets/cities/coquitlam.jpg";
+import newwestImg from "@/assets/cities/newwest.jpg";
 
 export function AreaExpertise() {
   const { t } = useI18n();
   const areas = [
-    { name: "Vancouver", descKey: "ae.vancouver.desc", image: "https://images.unsplash.com/photo-1609825488888-3a766db05542?auto=format&fit=crop&w=1200&q=80" },
-    { name: "Burnaby", descKey: "ae.burnaby.desc", image: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=1200&q=80" },
-    { name: "Richmond", descKey: "ae.richmond.desc", image: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1200&q=80" },
-    { name: "Coquitlam", descKey: "ae.coquitlam.desc", image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1200&q=80" },
-    { name: "Surrey", descKey: "ae.surrey.desc", image: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1200&q=80" },
+    { name: "Vancouver", descKey: "ae.vancouver.desc", image: vancouverImg },
+    { name: "Burnaby", descKey: "ae.burnaby.desc", image: burnabyImg },
+    { name: "Richmond", descKey: "ae.richmond.desc", image: richmondImg },
+    { name: "Coquitlam", descKey: "ae.coquitlam.desc", image: coquitlamImg },
+    { name: "New Westminster", descKey: "ae.newwest.desc", image: newwestImg },
   ];
   return (
     <section className="container-x py-24 md:py-32">
