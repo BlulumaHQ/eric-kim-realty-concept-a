@@ -145,9 +145,9 @@ export const translations: Dict = {
     en: "North Coquitlam and Burke Mountain — SkyTrain access, parks, and growing family communities.",
     ko: "North Coquitlam, Burke Mountain — SkyTrain 접근성, 공원, 신생 가족 커뮤니티까지.",
   },
-  "ae.surrey.desc": {
-    en: "South Surrey, Cloverdale, and Fleetwood — detached homes, townhomes, and new developments.",
-    ko: "South Surrey, Cloverdale, Fleetwood — 단독주택, 타운홈, 신축 분양까지.",
+  "ae.newwest.desc": {
+    en: "Quay, Brow of the Hill, and Sapperton — heritage character, Fraser River views, and SkyTrain-connected living.",
+    ko: "Quay, Brow of the Hill, Sapperton — 헤리티지 감성, Fraser River 뷰, SkyTrain 접근성까지.",
   },
 
   // Services section
