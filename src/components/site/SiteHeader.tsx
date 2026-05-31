@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { Menu, X, Phone, Globe } from "lucide-react";
-import logo from "@/assets/eric-kim-logo.png";
+import logo from "@/assets/eric-kim-logo.svg";
 import { useI18n, type Lang } from "@/lib/i18n";
 
 const navItems = [

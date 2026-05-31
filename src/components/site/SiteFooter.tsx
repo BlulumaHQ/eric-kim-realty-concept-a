@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Phone, Mail, Instagram, MapPin } from "lucide-react";
 import initiaxLogo from "@/assets/initiax-logo.png";
 import mlsBadge from "@/assets/mls-reciprocity.gif";
-import erickimLogo from "@/assets/eric-kim-logo.png";
+import erickimLogo from "@/assets/eric-kim-logo.svg";
 import ericHeadshot from "@/assets/eric-kim-headshot.png";
 import { useI18n } from "@/lib/i18n";
 
