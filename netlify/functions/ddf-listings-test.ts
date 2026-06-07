@@ -132,6 +132,7 @@ export const handler = async () => {
 
     return json(200, {
       success: true,
+      debug_url: url,
       count: listings.length,
       listings,
     });
