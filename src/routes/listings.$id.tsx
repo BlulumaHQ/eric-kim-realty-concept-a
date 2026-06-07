@@ -110,6 +110,14 @@ function ListingDetailPage() {
           <InquiryForm listing={listing} />
         </aside>
       </div>
+
+      <div className="container-x mt-12">
+        <p className="text-[11px] leading-relaxed text-muted-foreground border-t border-border pt-6 max-w-3xl">
+          Listing data is provided through CREA DDF and is subject to applicable
+          board and CREA display rules. Information is deemed reliable but not
+          guaranteed.
+        </p>
+      </div>
     </article>
   );
 }
