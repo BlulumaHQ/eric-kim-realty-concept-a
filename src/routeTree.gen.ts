@@ -17,6 +17,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ListingsIndexRouteImport } from './routes/listings.index'
 import { Route as ListingsIdRouteImport } from './routes/listings.$id'
+import { Route as AdminDdfTestRouteImport } from './routes/admin.ddf-test'
 
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
@@ -58,6 +59,11 @@ const ListingsIdRoute = ListingsIdRouteImport.update({
   path: '/listings/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminDdfTestRoute = AdminDdfTestRouteImport.update({
+  id: '/admin/ddf-test',
+  path: '/admin/ddf-test',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -66,6 +72,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/presale': typeof PresaleRoute
   '/services': typeof ServicesRoute
+  '/admin/ddf-test': typeof AdminDdfTestRoute
   '/listings/$id': typeof ListingsIdRoute
   '/listings/': typeof ListingsIndexRoute
 }
@@ -76,6 +83,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/presale': typeof PresaleRoute
   '/services': typeof ServicesRoute
+  '/admin/ddf-test': typeof AdminDdfTestRoute
   '/listings/$id': typeof ListingsIdRoute
   '/listings': typeof ListingsIndexRoute
 }
@@ -87,6 +95,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/presale': typeof PresaleRoute
   '/services': typeof ServicesRoute
+  '/admin/ddf-test': typeof AdminDdfTestRoute
   '/listings/$id': typeof ListingsIdRoute
   '/listings/': typeof ListingsIndexRoute
 }
@@ -99,6 +108,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/presale'
     | '/services'
+    | '/admin/ddf-test'
     | '/listings/$id'
     | '/listings/'
   fileRoutesByTo: FileRoutesByTo
@@ -109,6 +119,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/presale'
     | '/services'
+    | '/admin/ddf-test'
     | '/listings/$id'
     | '/listings'
   id:
@@ -119,6 +130,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/presale'
     | '/services'
+    | '/admin/ddf-test'
     | '/listings/$id'
     | '/listings/'
   fileRoutesById: FileRoutesById
@@ -130,6 +142,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   PresaleRoute: typeof PresaleRoute
   ServicesRoute: typeof ServicesRoute
+  AdminDdfTestRoute: typeof AdminDdfTestRoute
   ListingsIdRoute: typeof ListingsIdRoute
   ListingsIndexRoute: typeof ListingsIndexRoute
 }
@@ -192,6 +205,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ListingsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/ddf-test': {
+      id: '/admin/ddf-test'
+      path: '/admin/ddf-test'
+      fullPath: '/admin/ddf-test'
+      preLoaderRoute: typeof AdminDdfTestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -202,6 +222,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   PresaleRoute: PresaleRoute,
   ServicesRoute: ServicesRoute,
+  AdminDdfTestRoute: AdminDdfTestRoute,
   ListingsIdRoute: ListingsIdRoute,
   ListingsIndexRoute: ListingsIndexRoute,
 }
