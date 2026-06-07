@@ -68,8 +68,8 @@ function pickListing(p: DDFProperty) {
     mlsNumber: p.ListingKey ?? p.ListingId ?? null,
     listPrice: p.ListPrice ?? null,
     address:
-      p.UnparsedAddress ??
-      [p.StreetNumber, p.StreetName, p.StreetSuffix].filter(Boolean).join(" ") ||
+      (p.UnparsedAddress ??
+      [p.StreetNumber, p.StreetName, p.StreetSuffix].filter(Boolean).join(" ")) ||
       null,
     city: p.City ?? null,
     bedrooms: p.BedroomsTotal ?? null,
