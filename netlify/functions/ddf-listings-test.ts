@@ -1,8 +1,11 @@
 // Netlify Function: ddf-listings-test
-// Acquires an access token internally and fetches a small batch of listings
-// from the CREA DDF Web API. Returns only safe public fields.
+// Phase 1 minimal test: fetch the first 5 records from CREA DDF and return raw.
+// No $expand, $select, $filter, $orderby, or field mapping.
 //
-// Env vars (same as ddf-token-test) plus optional:
+// Env vars:
+//   DDF_CLIENT_ID, DDF_CLIENT_SECRET
+//   DDF_TOKEN_URL (default: https://identity.crea.ca/connect/token)
+//   DDF_SCOPE     (default: DDFApi_Read)
 //   DDF_API_BASE  (default: https://ddfapi.realtor.ca)
 
 const json = (status: number, body: unknown) => ({
@@ -14,7 +17,9 @@ const json = (status: number, body: unknown) => ({
   body: JSON.stringify(body),
 });
 
-async function getAccessToken(): Promise<{ token: string } | { error: string; status: number; description?: unknown }> {
+async function getAccessToken(): Promise<
+  { token: string } | { error: string; status: number; description?: unknown }
+> {
   const clientId = process.env.DDF_CLIENT_ID;
   const clientSecret = process.env.DDF_CLIENT_SECRET;
   const tokenUrl = process.env.DDF_TOKEN_URL || "https://identity.crea.ca/connect/token";
@@ -55,33 +60,6 @@ async function getAccessToken(): Promise<{ token: string } | { error: string; st
   return { token: data.access_token as string };
 }
 
-type DDFProperty = Record<string, unknown>;
-
-// Pick a small, safe subset of fields. CREA DDF uses RESO Web API field names.
-function pickListing(p: DDFProperty) {
-  const media = Array.isArray(p.Media) ? (p.Media as Array<Record<string, unknown>>) : [];
-  const primary =
-    media.find((m) => m?.PreferredPhotoYN === true || m?.Order === 1) || media[0];
-  const photo = primary?.MediaURL ?? null;
-
-  return {
-    mlsNumber: p.ListingKey ?? p.ListingId ?? null,
-    listPrice: p.ListPrice ?? null,
-    address:
-      (p.UnparsedAddress ??
-      [p.StreetNumber, p.StreetName, p.StreetSuffix].filter(Boolean).join(" ")) ||
-      null,
-    city: p.City ?? null,
-    bedrooms: p.BedroomsTotal ?? null,
-    bathrooms: p.BathroomsTotalInteger ?? null,
-    interiorSize: p.LivingArea ?? p.BuildingAreaTotal ?? null,
-    propertyType: p.PropertyType ?? p.PropertySubType ?? null,
-    status: p.StandardStatus ?? p.MlsStatus ?? null,
-    officeName: p.ListOfficeName ?? null,
-    photo,
-  };
-}
-
 export const handler = async () => {
   const auth = await getAccessToken();
   if ("error" in auth) {
@@ -93,8 +71,7 @@ export const handler = async () => {
   }
 
   const apiBase = (process.env.DDF_API_BASE || "https://ddfapi.realtor.ca").replace(/\/+$/, "");
-  // CREA DDF OData endpoint
-  const url = `${apiBase}/odata/v1/Property?$top=5&$expand=Media`;
+  const url = `${apiBase}/odata/v1/Property?$top=5`;
 
   try {
     const res = await fetch(url, {
@@ -125,15 +102,14 @@ export const handler = async () => {
     }
 
     const value = Array.isArray((data as { value?: unknown[] }).value)
-      ? ((data as { value: DDFProperty[] }).value)
+      ? (data as { value: unknown[] }).value
       : [];
-    const listings = value.map(pickListing);
 
     return json(200, {
       success: true,
       debug_url: url,
-      count: listings.length,
-      listings,
+      count: value.length,
+      raw: value,
     });
   } catch (err) {
     return json(500, {
