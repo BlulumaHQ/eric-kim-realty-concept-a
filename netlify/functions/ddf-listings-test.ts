@@ -92,9 +92,10 @@ export const handler = async () => {
     });
   }
 
-  const apiBase = process.env.DDF_API_BASE || "https://ddfapi.realtor.ca";
-  // RESO Web API: top 5 with media expansion.
-  const url = `${apiBase}/odata/Property?$top=5&$expand=Media`;
+  const apiBase = (process.env.DDF_API_BASE || "https://ddfapi.realtor.ca").replace(/\/+$/, "");
+  // CREA DDF Web API property endpoint: /property/property
+  // Keep it simple for the first test: top 5, expand media, no filters.
+  const url = `${apiBase}/property/property?$top=5&$expand=Media`;
 
   try {
     const res = await fetch(url, {
@@ -116,9 +117,11 @@ export const handler = async () => {
         success: false,
         status: res.status,
         error: "ddf_request_failed",
+        debug_url: url,
         message:
           (data as { error?: { message?: string } }).error?.message ||
-          (typeof data.raw === "string" ? data.raw.slice(0, 500) : null),
+          (typeof data.raw === "string" ? data.raw.slice(0, 500) : null) ||
+          res.statusText,
       });
     }
 
