@@ -93,9 +93,8 @@ export const handler = async () => {
   }
 
   const apiBase = (process.env.DDF_API_BASE || "https://ddfapi.realtor.ca").replace(/\/+$/, "");
-  // CREA DDF Web API property endpoint: /property/property
-  // Keep it simple for the first test: top 5, expand media, no filters.
-  const url = `${apiBase}/property/property?$top=5&$expand=Media`;
+  // CREA DDF OData endpoint
+  const url = `${apiBase}/odata/v1/Property?$top=5&$expand=Media`;
 
   try {
     const res = await fetch(url, {
