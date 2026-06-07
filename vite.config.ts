@@ -5,7 +5,6 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 // SPA fallback (public/_redirects: /* /index.html 200) handles dynamic listing
 // detail pages (/listings/:id) and any unknown URLs at runtime.
 export default defineConfig({
-  cloudflare: false,
   tanstackStart: {
     prerender: {
       enabled: true,
