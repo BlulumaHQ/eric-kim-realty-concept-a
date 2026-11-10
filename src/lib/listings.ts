@@ -127,7 +127,7 @@ function mapRow(row: Record<string, unknown>): Listing {
 
 async function fetchListings(): Promise<Listing[]> {
   const { data: realtor, error: realtorErr } = await supabase
-    .from("realtors")
+    .from("eric_realtors")
     .select("id")
     .eq("slug", REALTOR_SLUG)
     .maybeSingle();
@@ -135,7 +135,7 @@ async function fetchListings(): Promise<Listing[]> {
   if (realtorErr || !realtor) return [];
 
   const { data, error } = await supabase
-    .from("listings")
+    .from("eric_listings")
     .select("*")
     .eq("realtor_id", (realtor as { id: string }).id);
 
@@ -204,7 +204,7 @@ export async function fetchListingById(
   id: string
 ): Promise<{ listing: Listing; photos: ListingPhoto[] } | null> {
   const { data: row, error } = await supabase
-    .from("listings")
+    .from("eric_listings")
     .select("*")
     .eq("id", id)
     .maybeSingle();
@@ -214,7 +214,7 @@ export async function fetchListingById(
   const listing = mapRow(row as Record<string, unknown>);
 
   const { data: photoRows } = await supabase
-    .from("listing_photos")
+    .from("eric_listing_photos")
     .select("*")
     .eq("listing_id", listing.id)
     .order("sort_order", { ascending: true });
