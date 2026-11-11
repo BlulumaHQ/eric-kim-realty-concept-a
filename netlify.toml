@@ -3,6 +3,9 @@
   publish = ".output/public"
   functions = "netlify/functions"
 
+[build.environment]
+  NITRO_PRESET = "cloudflare-module"
+
 [functions]
   node_bundler = "esbuild"
 
