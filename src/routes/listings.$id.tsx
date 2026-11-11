@@ -1,4 +1,5 @@
 import { useMemo, useRef, useState } from "react";
+import { sendInquiry, SEND_ERROR } from "@/lib/send-inquiry";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, BedDouble, Bath, Maximize2, MapPin, Send, CheckCircle2, Calendar, Building2, Ruler, ChevronLeft, ChevronRight } from "lucide-react";
 import { z } from "zod";
@@ -352,8 +353,10 @@ function InquiryForm({ listing }: { listing: Listing }) {
   const defaultMessage = `${t("ld.defaultMessage")} ${refLabel}.`;
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState("");
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const data = {
@@ -373,7 +376,12 @@ function InquiryForm({ listing }: { listing: Listing }) {
       return;
     }
     setErrors({});
-    setSubmitted(true);
+    setSendError("");
+    setSending(true);
+    const ok = await sendInquiry({ ...data, website: String(fd.get("website") || ""), source: `Listing inquiry: ${refLabel}` });
+    setSending(false);
+    if (ok) setSubmitted(true);
+    else setSendError(SEND_ERROR);
   }
 
   return (
@@ -417,9 +425,12 @@ function InquiryForm({ listing }: { listing: Listing }) {
               <p className="mt-1 text-xs text-destructive">{errors.message}</p>
             )}
           </div>
+          <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
+          {sendError && <p className="text-sm text-destructive text-center">{sendError}</p>}
           <button
             type="submit"
-            className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-navy px-6 py-3.5 text-sm font-medium text-navy-foreground hover:bg-navy/90 transition"
+            disabled={sending}
+            className="disabled:opacity-60 w-full inline-flex items-center justify-center gap-2 rounded-full bg-navy px-6 py-3.5 text-sm font-medium text-navy-foreground hover:bg-navy/90 transition"
           >
             {t("ct.send")} <Send className="h-4 w-4" />
           </button>

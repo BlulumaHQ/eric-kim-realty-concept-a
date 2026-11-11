@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { sendInquiry, SEND_ERROR } from "@/lib/send-inquiry";
 import { Phone, Mail, Instagram, Send, CheckCircle2 } from "lucide-react";
 import { z } from "zod";
 import { useI18n } from "@/lib/i18n";
@@ -18,6 +19,8 @@ export function ContactSection() {
   const { t } = useI18n();
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState("");
 
   const schema = z.object({
     name: z.string().trim().min(1, t("val.name")).max(100),
@@ -28,7 +31,7 @@ export function ContactSection() {
     method: z.string().min(1),
   });
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const data = {
@@ -50,7 +53,12 @@ export function ContactSection() {
       return;
     }
     setErrors({});
-    setSubmitted(true);
+    setSendError("");
+    setSending(true);
+    const ok = await sendInquiry({ ...data, website: String(fd.get("website") || ""), source: "Contact form" });
+    setSending(false);
+    if (ok) setSubmitted(true);
+    else setSendError(SEND_ERROR);
   }
 
   return (
@@ -139,7 +147,9 @@ export function ContactSection() {
                 </div>
               </div>
 
-              <button type="submit" className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-navy px-7 py-4 text-sm font-medium text-navy-foreground hover:bg-navy/90 transition">
+              <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
+              {sendError && <p className="text-sm text-destructive text-center">{sendError}</p>}
+              <button type="submit" disabled={sending} className="disabled:opacity-60 w-full inline-flex items-center justify-center gap-2 rounded-full bg-navy px-7 py-4 text-sm font-medium text-navy-foreground hover:bg-navy/90 transition">
                 {t("ct.send")} <Send className="h-4 w-4" />
               </button>
               <p className="text-xs text-center text-muted-foreground">{t("ct.followNote")}</p>
