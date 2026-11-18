@@ -238,15 +238,15 @@ export const translations: Dict = {
   "ab.eyebrow": { en: "About", ko: "소개" },
   "ab.title": { en: "Meet Eric Kim", ko: "Eric Kim을 소개합니다" },
   "ab.p1": {
-    en: "Eric Kim is a residential REALTOR® with Initia Real Estate, helping families across Greater Vancouver buy and sell homes with confidence. His approach is patient, transparent, and detail-driven — built around understanding each client's lifestyle, budget, and long-term goals before recommending a single property.",
-    ko: "Eric Kim은 Initia Real Estate 소속 주거용 REALTOR®로, Greater Vancouver 가족 고객들의 매매를 자신 있게 도와드리고 있습니다. 차분하고 투명하며 디테일을 놓치지 않는 스타일로, 한 채의 매물을 추천하기 전에 먼저 고객의 라이프스타일, 예산, 장기 목표를 충분히 이해하는 것을 우선합니다.",
+    en: "Eric Kim is a residential REALTOR® with 1NE Collective Realty, helping families across Greater Vancouver buy and sell homes with confidence. His approach is patient, transparent, and detail-driven — built around understanding each client's lifestyle, budget, and long-term goals before recommending a single property.",
+    ko: "Eric Kim은 1NE Collective Realty 소속 주거용 REALTOR®로, Greater Vancouver 가족 고객들의 매매를 자신 있게 도와드리고 있습니다. 차분하고 투명하며 디테일을 놓치지 않는 스타일로, 한 채의 매물을 추천하기 전에 먼저 고객의 라이프스타일, 예산, 장기 목표를 충분히 이해하는 것을 우선합니다.",
   },
   "ab.p2": {
     en: "Bilingual in English and Korean, Eric serves clients across Vancouver, Burnaby, Richmond, Coquitlam, and Surrey — with quiet expertise in residential investment and commercial opportunities when needed.",
     ko: "영어와 한국어 모두 가능한 Eric은 Vancouver, Burnaby, Richmond, Coquitlam, Surrey 지역의 고객들을 도와드리고 있으며, 필요할 때는 주거용 투자와 상업용 부동산까지 폭넓게 안내해 드립니다.",
   },
   "ab.k.title": { en: "Title", ko: "직함" },
-  "ab.v.title": { en: "REALTOR® · Initia Real Estate", ko: "REALTOR® · Initia Real Estate" },
+  "ab.v.title": { en: "REALTOR® · 1NE Collective Realty", ko: "REALTOR® · 1NE Collective Realty" },
   "ab.k.focus": { en: "Focus", ko: "전문 분야" },
   "ab.v.focus": { en: "Residential Buying & Selling", ko: "주거용 매매" },
   "ab.k.area": { en: "Service Area", ko: "서비스 지역" },

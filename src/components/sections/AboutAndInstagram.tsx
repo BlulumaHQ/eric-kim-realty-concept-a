@@ -4,7 +4,6 @@ import portrait from "@/assets/eric-portrait.jpg";
 import commercialImg from "@/assets/listing-commercial.jpg";
 import presaleImg from "@/assets/listing-presale.jpg";
 import residentialImg from "@/assets/listing-residential.jpg";
-import initiaLogo from "@/assets/initia-logo.png";
 import { useI18n } from "@/lib/i18n";
 
 export function AboutSection() {
@@ -21,10 +20,10 @@ export function AboutSection() {
       <div className="container-x grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-center">
         <div className="relative max-w-md mx-auto lg:mx-0 w-full">
           <div className="aspect-[4/5] overflow-hidden rounded-3xl shadow-elegant">
-            <img src={portrait} alt="Eric Kim, REALTOR® at Initia Real Estate" width={1024} height={1280} loading="lazy" className="h-full w-full object-cover" />
+            <img src={portrait} alt="Eric Kim, REALTOR® at 1NE Collective Realty" width={1024} height={1280} loading="lazy" className="h-full w-full object-cover" />
           </div>
           <div className="absolute -bottom-6 -left-6 rounded-2xl bg-white px-5 py-4 shadow-elegant border border-border">
-            <img src={initiaLogo} alt="Initia Real Estate" className="h-8 w-auto" />
+            <p className="font-display text-lg leading-none text-charcoal">1NE Collective Realty</p>
             <p className="mt-2 text-[10px] uppercase tracking-[0.2em] text-charcoal/70">{t("ab.brokerage")}</p>
           </div>
         </div>

@@ -42,7 +42,7 @@ function NotFoundComponent() {
 const SITE_TITLE =
   "Eric Kim REALTOR® | Metro Vancouver Residential, Commercial & Presale Real Estate";
 const SITE_DESC =
-  "Work with Eric Kim, REALTOR® at Initia Real Estate for residential, commercial, business asset / lease, and presale real estate guidance across Metro Vancouver.";
+  "Work with Eric Kim, REALTOR® at 1NE Collective Realty for residential, commercial, business asset / lease, and presale real estate guidance across Metro Vancouver.";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -55,7 +55,7 @@ export const Route = createRootRoute({
       {
         name: "keywords",
         content:
-          "Metro Vancouver realtor, Vancouver commercial realtor, Vancouver presale realtor, Eric Kim realtor, Initia Real Estate, business asset lease Vancouver",
+          "Metro Vancouver realtor, Vancouver commercial realtor, Vancouver presale realtor, Eric Kim realtor, 1NE Collective Realty, business asset lease Vancouver",
       },
       { property: "og:title", content: SITE_TITLE },
       { property: "og:description", content: SITE_DESC },

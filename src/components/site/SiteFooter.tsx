@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
 import { Phone, Mail, Instagram, MapPin } from "lucide-react";
-import initiaxLogo from "@/assets/initiax-logo.png";
 import mlsBadge from "@/assets/mls-reciprocity.gif";
 import erickimLogo from "@/assets/eric-kim-logo.svg";
 import ericHeadshot from "@/assets/eric-kim-headshot.png";
@@ -61,11 +60,11 @@ export function SiteFooter() {
                 className="h-11 w-auto max-w-[170px] object-contain"
               />
               <span className="h-10 w-px bg-foreground/15" />
-              <img
-                src={initiaxLogo}
-                alt="INITIA-X Luxury Real Estate"
-                className="h-11 w-auto max-w-[170px] object-contain"
-              />
+              <span className="text-sm font-medium leading-tight text-charcoal">
+                1NE Collective
+                <br />
+                Realty Inc.
+              </span>
             </div>
           </div>
 

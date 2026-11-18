@@ -18,7 +18,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Helping families buy and sell homes across Greater Vancouver — Vancouver, Burnaby, Richmond, Coquitlam, and Surrey. Trusted residential REALTOR® with Initia Real Estate.",
+          "Helping families buy and sell homes across Greater Vancouver — Vancouver, Burnaby, Richmond, Coquitlam, and Surrey. Trusted residential REALTOR® with 1NE Collective Realty.",
       },
       { property: "og:title", content: "Eric Kim — Trusted Vancouver Residential REALTOR®" },
       {

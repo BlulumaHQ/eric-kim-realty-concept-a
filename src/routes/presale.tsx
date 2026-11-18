@@ -12,13 +12,13 @@ export const Route = createFileRoute("/presale")({
       {
         name: "description",
         content:
-          "Explore Metro Vancouver presale and new development opportunities with guidance from Eric Kim, REALTOR® at Initia Real Estate.",
+          "Explore Metro Vancouver presale and new development opportunities with guidance from Eric Kim, REALTOR® at 1NE Collective Realty.",
       },
       { property: "og:title", content: "Presale Real Estate Vancouver | Eric Kim REALTOR®" },
       {
         property: "og:description",
         content:
-          "Explore Metro Vancouver presale and new development opportunities with guidance from Eric Kim, REALTOR® at Initia Real Estate.",
+          "Explore Metro Vancouver presale and new development opportunities with guidance from Eric Kim, REALTOR® at 1NE Collective Realty.",
       },
       { property: "og:image", content: presaleImg },
     ],
