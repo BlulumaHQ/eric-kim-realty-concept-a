@@ -164,7 +164,7 @@ async function upsertOwn(feed: Feed, m: Mapped, now: string) {
   };
   const f = {
     title: m.address ?? m.mls_number ?? "Listing",
-    address: [m.unit, m.address].filter(Boolean).join(" - ") || m.address,
+    address: m.address, // UnparsedAddress already includes the unit number
     city: m.city, price: m.price, category, transaction_type: m.transaction_type,
     beds: m.beds, baths: m.baths, sqft: m.sqft, lot_size: m.lot_size,
     property_type: m.property_subtype ?? m.property_type, mls_number: m.mls_number,
