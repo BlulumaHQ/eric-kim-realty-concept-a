@@ -3,6 +3,7 @@ import { Phone, Mail, Instagram, MapPin } from "lucide-react";
 import mlsBadge from "@/assets/mls-reciprocity.gif";
 import erickimLogo from "@/assets/eric-kim-logo.svg";
 import ericHeadshot from "@/assets/eric-kim-headshot.png";
+import oneLogo from "@/assets/1ne-collective-logo.png";
 import { useI18n } from "@/lib/i18n";
 
 export function SiteFooter() {
@@ -53,18 +54,20 @@ export function SiteFooter() {
             </p>
 
             {/* Dual logos lock-up */}
-            <div className="mt-7 inline-flex items-center gap-4 rounded-md bg-white px-5 py-4">
+            <div className="mt-7 flex items-center gap-5">
+              <div className="rounded-md bg-white px-5 py-4">
+                <img
+                  src={erickimLogo}
+                  alt="Eric Kim REALTOR®"
+                  className="h-11 w-auto max-w-[170px] object-contain"
+                />
+              </div>
+              <span className="h-12 w-px bg-white/15" />
               <img
-                src={erickimLogo}
-                alt="Eric Kim REALTOR®"
-                className="h-11 w-auto max-w-[170px] object-contain"
+                src={oneLogo}
+                alt="1NE Collective Realty"
+                className="h-14 w-auto object-contain"
               />
-              <span className="h-10 w-px bg-foreground/15" />
-              <span className="text-sm font-medium leading-tight text-charcoal">
-                1NE Collective
-                <br />
-                Realty Inc.
-              </span>
             </div>
           </div>
 
