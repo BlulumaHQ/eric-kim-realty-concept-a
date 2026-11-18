@@ -1,7 +1,7 @@
 // ddf-sync — CREA DDF → realtor_cms (Bluluma Realtor CMS)
 // Deployed to Supabase project uzdjwpkgldzhnoxjeyrw. See SPEC.md.
 //
-// Called by pg_cron every 5 minutes (POST, no body). Each call works ~90s, then stops and
+// Called by pg_cron every minute (POST, no body). Each call works ~30s, then stops and
 // stores a cursor; a full area cycle spans several calls.
 //
 // GET ?mode=probe&realtor=eric-kim        → token test + Member search + sample Property keys
@@ -15,7 +15,7 @@ import postgres from "npm:postgres@3.4.5";
 
 const TOKEN_URL = "https://identity.crea.ca/connect/token";
 const API = "https://ddfapi.realtor.ca/odata/v1";
-const TIME_BUDGET_MS = 90_000;
+const TIME_BUDGET_MS = 30_000; // stay well under the edge runtime CPU limit
 const PAGE = 100;
 const PHOTO_BUCKET = "listing-photos";
 const MAX_OWN_PHOTOS = 30;
@@ -300,6 +300,10 @@ async function syncArea(feed: Feed, token: string, deadline: number) {
     }
     if (page.next) next = page.next;
     else { next = undefined; cityIdx++; }
+    // Persist cursor after every page so a killed run resumes here
+    await sql`update realtor_cms.ddf_feeds set last_sync_stats = coalesce(last_sync_stats, '{}'::jsonb) ||
+      ${sql.json({ cycle_start: cycleStart, city_idx: cityIdx, next: next ?? null } as never)}
+      where realtor_id = ${feed.realtor_id}`;
   }
 
   let removed = 0;
