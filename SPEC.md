@@ -46,6 +46,15 @@ The DDF feed has no filters set in DDF; filtering is done in the sync.
 | Pre-Sale | `eric_listings` category presale |
 | Sold | `eric_listings` status sold — brief card: main photo, street + city, type, beds/baths/sqft, sold date, SOLD badge |
 
+## Hero slider
+`listings.hero_featured` + `hero_sort`: slide 1 is always the generic slide, then up to 3
+active/presale listings with `hero_featured = true`, ordered by `hero_sort`.
+
+## Known gap
+The `bluluma-realtor-cms` admin app still points at its old Lovable Cloud Supabase
+(pnstqwyuhdzdmodeqvid), not the central project. Edits there do not reach this site.
+Until it is repointed, CMS changes are made in the central DB directly.
+
 ## Defaults (change on Eric's answer)
 - Area cities: Vancouver, Burnaby, Richmond, North Vancouver, West Vancouver, Coquitlam,
   Port Coquitlam, Port Moody, New Westminster, Surrey, Delta, Langley.
