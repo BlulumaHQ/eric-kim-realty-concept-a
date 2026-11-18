@@ -191,10 +191,11 @@ export function useListings() {
     .sort(sortBy("sortOrder"))
     .slice(0, 6);
 
+  // Active commercial only — sold ones belong in the Sold section
   const commercial = all
-    .filter((l) => l.category === "commercial")
+    .filter((l) => l.category === "commercial" && l.status === "active")
     .sort(sortBy("sortOrder"))
-    .slice(0, 6);
+    .slice(0, 12);
 
   const recentlySold = all
     .filter((l) => l.status === "sold" && (l.showInSold ?? true))
