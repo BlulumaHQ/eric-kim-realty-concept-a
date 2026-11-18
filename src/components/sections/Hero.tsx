@@ -6,10 +6,10 @@ import { formatPrice, useListings, type Listing } from "@/lib/listings";
 import { useI18n } from "@/lib/i18n";
 
 export function Hero() {
-  const { featuredResidential } = useListings();
+  const { heroListings } = useListings();
   const { t } = useI18n();
-  const featured = featuredResidential[0];
-  const slideCount = featured ? 2 : 1;
+  // Slide 0 is always the generic slide; then up to 3 listings ticked "Show in Hero"
+  const slideCount = 1 + heroListings.length;
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -28,7 +28,11 @@ export function Hero() {
   return (
     <section className="relative isolate overflow-hidden">
       <div key={index} className="animate-in fade-in duration-700">
-        {index === 0 || !featured ? <GenericSlide /> : <ListingSlide listing={featured} />}
+        {index === 0 || !heroListings[index - 1] ? (
+          <GenericSlide />
+        ) : (
+          <ListingSlide listing={heroListings[index - 1]} />
+        )}
       </div>
 
       {slideCount > 1 && (

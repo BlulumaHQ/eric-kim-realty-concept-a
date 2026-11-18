@@ -40,6 +40,8 @@ export interface Listing {
   showInSold?: boolean;
   sortOrder?: number;
   soldSortOrder?: number;
+  heroFeatured?: boolean;
+  heroSort?: number;
 }
 
 export interface ListingPhoto {
@@ -122,6 +124,8 @@ function mapRow(row: Record<string, unknown>): Listing {
     sortOrder: typeof row.sort_order === "number" ? row.sort_order : undefined,
     soldSortOrder:
       typeof row.sold_sort_order === "number" ? row.sold_sort_order : undefined,
+    heroFeatured: Boolean(row.hero_featured),
+    heroSort: typeof row.hero_sort === "number" ? row.hero_sort : undefined,
   };
 }
 
@@ -197,7 +201,13 @@ export function useListings() {
     .sort(sortBy("soldSortOrder"))
     .slice(0, 6);
 
-  return { loading, all, featuredResidential, commercial, recentlySold };
+  // Hero slides: listings ticked "Show in Hero" in the CMS (max 3), after the generic slide
+  const heroListings = all
+    .filter((l) => l.heroFeatured && (l.status === "active" || l.status === "presale"))
+    .sort((a, b) => (a.heroSort ?? Number.MAX_SAFE_INTEGER) - (b.heroSort ?? Number.MAX_SAFE_INTEGER))
+    .slice(0, 3);
+
+  return { loading, all, featuredResidential, commercial, recentlySold, heroListings };
 }
 
 export async function fetchListingById(
