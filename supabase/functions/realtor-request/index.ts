@@ -93,17 +93,17 @@ Deno.serve(async (req) => {
   if (req.method !== "POST") return json({ error: "POST only" }, 405);
   if (!(await authorized(req))) return json({ error: "unauthorized" }, 401);
   const body = await req.json().catch(() => ({}));
-  const realtor = await realtorFor(String(body.sender ?? ""));
-  if (!realtor) return json({ ok: false, known_sender: false, summary: "Sender is not a registered realtor" });
+  const realtor = body.op === "send" ? undefined : await realtorFor(String(body.sender ?? ""));
+  if (body.op !== "send" && !realtor) return json({ ok: false, known_sender: false, summary: "Sender is not a registered realtor" });
 
-  if (body.op === "context") {
+  if (body.op === "context" && realtor) {
     const listings = await sql`select id, title, city, mls_number, status, featured, hero_featured
       from realtor_cms.listings where realtor_id = ${realtor.id} and status <> 'off_market'
       order by status, title`;
     return json({ ok: true, known_sender: true, realtor: realtor.name, listings });
   }
 
-  if (body.op === "apply") {
+  if (body.op === "apply" && realtor) {
     const action = String(body.action ?? "") as Action;
     let result: { ok: boolean; summary: string };
     if (!ACTIONS.includes(action)) result = { ok: false, summary: `Unsupported request (${action || "none"})` };
@@ -114,6 +114,25 @@ Deno.serve(async (req) => {
         ${/^[0-9a-f-]{36}$/i.test(String(body.listing_id ?? "")) ? String(body.listing_id) : null},
         ${sql.json({ value: body.value ?? null, summary: result.summary } as never)}, ${result.ok})`;
     return json({ ...result, known_sender: true, realtor: realtor.name });
+  }
+
+  // Send an email through Resend (HTTPS) — Railway blocks SMTP. Only to the realtor or to Sony.
+  if (body.op === "send") {
+    const to = cleanEmail(String(body.to ?? ""));
+    const allowed = to === "sony@bluluma.com" || !!(await realtorFor(to));
+    if (!allowed) return json({ ok: false, summary: "Recipient not allowed" });
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${Deno.env.get("RESEND_API_KEY")}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        from: body.from_name === "automation" ? "Bluluma Automation <sony@send.bluluma.com>" : "Sony Lin <sony@send.bluluma.com>",
+        to: [to], cc: body.cc ? ["sony@bluluma.com"] : undefined, // cc only ever goes to Sony
+        reply_to: "sony@bluluma.com",
+        subject: String(body.subject ?? "").slice(0, 200), text: String(body.text ?? "").slice(0, 20000),
+      }),
+    });
+    const out = await res.json().catch(() => ({}));
+    return json({ ok: res.ok, status: res.status, result: out });
   }
 
   return json({ error: "unknown op" }, 400);
