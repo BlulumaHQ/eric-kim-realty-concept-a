@@ -174,7 +174,8 @@ async function upsertOwn(feed: Feed, m: Mapped, now: string) {
   let id: string;
   if (existing) {
     id = existing.id;
-    const revive = existing.status !== "active" && existing.sold_review !== "published";
+    // Only a listing that went off market and came back is revived; manual hidden/sold stays
+    const revive = existing.status === "off_market";
     await sql`update realtor_cms.listings set
       title=${f.title}, address=${f.address}, city=${f.city}, price=${f.price}, category=${f.category},
       transaction_type=${f.transaction_type}, beds=${f.beds}, baths=${f.baths}, sqft=${f.sqft},
