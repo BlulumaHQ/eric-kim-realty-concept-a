@@ -1,5 +1,6 @@
 // lead-submit — shared contact/valuation form endpoint for all Bluluma realtor sites.
 // POST { realtor: "<slug>", source, name, email, phone?, propertyAddress?, propertyType?, interest?, message?, company? }
+// Sends with the realtor's own Resend key/domain when configured (realtors.resend_key_secret + lead_from_email).
 // Stores the lead in realtor_cms.leads, emails the realtor and sends the client a confirmation via Resend.
 // `company` is a honeypot: bots that fill it get a fake success.
 import postgres from "npm:postgres@3.4.5";
@@ -23,10 +24,10 @@ const LABEL: Record<string, [string, string]> = {
   contact: ["Website enquiry", "enquiry"],
 };
 
-async function send(payload: Record<string, unknown>) {
+async function send(key: string, payload: Record<string, unknown>) {
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
-    headers: { Authorization: `Bearer ${RESEND}`, "Content-Type": "application/json" },
+    headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
   if (!res.ok) throw new Error(`resend ${res.status} ${await res.text()}`);
@@ -43,7 +44,7 @@ Deno.serve(async (req) => {
   const source = String(b.source || "contact");
   if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || !LABEL[source]) return json({ error: "invalid" }, 400);
 
-  const [r] = await sql`select id, name, brokerage_name, phone, email, lead_notify_email, lead_from_email
+  const [r] = await sql`select id, name, brokerage_name, phone, email, lead_notify_email, lead_from_email, resend_key_secret
                         from realtor_cms.realtors where slug = ${String(b.realtor || "")}`;
   if (!r) return json({ error: "unknown realtor" }, 404);
 
@@ -62,8 +63,11 @@ Deno.serve(async (req) => {
               ${lead.property_type}, ${lead.interest}, ${lead.message}, ${req.headers.get("referer")})
       returning id`;
 
-  if (!RESEND) return json({ success: true, emailSent: false });
-  const from = r.lead_from_email || FALLBACK_FROM;
+  // Realtor's own Resend team key (secret name stored on the realtor row); falls back to the shared key.
+  const ownKey = r.resend_key_secret ? Deno.env.get(r.resend_key_secret) : undefined;
+  const key = ownKey || RESEND;
+  if (!key) return json({ success: true, emailSent: false });
+  const from = (ownKey && r.lead_from_email) || FALLBACK_FROM;
   const notify = r.lead_notify_email || r.email;
   const [subject, noun] = LABEL[source];
   const line = (k: string, v: string | null) => `${k}: ${v || "Not provided"}`;
@@ -74,12 +78,12 @@ Deno.serve(async (req) => {
   ].join("\n");
 
   const results = await Promise.allSettled([
-    send({
+    send(key, {
       from: `${r.name} Website <${from}>`, to: [notify], reply_to: email,
       subject: `${subject} — ${lead.name || email}`,
       text: `A new lead was submitted.\n\n${details}\n\nLead ID: ${row.id}`,
     }),
-    send({
+    send(key, {
       from: `${r.name} <${from}>`, to: [email], reply_to: r.email,
       subject: `Your ${noun} has been received — ${r.name}`,
       text: `Hi ${lead.name || "there"},\n\nThank you for reaching out. Your ${noun} has been received and ${r.name.split(" ")[0]} will be in touch shortly.\n\n` +
